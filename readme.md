@@ -6,7 +6,7 @@ Getting Started
 Download the [module](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
 place it somewhere in your project.
 
-* Example Structure *
+* Example Structure
 
     /
     /modules/
@@ -17,13 +17,13 @@ place it somewhere in your project.
 
 Import the module with an AMD module loader such as RequireJS.
 
-* Example app.js *
+* Example app.js
 
     require(['modules/keyboard'], function(keyboard) {
         //logic goes here...
     });
 
-* Example index.html *
+* Example index.html
 
     <doctype html>
     <html>
