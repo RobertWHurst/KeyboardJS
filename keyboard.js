@@ -253,7 +253,7 @@ define(function() {
 					"endCallback": endCallback,
 					"keyCombo": bindSets[i],
 					"keys": keys
-				}
+				};
 
 				//save the binding sorted by length
 				keyBindingGroups[keys.length].push(keyBinding);
