@@ -1,3 +1,4 @@
+
 KeyboardJS
 ==========
 
@@ -94,6 +95,29 @@ Returns an array of active keys by name.
 
 Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
 
+Definitions
+-----------
+
+### keyCombo
+
+A comma separated string of keys. Combos can be created using the + sign instead of a comma.
+
+###### examples
+
+* 'a' - binds to the 'a' key. Pressing 'a' will match this keyCombo.
+* 'a, b' - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.
+* 'a + b' - binds to the 'a' and 'b' keys. Pressing both of these keys will match this keyCombo.
+* 'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
+or the 'c' and the 'd' key will match this keyCombo.
+
+### axis
+
+An array containing two numbers. The first value represents x and the second represents y. These values
+are 1, 0, or -1.
+
+###### example
+
+    [x, y]
 
 Language Support
 ----------------
