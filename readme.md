@@ -20,21 +20,21 @@ Import the module with an AMD module loader such as RequireJS.
 * Example app.js *
 
     require(['modules/keyboard'], function(keyboard) {
-    	//logic goes here...
+        //logic goes here...
     });
 
 * Example index.html *
 
-	<doctype html>
-	<html>
-		<head>
-			<title>KeyboardJS Demo</title>
-			<script data-main="app.js" src="modules/require.js"></script>
-		</head>
-		<body>
-			<!-- Markup goes here... -->
-		</body>
-	</html>
+    <doctype html>
+    <html>
+        <head>
+            <title>KeyboardJS Demo</title>
+            <script data-main="app.js" src="modules/require.js"></script>
+        </head>
+        <body>
+            <!-- Markup goes here... -->
+        </body>
+    </html>
 
 What can I do with KeyboardJS?
 ------------------------------
