@@ -1,4 +1,3 @@
-
 KeyboardJS
 ==========
 
@@ -67,7 +66,7 @@ Methods
 Binds any key or key combo. See 'keyCombo' definition below
 for details. The onDownCallback is fired once the key or key combo becomes active. The
 onUpCallback is fired when the combo no longer active (a single key is released).
-If an element is provided it the combo will only be active if the element passed is
+If an element is provided the combo will become active if the element passed is
 in focus.
 
 ###### Returned
