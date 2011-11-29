@@ -19,7 +19,8 @@ Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
     /app.js
     /index.html
 
-Import the module with an AMD module loader such as RequireJS.
+Import the module with an AMD module loader such as RequireJS. If you don't want to use
+RequireJS try the [nonAMD](https://github.com/RobertWHurst/KeyboardJS/tree/NonAMD) branch.
 
 ##### Example app.js
 
