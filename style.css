@@ -1,0 +1,107 @@
+html {
+	background: #ccc;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #333;
+}
+body {
+	margin: 0;
+	height: 0;
+}
+.wrapper {
+	width: 460px;
+	margin: 0 auto;
+	background: #eee;
+	padding: 60px;
+}
+header {
+	text-align: center;
+	margin-bottom: 60px;
+}
+h1.title {
+	color: #555;
+	font-size: 72px;
+	margin-top: 24px;
+}
+h2.subtitle {
+	color: #888;
+	font-size: 24px;
+}
+h1 {
+	line-height: 1em;
+	font-size: 24px;
+	margin-top: 2em;
+}
+h2 {
+	line-height: 1em;
+	font-size: 18px;
+	margin-top: 2em;
+}
+h3 {
+	line-height: 1em;
+	font-size: 16px;
+	margin-top: 2em;
+}
+.code {
+	background: #555;
+	color: #eee;
+	font-family: monospace;
+	font-size: 16px;
+	padding: 12px;
+	border: 1px solid #333;
+	margin-bottom: 20px;
+	overflow: hidden;
+}
+.demoReadout {
+	background: #555;
+	color: #eee;
+	font-family: monospace;
+	font-size: 36px;
+	padding: 20px;
+	text-align: center;
+	border: 1px solid #333;
+	margin-bottom: 20px;
+}
+footer {
+	width: 460px;
+	margin: 0 auto;
+	padding: 60px;
+	background: #666;
+	color: #eee;
+}
+footer h1 {
+	margin: 0 0 24px 0;
+}
+a {
+	color: #bbf;
+}
+a:hover {
+	color: #fff;
+}
+.download {
+	background: #ccc;
+	box-shadow: 0 0 10px #555;
+	border: 1px solid #333;
+	color: #333;
+	padding: 9px;
+	border-radius: 9px;
+	margin: 20px;
+	text-align: center;
+	display: block;
+	float: left;
+	text-decoration: none;
+}
+.download:hover {
+	background: #eee;
+	color: #555;
+}
+.downloads {
+	margin: 0 -20px;
+}
+.downloads:after {
+	content: ".";
+	visibility: hidden;
+	display: block;
+	clear: both;
+	line-height: 0;
+	height: 0;
+}

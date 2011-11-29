@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="en-CA">
+<head>
+	<meta charset="UTF-8">
+	<title>KeyboardJS Demo</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="jquery.js"></script>
+	<script src="keyboard.js"></script>
+	<script src="demo.js"></script>
+</head>
+<body>
+<div class="wrapper">
+	<header>
+		<h1 class="title">Keyboard JS</h1>
+		<h2 class="subtitle">"Build your app, I'll handle the keys."</h2>
+	</header>
+	<div class="content">
+
+		<h1>Demo</h1>
+		<div class="demoReadout">
+			JS is required...
+		</div>
+
+		<h1>What is KeyboardJS?</h1>
+		<div class="introduction">
+			KeyboardJS is a library for binding to keys or key combos. Its available as an AMD module or a standard
+			Library.
+		</div>
+
+		<h1>Get it Here</h1>
+
+		<div class="downloads">
+			<a href="https://github.com/RobertWHurst/KeyboardJS/zipball/nonAMD" class="download">Standard library</a>
+			<a href="https://github.com/RobertWHurst/KeyboardJS/zipball/master" class="download">AMD Module (RequireJS compatable)</a>
+		</div>
+
+		<h1>Language Support</h1>
+		<div class="introduction">
+			KeyboardJS is for binding to keyboards with the US character set. Adding other character sets is possible
+			by editing the key code map variable named 'keys' in the module.
+		</div>
+
+		<h1>Methods</h1>
+
+		<h2>KeyboardJS.bind.key</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback, element);</div>
+		<div class="bindKey">
+			Binds any key or key combo. See 'keyCombo' definition below
+			for details. The onDownCallback is fired once the key or key combo becomes active. The
+			onUpCallback is fired when the combo no longer active (a single key is released).
+			If an element is provided it the combo will only be active if the element passed is
+			in focus.
+		</div>
+		<h3>Returned</h3>
+		<ul class="bindKeyReturned">
+			<li>clear - Removes the key or key combo binding.</li>
+		</ul>
+
+		<h2>KeyboardJS.bind.axis</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.bind.axis(upkeyCombo, downkeyCombo, leftkeyCombo, rightkeyCombo, callback);</div>
+		<div class="bindAxis">
+			Binds four keys or key combos as an up, down, left, right  axis. See 'keyCombo' definition above
+			for details. The callback is fired when any of the key combos are active. It is passed an axis object.
+			See 'axis' definition below for more details.
+		</div>
+		<h3>Returned</h3>
+		<ul class="bindAxisReturned">
+			<li>clear - Removes the axis binding.</li>
+		</ul>
+
+		<h2>KeyboardJS.activeKeys</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.activeKeys();</div>
+		<div class="activeKeys">
+			Returns an array of active keys by name.
+		</div>
+		<h3>Returned</h3>
+		<ul class="activeKeysReturned">
+			<li>clear - Removes the key or key combo binding.</li>
+		</ul>
+
+		<h2>KeyboardJS.unbind.key</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.unbind.key(keyCombo);</div>
+		<div class="unbindKey">
+			Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
+		</div>
+		<h3>Returned</h3>
+		<ul class="unbindKeyReturned">
+			<li>clear - Removes the key or key combo binding.</li>
+		</ul>
+
+		<h1>Definitions</h1>
+		<h2>keyCombo</h2>
+		<div class="keyCombo">
+			A comma separated string of keys. Combos can be created using the + sign instead of a comma.
+		</div>
+		<h3>examples</h3>
+		<ul class="keyComboExample">
+			<li>'a' - binds to the 'a' key. Pressing 'a' will match this keyCombo.</li>
+			<li>'a, b' - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.</li>
+			<li>'a + b' - binds to the 'a' and 'b' keys. Pressing both of these keys will match this keyCombo.</li>
+			<li>
+				'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
+				or the 'c' and the 'd' key will match this keyCombo.
+			</li>
+		</ul>
+
+		<h2>axis</h2>
+		<div class="axis">
+			An array containing two numbers. The first value represents x and the second represents y. These values
+			are 1, 0, or -1.
+		</div>
+		<h3>examples</h3>
+		<ul class="axisExample">
+			<li>[x, y]</li>
+		</ul>
+
+	</div>
+</div>
+<footer>
+	<h1>Credits</h1>
+	<div class="credits">
+		I (<a href="http://github.com/RobertWHurst" target="_blank">Robert Hurst</a>) made this to enable better
+		access to key controls in my applications. I'd like to share it with fellow devs. Feel free to fork this
+		project and make your own changes.
+	</div>
+</footer>
+</body>
+</html>

@@ -1,11 +1,13 @@
 /*!
  * KeyboardJS
  *
+ * Depends on jQuery
+ * 
  * Copyright 2011, Robert William Hurst
  * Licenced under the BSD License.
  * See license.txt
  */
-define(['jQuery'], function($) {
+(function(root) {
 	var keys = {
 			"backspace": 8,
 			"tab": 9,
@@ -300,7 +302,7 @@ define(['jQuery'], function($) {
 		var axis = [0, 0];
 
 		if(typeof callback !== 'function') {
-			return;
+			return false;
 		}
 
 		//up
@@ -445,7 +447,7 @@ define(['jQuery'], function($) {
 		return activeKeys;
 	}
 
-	return {
+	root.KeyboardJS = {
 		"bind": {
 			"key": bindKey,
 			"axis": bindAxis
@@ -456,4 +458,4 @@ define(['jQuery'], function($) {
 		}
 	}
 
-});
+})( window );
