@@ -5,7 +5,7 @@
  * Licenced under the BSD License.
  * See license.txt
  */
-define(function() {
+define(['jQuery'], function($) {
 	var keys = {
 			"backspace": 8,
 			"tab": 9,
@@ -55,7 +55,8 @@ define(function() {
 		},
 		activeKeys = [],
 		activeBindings = {},
-		keyBindingGroups = [];
+		keyBindingGroups = [],
+		focusedElement = false;
 
 	//adds keys to the active keys array
 	$(document).keydown(function(event) {
@@ -88,6 +89,14 @@ define(function() {
 
 		pruneActiveKeyBindings();
 
+	});
+
+	//track the focused element
+	$('*').focus(function(e) {
+   		focusedElement = $(e.target);
+	});
+	$('*').blur(function(e) {
+		focusedElement = false;
 	});
 
 	/**
@@ -142,6 +151,18 @@ define(function() {
 		for (var bindingIndex = 0; bindingIndex < bindingStack.length; bindingIndex += 1) {
 			var binding = bindingStack[bindingIndex],
 				usesSpentKey = false;
+
+			//make sure the element is in focus (if provided)
+			if(binding.element) {
+
+				//if a selector is given then execute it
+				if(typeof binding.element === 'string') {
+					binding.element = $(binding.element);
+				}
+
+				//make sure the element is in focus
+				if(!binding.element.is(focusedElement)) { break; }
+			}
 
 			//check each of the required keys. Make sure they have not been used by another binding
 			for(var keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
@@ -221,7 +242,7 @@ define(function() {
 	}
 
 
-	function bindKey(keyCombo, callback, endCallback) {
+	function bindKey(keyCombo, callback, endCallback, element) {
 
 		function clear() {
 			if(keys && keys.length) {
@@ -252,7 +273,8 @@ define(function() {
 					"callback": callback,
 					"endCallback": endCallback,
 					"keyCombo": bindSets[i],
-					"keys": keys
+					"keys": keys,
+					"element": element || false
 				};
 
 				//save the binding sorted by length

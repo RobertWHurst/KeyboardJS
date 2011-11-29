@@ -7,12 +7,15 @@ Getting Started
 Download the [module](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
 place it somewhere in your project.
 
+Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
+
 ##### Example Structure
 
     /
     /modules/
     /modules/keyboard.js
     /modules/require.js
+    /modules/jQuery.js
     /app.js
     /index.html
 
@@ -20,7 +23,12 @@ Import the module with an AMD module loader such as RequireJS.
 
 ##### Example app.js
 
-    require(['modules/keyboard'], function(keyboard) {
+	require.config({
+		"paths": {
+			"jQuery": "modules/jQuery"
+		}
+	});
+    require(['modules/keyboard'], function(KeyboardJS) {
         //logic goes here...
     });
 
@@ -49,26 +57,28 @@ Basically if you want to use the keyboard, this will let you do it without restr
 Methods
 -------
 
-### keyboard.bind.key
+### KeyboardJS.bind.key
 
 ###### Usage
 
-    keyboard.bind.key(keyCombo, onDownCallback, onUpCallback);
+    KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback, element);
 
 Binds any key or key combo. See 'keyCombo' definition below
 for details. The onDownCallback is fired once the key or key combo becomes active. The
 onUpCallback is fired when the combo no longer active (a single key is released).
+If an element is provided it the combo will only be active if the element passed is
+in focus.
 
 ###### Returned
 Returns an object containing the following methods.
 
 * clear - Removes the key or key combo binding.
 
-### keyboard.bind.axis
+### KeyboardJS.bind.axis
 
 ###### Usage
 
-    keyboard.bind.axis(upkeyCombo, downkeyCombo, leftkeyCombo, rightkeyCombo, callback);
+    KeyboardJS.bind.axis(upkeyCombo, downkeyCombo, leftkeyCombo, rightkeyCombo, callback);
 
 Binds four keys or key combos as an up, down, left, right 
 axis. See 'keyCombo' definition above for details. The callback is fired when any of the key
@@ -79,19 +89,19 @@ Returns an object containing the following methods.
 
 * clear - Removes the axis binding.
 
-### keyboard.activeKeys
+### KeyboardJS.activeKeys
 
 ###### Usage
 
-    keyboard.activeKeys();
+    KeyboardJS.activeKeys();
 
 Returns an array of active keys by name.
 
-### keyboard.unbind.key
+### KeyboardJS.unbind.key
 
 ###### Usage
 
-    keyboard.unbind.key(keyCombo);
+    KeyboardJS.unbind.key(keyCombo);
 
 Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
 
