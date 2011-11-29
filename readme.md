@@ -5,7 +5,7 @@ KeyboardJS (NonAMD)
 Getting Started
 ---------------
 Download the [script](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
-place it somewhere in your project.
+place it somewhere in your project. All methods are accessed via the KeyboardJS namespace.
 
 Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
 
@@ -17,7 +17,7 @@ Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
     /app.js
     /index.html
 
-Import the module with an AMD module loader such as RequireJS.
+load the script with a script tag.
 
 ##### Example index.html
 
