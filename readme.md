@@ -4,7 +4,7 @@ KeyboardJS (NonAMD)
 
 Getting Started
 ---------------
-Download the [script](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
+Download the [script](https://github.com/RobertWHurst/KeyboardJS/zipball/NonAMD) and
 place it somewhere in your project. All methods are accessed via the KeyboardJS namespace.
 
 Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
