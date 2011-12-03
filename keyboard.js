@@ -55,12 +55,12 @@ define(['jQuery'], function($) {
 		},
 		activeKeys = [],
 		activeBindings = {},
-		keyBindingGroups = [],
-		focusedElement = false;
+		keyBindingGroups = [];
 
 	//adds keys to the active keys array
-	$(document).keydown(function(event) {
+	document.addEventListener('keydown', function(event) {
 
+		//lookup the key pressed and save it to the active keys array
 		for (var key in keys) {
 			if(keys.hasOwnProperty(key) && event.keyCode === keys[key]) {
 				if(activeKeys.indexOf(key) < 0) {
@@ -69,13 +69,15 @@ define(['jQuery'], function($) {
 			}
 		}
 
+		//execute the first callback the longest key binding that matches the active keys
 		return executeActiveKeyBindings();
 
 	});
 
 	//removes keys from the active array
-	$(document).keyup(function (event) {
+	document.addEventListener("keyup", function (event) {
 
+		//lookup the key released and prune it from the active keys array
 		for(var key in keys) {
 			if(keys.hasOwnProperty(key) && event.keyCode === keys[key]) {
 
@@ -87,16 +89,9 @@ define(['jQuery'], function($) {
 			}
 		}
 
+		//execute the end callback on the active key binding
 		pruneActiveKeyBindings();
 
-	});
-
-	//track the focused element
-	$('*').focus(function(e) {
-   		focusedElement = $(e.target);
-	});
-	$('*').blur(function(e) {
-		focusedElement = false;
 	});
 
 	/**
@@ -151,18 +146,6 @@ define(['jQuery'], function($) {
 		for (var bindingIndex = 0; bindingIndex < bindingStack.length; bindingIndex += 1) {
 			var binding = bindingStack[bindingIndex],
 				usesSpentKey = false;
-
-			//make sure the element is in focus (if provided)
-			if(binding.element) {
-
-				//if a selector is given then execute it
-				if(typeof binding.element === 'string') {
-					binding.element = $(binding.element);
-				}
-
-				//make sure the element is in focus
-				if(!binding.element.is(focusedElement)) { break; }
-			}
 
 			//check each of the required keys. Make sure they have not been used by another binding
 			for(var keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
@@ -242,7 +225,7 @@ define(['jQuery'], function($) {
 	}
 
 
-	function bindKey(keyCombo, callback, endCallback, element) {
+	function bindKey(keyCombo, callback, endCallback) {
 
 		function clear() {
 			if(keys && keys.length) {
@@ -273,8 +256,7 @@ define(['jQuery'], function($) {
 					"callback": callback,
 					"endCallback": endCallback,
 					"keyCombo": bindSets[i],
-					"keys": keys,
-					"element": element || false
+					"keys": keys
 				};
 
 				//save the binding sorted by length
