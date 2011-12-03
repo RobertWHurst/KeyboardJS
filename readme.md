@@ -6,12 +6,9 @@ Getting Started
 Download the [script](https://github.com/RobertWHurst/KeyboardJS/zipball/NonAMD) and
 place it somewhere in your project. All methods are accessed via the KeyboardJS namespace.
 
-Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
-
 ##### Example Structure
 
     /
-    /jQuery.js
     /keyboard.js
     /app.js
     /index.html
@@ -49,13 +46,11 @@ Methods
 
 ###### Usage
 
-    KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback, element);
+    KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback);
 
 Binds any key or key combo. See 'keyCombo' definition below
 for details. The onDownCallback is fired once the key or key combo becomes active. The
 onUpCallback is fired when the combo no longer active (a single key is released).
-If an element is provided the combo will become active if the element passed is
-in focus.
 
 ###### Returned
 Returns an object containing the following methods.
