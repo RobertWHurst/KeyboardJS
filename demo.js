@@ -1,4 +1,6 @@
-$(function (){
+document.addEventListener('DOMContentLoaded', function (){
+
+	var exampleElement = document.getElementsByClassName('demoReadout')[0];
 
 	setInterval(function(){
 		var keys = KeyboardJS.activeKeys();
@@ -8,7 +10,7 @@ $(function (){
 		} else {
 			keysString = 'Press some keys...';
 		}
-		$('.demoReadout').html(keysString);
+		exampleElement.innerHTML = keysString;
 	}, 10);
 
 });
