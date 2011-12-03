@@ -6,6 +6,7 @@
  * See license.txt
  */
 (function(root) {
+
 	var keys = {
 			"backspace": 8,
 			"tab": 9,
@@ -70,7 +71,7 @@
 		}
 
 		//execute the first callback the longest key binding that matches the active keys
-		return executeActiveKeyBindings();
+		return executeActiveKeyBindings(event);
 
 	});
 
@@ -90,7 +91,7 @@
 		}
 
 		//execute the end callback on the active key binding
-		pruneActiveKeyBindings();
+		return pruneActiveKeyBindings(event);
 
 	});
 
@@ -133,14 +134,15 @@
 		return bindingStack;
 	}
 
-	function executeActiveKeyBindings() {
+	function executeActiveKeyBindings(event) {
 
 		if(activeKeys < 1) {
 			return true;
 		}
 
 		var bindingStack = queryActiveBindings(),
-			spentKeys = [];
+			spentKeys = [],
+			output;
 
 		//loop through each active binding
 		for (var bindingIndex = 0; bindingIndex < bindingStack.length; bindingIndex += 1) {
@@ -161,7 +163,9 @@
 
 				//fire the callback
 				if(typeof binding.callback === "function") {
-					binding.callback(binding.keys, binding.keyCombo);
+					if(!binding.callback(event, binding.keys, binding.keyCombo)) {
+						output = false
+					}
 				}
 
 				//add the binding's combo to the active bindings array
@@ -185,14 +189,15 @@
 			return false;
 		}
 
-		return true;
+		return output;
 	}
 
 	/**
 	 * pruneActiveKeyBindings - Fires the end callback for key bindings
 	 */
-	function pruneActiveKeyBindings() {
+	function pruneActiveKeyBindings(event) {
 		var bindingStack = queryActiveBindings();
+		var output;
 
 		//loop through the active combos
 		for(var bindingCombo in activeBindings) {
@@ -215,13 +220,17 @@
 				if(!active) {
 
 					if(typeof binding.endCallback === "function") {
-						binding.endCallback(binding.keys, binding.keyCombo);
+						if(!binding.endCallback(event, binding.keys, binding.keyCombo)) {
+							output = false
+						}
 					}
 
 					delete activeBindings[bindingCombo];
 				}
 			}
 		}
+
+		return output;
 	}
 
 
@@ -438,4 +447,4 @@
 		}
 	}
 
-})( window );
+})(window);

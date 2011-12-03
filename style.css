@@ -6,6 +6,7 @@ html {
 body {
 	margin: 0;
 	height: 0;
+	line-height: 1.6em;
 }
 .wrapper {
 	width: 460px;
@@ -42,14 +43,15 @@ h3 {
 	margin-top: 2em;
 }
 .code {
-	background: #555;
+	background: rgba(60, 60, 60, 0.8);
 	color: #eee;
 	font-family: monospace;
-	font-size: 16px;
-	padding: 12px;
+	font-size: 13px;
+	padding: 6px;
 	border: 1px solid #333;
 	margin-bottom: 20px;
-	overflow: hidden;
+	word-wrap: break-word;
+	box-shadow: 0 0 10px #333;
 }
 .demoReadout {
 	background: #555;
@@ -82,8 +84,8 @@ a:hover {
 	box-shadow: 0 0 10px #555;
 	border: 1px solid #333;
 	color: #333;
-	padding: 9px;
-	border-radius: 9px;
+	padding: 8px;
+	border-radius: 8px;
 	margin: 20px;
 	text-align: center;
 	display: block;
