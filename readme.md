@@ -6,15 +6,12 @@ Getting Started
 Download the [module](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
 place it somewhere in your project.
 
-Your also need [jQuery](http://code.jquery.com/jquery-1.7.js).
-
 ##### Example Structure
 
     /
     /modules/
     /modules/keyboard.js
     /modules/require.js
-    /modules/jQuery.js
     /app.js
     /index.html
 
