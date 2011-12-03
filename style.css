@@ -107,3 +107,10 @@ a:hover {
 	line-height: 0;
 	height: 0;
 }
+.plusOne {
+	margin-top: 20px;
+	float: left;
+}
+.credits {
+	margin-left: 80px;
+}
