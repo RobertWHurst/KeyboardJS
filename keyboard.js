@@ -55,8 +55,7 @@
 		},
 		activeKeys = [],
 		activeBindings = {},
-		keyBindingGroups = [],
-		focusedElement = false;
+		keyBindingGroups = [];
 
 	//adds keys to the active keys array
 	document.addEventListener('keydown', function(event) {
