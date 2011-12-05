@@ -1,9 +1,9 @@
-KeyboardJS
-==========
+KeyboardJS AMD Module
+=====================
 
 Getting Started
 ---------------
-Download the [module](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
+Download the [module](https://github.com/RobertWHurst/KeyboardJS/zipball/AMDModule) and
 place it somewhere in your project.
 
 ##### Example Structure
@@ -16,7 +16,7 @@ place it somewhere in your project.
     /index.html
 
 Import the module with an AMD module loader such as RequireJS. If you don't want to use
-RequireJS try the [nonAMD](https://github.com/RobertWHurst/KeyboardJS/tree/NonAMD) branch.
+RequireJS try the [master](https://github.com/RobertWHurst/KeyboardJS/tree/master) branch.
 
 ##### Example app.js
 
@@ -130,5 +130,5 @@ named 'keys' in the module.
 
 Credits
 -------
-I made this to enable better access to key controls in my appications. I'd like to share
+I made this to enable better access to key controls in my applications. I'd like to share
 it with fellow devs. Feel free to fork this project and make your own changes.
