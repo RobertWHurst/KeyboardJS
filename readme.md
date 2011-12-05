@@ -1,9 +1,9 @@
-KeyboardJS (NonAMD)
+KeyboardJS Library
 ==================
 
 Getting Started
 ---------------
-Download the [script](https://github.com/RobertWHurst/KeyboardJS/zipball/NonAMD) and
+Download the [library](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
 place it somewhere in your project. All methods are accessed via the KeyboardJS namespace.
 
 ##### Example Structure
