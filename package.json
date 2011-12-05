@@ -1,10 +1,10 @@
 {
   "name": "KeyboardJS",
-  "summary": "An AMD module for binding to keys and key combos.",
-  "description": "An AMD module for binding to keys and key combos.",
+  "summary": "A library for binding to keys and key combos without the pain of keycodes.",
+  "description": "A library for binding to keys and key combos without the pain of keycodes.",
   "homepage": "http://robertwhurst.github.com/KeyboardJS/",
-  "author": "Robert W Hurst",
-  "version": "1.0",
+  "author": "Robert Hurst <robert@arraystudios.com>",
+  "version": "0.0.2",
   "main": "keyboard.js",
   "bpm:build": {
     "bpm_libs.js": {
