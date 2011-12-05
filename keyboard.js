@@ -1,7 +1,5 @@
 /*!
  * KeyboardJS
- *
- * Depends on jQuery
  * 
  * Copyright 2011, Robert William Hurst
  * Licenced under the BSD License.
