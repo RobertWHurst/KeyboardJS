@@ -5,7 +5,7 @@
  * Licenced under the BSD License.
  * See license.txt
  */
-(function(root) {
+(function(context) {
 	var keys = {
 			"backspace": 8,
 			"tab": 9,
@@ -435,7 +435,7 @@
 		return activeKeys;
 	}
 
-	root.KeyboardJS = {
+	context.KeyboardJS = {
 		"bind": {
 			"key": bindKey,
 			"axis": bindAxis
@@ -446,4 +446,4 @@
 		}
 	}
 
-})( window );
+})(this);
