@@ -56,9 +56,21 @@
 		activeKeys = [],
 		activeBindings = {},
 		keyBindingGroups = [];
+		
+	// IE prior to IE9 doesn't support addEventListener
+	var addEvent = function(target, type, handler) {
+		if (target.addEventListener)
+			target.addEventListener(type, handler, false);
+
+		else
+			target.attachEvent("on" + type, 
+								function(event) {
+									return handler.call(target, event);
+								});
+	};
 
 	//adds keys to the active keys array
-	document.addEventListener('keydown', function(event) {
+	addEvent(document, "keydown", function(event) {
 
 		//lookup the key pressed and save it to the active keys array
 		for (var key in keys) {
@@ -75,7 +87,7 @@
 	});
 
 	//removes keys from the active array
-	document.addEventListener("keyup", function (event) {
+	addEvent(document, "keyup", function (event) {
 
 		//lookup the key released and prune it from the active keys array
 		for(var key in keys) {
