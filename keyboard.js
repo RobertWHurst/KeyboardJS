@@ -5,7 +5,15 @@
  * Licenced under the BSD License.
  * See license.txt
  */
-(function(context) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else {
+        // Browser globals
+        root.KeyboardJS = factory();
+    }
+}(this, function() {
 
 	//polyfills for ms's peice o' shit browsers
 	function bind(target, type, handler) { if (target.addEventListener) { target.addEventListener(type, handler, false); } else { target.attachEvent("on" + type, function(event) { return handler.call(target, event); }); } }
@@ -296,7 +304,7 @@
 		var axis = [0, 0];
 
 		if(typeof callback !== 'function') {
-			return;
+			return false;
 		}
 
 		//up
@@ -441,7 +449,7 @@
 		return activeKeys;
 	}
 
-	context.KeyboardJS = {
+	return {
 		"bind": {
 			"key": bindKey,
 			"axis": bindAxis
@@ -451,5 +459,4 @@
 			"key": unbindKey
 		}
 	}
-
-})(this);
+}));
