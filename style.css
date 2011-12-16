@@ -74,22 +74,22 @@ footer h1 {
 	margin: 0 0 24px 0;
 }
 a {
-	color: #bbf;
+	color: #000;
 }
 a:hover {
-	color: #fff;
+	color: #333;
 }
 .download {
+	font-size: 24px;
 	background: #ccc;
 	box-shadow: 0 0 10px #555;
 	border: 1px solid #333;
 	color: #333;
-	padding: 8px;
+	padding: 16px;
 	border-radius: 8px;
 	margin: 20px;
 	text-align: center;
 	display: block;
-	float: left;
 	text-decoration: none;
 }
 .download:hover {
@@ -99,18 +99,16 @@ a:hover {
 .downloads {
 	margin: 0 -20px;
 }
-.downloads:after {
-	content: ".";
-	visibility: hidden;
-	display: block;
-	clear: both;
-	line-height: 0;
-	height: 0;
-}
 .plusOne {
 	margin-top: 20px;
 	float: left;
 }
 .credits {
 	margin-left: 80px;
+}
+.credits a {
+	color: #bbf;
+}
+.credits a:hover {
+	color: #fff;
 }

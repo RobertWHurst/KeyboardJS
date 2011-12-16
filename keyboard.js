@@ -1,11 +1,25 @@
 /*!
  * KeyboardJS
- *
+ * 
  * Copyright 2011, Robert William Hurst
  * Licenced under the BSD License.
  * See license.txt
  */
-(function(context) {
+(function (root, factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(factory);
+    } else {
+        // Browser globals
+        root.KeyboardJS = factory();
+    }
+}(this, function() {
+
+	//polyfills for ms's peice o' shit browsers
+	function bind(target, type, handler) { if (target.addEventListener) { target.addEventListener(type, handler, false); } else { target.attachEvent("on" + type, function(event) { return handler.call(target, event); }); } }
+	[].indexOf||(Array.prototype.indexOf=function(a,b,c){for(c=this.length,b=(c+~~b)%c;b<c&&(!(b in this)||this[b]!==a);b++);return b^c?b:-1;});
+
+	//keys
 	var keys = {
 			"backspace": 8,
 			"tab": 9,
@@ -58,7 +72,7 @@
 		keyBindingGroups = [];
 
 	//adds keys to the active keys array
-	document.addEventListener('keydown', function(event) {
+	bind(document, "keydown", function(event) {
 
 		//lookup the key pressed and save it to the active keys array
 		for (var key in keys) {
@@ -75,7 +89,7 @@
 	});
 
 	//removes keys from the active array
-	document.addEventListener("keyup", function (event) {
+	bind(document, "keyup", function (event) {
 
 		//lookup the key released and prune it from the active keys array
 		for(var key in keys) {
@@ -290,7 +304,7 @@
 		var axis = [0, 0];
 
 		if(typeof callback !== 'function') {
-			return;
+			return false;
 		}
 
 		//up
@@ -435,7 +449,7 @@
 		return activeKeys;
 	}
 
-	context.KeyboardJS = {
+	return {
 		"bind": {
 			"key": bindKey,
 			"axis": bindAxis
@@ -445,5 +459,4 @@
 			"key": unbindKey
 		}
 	}
-
-})(this);
+}));
