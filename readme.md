@@ -4,7 +4,8 @@ KeyboardJS Library
 Getting Started
 ---------------
 Download the [library](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
-place it somewhere in your project. All methods are accessed via the KeyboardJS namespace.
+place it somewhere in your project. All methods are accessed via the KeyboardJS namespace enless the library
+is loaded with an AMD module loader.
 
 ##### Example Structure
 
@@ -38,6 +39,8 @@ overlap and will not fire simpler combos or single key bindings when they share 
 larger combos.
 
 Basically if you want to use the keyboard, this will let you do it without restrictions.
+
+KeyboardJS has full support for AMD module loaders such as [RequireJS](http://requirejs.org/).
 
 Methods
 -------
