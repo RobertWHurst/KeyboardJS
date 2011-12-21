@@ -3,6 +3,7 @@ KeyboardJS Library
 
 Getting Started
 ---------------
+
 Download the [library](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
 place it somewhere in your project. All methods are accessed via the KeyboardJS namespace enless the library
 is loaded with an AMD module loader.
@@ -22,7 +23,6 @@ load the script with a script tag.
     <html>
         <head>
             <title>KeyboardJS Demo</title>
-            <script src="jQuery.js"></script>
             <script src="keyboard.js"></script>
             <script src="app.js"></script>
         </head>
@@ -33,6 +33,7 @@ load the script with a script tag.
 
 What can I do with KeyboardJS?
 ------------------------------
+
 KeyboardJS will allow you to bind to any key the browser can detect. It allows for
 setting up complex key combos or even single key binds with ease. It is aware of combo
 overlap and will not fire simpler combos or single key bindings when they share key with
@@ -90,9 +91,31 @@ Returns an array of active keys by name.
 
 ###### Usage
 
-    KeyboardJS.unbind.key(keyCombo);
+	KeyboardJS.unbind.key(keyCombo);
 
 Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
+
+Please note that if you are just trying to remove one binding you should use the clear method in the object returned
+by KeyboardJS.bind.key or KeybaordJS.bind.axis instead of this. This function is for removing all binding that use
+a certain key.
+
+### KeyboardJS.locale.set
+
+###### Usage
+
+    KeyboardJS.locale.set(localeName);
+
+Changes the locale keyboardJS uses to map key presses. Currently only US is possible unless more locales have been
+added via KeyboardJS.locale.add
+
+### KeyboardJS.locale.add
+
+###### Usage
+
+    KeyboardJS.locale.add(localeName, keyMap);
+
+Adds support for new locals to KeyboardJS. The name of the local and a keyMap are expected. See 'keyMap' definition
+for more details.
 
 Definitions
 -----------
@@ -118,13 +141,29 @@ are 1, 0, or -1.
 
     [x, y]
 
+### keyMap
+
+An object that maps key names to their key code. Used for mapping keys on different locales.
+
+###### example
+
+    {
+        "keyName": keyCode,
+        ...
+    }
+
 Language Support
 ----------------
-KeyboardJS is an amd module for binding to keyboards with the US character set.
-Adding other character sets is also possible by editing the key code map variable
-named 'keys' in the module.
+
+KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now..,). Adding a new
+locale is easy. Map your keyboard to an object and pass it to KeyboardJS.locale.add('myLocale', {/*MAP*/}) then call
+KeyboardJS.locale.set('myLocale').
+
+If you create a new locale please consider sending me a pull request or submit it to the
+[issue tracker](http://github.com/RobertWHurst/KeyboardJS/issues) so I can add it to the library.
 
 Credits
 -------
+
 I made this to enable better access to key controls in my appications. I'd like to share
 it with fellow devs. Feel free to fork this project and make your own changes.
