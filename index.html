@@ -27,35 +27,51 @@
 	</header>
 	<div class="content">
 
+
+
 		<h1>Demo</h1>
 		<div class="demoReadout">
 			JS is required...
 		</div>
 
+
+
 		<h1>What is KeyboardJS?</h1>
-		<div class="introduction">
+		<div>
 			KeyboardJS is a library for binding to keys or key combos. It can be used as both a standalone library or an
 			AMD module (see <a href="http://requirejs.org/" target="_blank">RequireJS</a> for details).
 		</div>
 
-		<h1>Get it Here</h1>
 
+
+		<h1>Get it Here</h1>
 		<div class="downloads">
 			<a href="https://github.com/RobertWHurst/KeyboardJS/zipball/master" class="download">KeyboardJS v0.1.0</a>
 		</div>
 
+
+
 		<h1>Language Support</h1>
-		<div class="introduction">
-			KeyboardJS is for binding to keyboards with the US character set. Adding other character sets is possible
-			by editing the key code map variable named 'keys' in the module.
+		<div>
+			KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now).
+			Adding a new locale is easy. map your keyboard to an object and pass it to
+			KeyboardJS.locale.add('myLocale', {/*MAP*/}) then call KeyboardJS.locale.set('myLocale').
+			<br>
+			<br>
+			If you create a new locale please consider sending me a pull request or submit it to the
+			<a href="http://github.com/RobertWHurst/KeyboardJS/issues">issue tracker</a> so I can add it to the library.
 		</div>
 
+
+
 		<h1>Methods</h1>
+
+
 
 		<h2>KeyboardJS.bind.key</h2>
 		<h3>Usage</h3>
 		<div class="code">KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback);</div>
-		<div class="bindKey">
+		<div>
 			Binds any key or key combo. See 'keyCombo' definition below
 			for details. The onDownCallback is fired once the key or key combo becomes active. The
 			onUpCallback is fired when the combo no longer active (a single key is released).
@@ -65,70 +81,118 @@
 			key event, the second is the keys pressed, and the third is the key combo string.
 		</div>
 		<h3>Returned</h3>
-		<ul class="bindKeyReturned">
-			<li>clear - Removes the key or key combo binding.</li>
+		<ul>
+			<li><span class="code">clear()</span> - Removes the key or key combo binding.</li>
 		</ul>
+
+
 
 		<h2>KeyboardJS.bind.axis</h2>
 		<h3>Usage</h3>
 		<div class="code">KeyboardJS.bind.axis(upkeyCombo, downkeyCombo, leftkeyCombo, rightkeyCombo, callback);</div>
-		<div class="bindAxis">
+		<div>
 			Binds four keys or key combos as an up, down, left, right  axis. See 'keyCombo' definition above
 			for details. The callback is fired when any of the key combos are active. It is passed an axis object.
 			See 'axis' definition below for more details.
 		</div>
 		<h3>Returned</h3>
-		<ul class="bindAxisReturned">
-			<li>clear - Removes the axis binding.</li>
+		<div>
+			Returns an object containing the following methods.
+		</div>
+		<ul>
+			<li><span class="code">clear()</span> - Removes the axis binding.</li>
 		</ul>
+
+
 
 		<h2>KeyboardJS.activeKeys</h2>
 		<h3>Usage</h3>
 		<div class="code">KeyboardJS.activeKeys();</div>
-		<div class="activeKeys">
+		<div>
 			Returns an array of active keys by name.
 		</div>
 		<h3>Returned</h3>
-		<ul class="activeKeysReturned">
-			<li>clear - Removes the key or key combo binding.</li>
-		</ul>
+		<div>
+			Returns an array of key names that are currently being pressed.
+		</div>
 
 		<h2>KeyboardJS.unbind.key</h2>
 		<h3>Usage</h3>
 		<div class="code">KeyboardJS.unbind.key(keyCombo);</div>
-		<div class="unbindKey">
+		<div>
 			Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
+			<br>
+			<br>
+			Please note that if you are just trying to remove one binding you should use the clear method in the object
+			returned by KeyboardJS.bind.key or KeybaordJS.bind.axis instead of this. This function is for removing all
+			binding that use a certain key.
 		</div>
-		<h3>Returned</h3>
-		<ul class="unbindKeyReturned">
-			<li>clear - Removes the key or key combo binding.</li>
-		</ul>
+
+
+
+		<h2>KeyboardJS.locale.set</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.locale.set(localeName);</div>
+		<div>
+			Changes the locale keyboardJS uses to map key presses. Currently only US is possible unless more locales
+			have been added via KeyboardJS.locale.add
+		</div>
+
+
+
+		<h2>KeyboardJS.locale.add</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.locale.add(localeName, keyMap);</div>
+		<div>
+			Adds support for new locals to KeyboardJS. The name of the local and a keyMap are expected.
+			See 'keyMap' definition for more details.
+		</div>
+
+
 
 		<h1>Definitions</h1>
+
+
+
 		<h2>keyCombo</h2>
-		<div class="keyCombo">
+		<div>
 			A comma separated string of keys. Combos can be created using the + sign instead of a comma.
 		</div>
 		<h3>examples</h3>
-		<ul class="keyComboExample">
-			<li>'a' - binds to the 'a' key. Pressing 'a' will match this keyCombo.</li>
-			<li>'a, b' - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.</li>
-			<li>'a + b' - binds to the 'a' and 'b' keys. Pressing both of these keys will match this keyCombo.</li>
+		<ul>
+			<li><span class="code">'a'</span> - binds to the 'a' key. Pressing 'a' will match this keyCombo.</li>
+			<li><span class="code">'a, b'</span> - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.</li>
+			<li><span class="code">'a + b'</span> - binds to the 'a' and 'b' keys. Pressing both of these keys will match this keyCombo.</li>
 			<li>
-				'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
+				<span class="code">'a + b, c + d'</span> - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
 				or the 'c' and the 'd' key will match this keyCombo.
 			</li>
 		</ul>
 
+
+
 		<h2>axis</h2>
-		<div class="axis">
+		<div>
 			An array containing two numbers. The first value represents x and the second represents y. These values
 			are 1, 0, or -1.
 		</div>
 		<h3>examples</h3>
-		<ul class="axisExample">
-			<li>[x, y]</li>
+		<ul>
+			<li><span class="code">[x, y]</span></li>
 		</ul>
+
+
+
+		<h2>keyMap</h2>
+		<div>
+			An object that maps keyNames to their keycode. Used for mapping keys on different locales.
+		</div>
+		<h3>examples</h3>
+		<ul>
+			<li><span class="code">{ "keyName": keyCode, ... }</span></li>
+		</ul>
+
+
 
 	</div>
 </div>

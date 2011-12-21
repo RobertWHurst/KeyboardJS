@@ -19,8 +19,9 @@
 	function bind(target, type, handler) { if (target.addEventListener) { target.addEventListener(type, handler, false); } else { target.attachEvent("on" + type, function(event) { return handler.call(target, event); }); } }
 	[].indexOf||(Array.prototype.indexOf=function(a,b,c){for(c=this.length,b=(c+~~b)%c;b<c&&(!(b in this)||this[b]!==a);b++);return b^c?b:-1;});
 
-	//keys
-	var keys = {
+	//locals
+	var locals = {
+		'us': {
 			"backspace": 8,
 			"tab": 9,
 			"enter": 13,
@@ -66,7 +67,14 @@
 			"backslash": 220,
 			"closebracket": 221,
 			"singlequote": 222
-		},
+		}
+
+		//If you create a new local please submit it as a pull request or post it in the issue tracker at
+		// http://github.com/RobertWhurst/KeyboardJS/issues/
+	}
+
+	//keys
+	var keys = locals['us'],
 		activeKeys = [],
 		activeBindings = {},
 		keyBindingGroups = [];
@@ -109,7 +117,7 @@
 	});
 
 	/**
-	 * queryActiveBindings - Generates an array of active key bindings
+	 * Generates an array of active key bindings
 	 */
 	function queryActiveBindings() {
 		var bindingStack = [];
@@ -147,6 +155,10 @@
 		return bindingStack;
 	}
 
+	/**
+	 * Collects active keys, sets active binds and fires on key down callbacks
+	 * @param event
+	 */
 	function executeActiveKeyBindings(event) {
 
 		if(activeKeys < 1) {
@@ -206,7 +218,8 @@
 	}
 
 	/**
-	 * pruneActiveKeyBindings - Fires the end callback for key bindings
+	 * Removes no longer active keys and fires the on key up callbacks for associated active bindings.
+	 * @param event
 	 */
 	function pruneActiveKeyBindings(event) {
 		var bindingStack = queryActiveBindings();
@@ -246,7 +259,14 @@
 		return output;
 	}
 
-
+	/**
+	 * Binds a on key down and on key up callback to a key or key combo. Accepts a string containing the name of each
+	 * key you want to bind to comma separated. If you want to bind a combo the use the plus sign to link keys together.
+	 * Example: 'ctrl + x, ctrl + c' Will fire if Control and x or y are pressed at the same time.
+	 * @param keyCombo
+	 * @param callback
+	 * @param endCallback
+	 */
 	function bindKey(keyCombo, callback, endCallback) {
 
 		function clear() {
@@ -291,6 +311,17 @@
 		}
 	}
 
+	/**
+	 * Binds keys or key combos to an axis. The keys should be in the following order; up, down, left, right. If any
+	 * of the the binded key or key combos are active the callback will fire. The callback will be passed an array
+	 * containing two numbers. The first represents x and the second represents y. Both have a possible range of -1,
+	 * 0, or 1 depending on the axis direction.
+	 * @param up
+	 * @param down
+	 * @param left
+	 * @param right
+	 * @param callback
+	 */
 	function bindAxis(up, down, left, right, callback) {
 
 		function clear() {
@@ -403,6 +434,10 @@
 		}
 	}
 
+	/**
+	 * Clears all key and key combo binds containing a given key or keys.
+	 * @param keys
+	 */
 	function unbindKey(keys) {
 
 		if(keys === 'all') {
@@ -445,8 +480,31 @@
 		}
 	}
 
+	/**
+	 * Gets an array of active keys
+	 */
 	function getActiveKeys() {
 		return activeKeys;
+	}
+
+	/**
+	 * Adds a new keyboard local not supported by keyboard JS
+	 * @param local
+	 * @param keys
+	 */
+	function addLocale(local, keys) {
+		locals[local] = keys;
+	}
+
+	/**
+	 * Changes the keyboard local
+	 * @param local
+	 */
+	function setLocale(local) {
+		if(locals[local]) {
+			keys = locals[local];
+		}
+
 	}
 
 	return {
@@ -457,6 +515,10 @@
 		"activeKeys": getActiveKeys,
 		"unbind": {
 			"key": unbindKey
+		},
+		"locale": {
+			"add": addLocale,
+			"set": setLocale
 		}
 	}
 }));
