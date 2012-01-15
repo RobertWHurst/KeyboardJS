@@ -3,7 +3,7 @@
  * 
  * Copyright 2011, Robert William Hurst
  * Licenced under the BSD License.
- * See license.txt
+ * See https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt
  */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
@@ -275,7 +275,7 @@
 
 				if(keyBindingGroup.indexOf(keyBinding) > -1) {
 					var index = keyBindingGroups[keys.length].indexOf(keyBinding);
-					delete keyBindingGroups[keys.length][index];
+					keyBindingGroups[keys.length].splice(index, 1);
 				}
 			}
 		}
@@ -375,57 +375,14 @@
 		}).clear;
 
 		var timer = setInterval(function(){
-			var degree;
 
 			//NO CHANGE
 			if(axis[0] === 0 && axis[1] === 0) {
 				return;
 			}
 
-			//ON 45 ANGLE
-			//up left
-			else if(axis[0] === -1 && axis[1] === -1) {
-				degree = 315;
-			}
-
-			//up right
-			else if(axis[0] === -1 && axis[1] === 1) {
-				degree = 45;
-			}
-
-			//down left
-			else if(axis[0] === 1 && axis[1] === -1) {
-				degree = 225;
-			}
-
-			//down right
-			else if(axis[0] === 1 && axis[1] === 1) {
-				degree = 135;
-			}
-
-			//ON 90 ANGLE
-			//up
-			else if(axis[0] === -1 && axis[1] === 0) {
-				degree = 0;
-			}
-
-			//down
-			else if(axis[0] === 1 && axis[1] === 0) {
-				degree = 180;
-			}
-
-			//left
-			else if(axis[0] === 0 && axis[1] === -1) {
-				degree = 270;
-			}
-
-			//right
-			else if(axis[0] === 0 && axis[1] === 1) {
-				degree = 90;
-			}
-
 			//run the callback
-			callback(degree);
+			callback(axis);
 
 		}, 1);
 
