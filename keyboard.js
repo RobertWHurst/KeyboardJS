@@ -3,7 +3,7 @@
  * 
  * Copyright 2011, Robert William Hurst
  * Licenced under the BSD License.
- * See license.txt
+ * See https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt
  */
 (function (root, factory) {
     if (typeof define === 'function' && define.amd) {
