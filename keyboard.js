@@ -407,12 +407,12 @@
 		//loop through the key binding groups.
 		for(var iKCL = keyBindingGroups.length; iKCL > -1; iKCL -= 1) {
 			if(keyBindingGroups[iKCL]) {
-				var KeyBindingGroup = keyBindingGroups[iKCL],
-					remove = true;
+				var KeyBindingGroup = keyBindingGroups[iKCL];
 
 				//loop through the key bindings.
 				for(var iB = 0; iB < KeyBindingGroup.length; iB += 1) {
-					var keyBinding = KeyBindingGroup[iB];
+					var keyBinding = KeyBindingGroup[iB],
+						remove = false;
 
 					//loop through the current key binding keys.
 					for(var iKB = 0; iKB < keyBinding.keys.length;  iKB += 1) {
@@ -428,10 +428,12 @@
 						}
 						if(remove) { break; }
 					}
-					if(remove) { break; }
-				}
-				if(remove) {
-					delete keyBindingGroups[iKCL];
+					if(remove) {
+						keyBindingGroups[iKCL].splice(iB, 1); iB -= 1;
+						if(keyBindingGroups[iKCL].length < 1) {
+							delete keyBindingGroups[iKCL];
+						}
+					}
 				}
 			}
 		}
