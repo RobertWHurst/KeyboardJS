@@ -275,7 +275,7 @@
 
 				if(keyBindingGroup.indexOf(keyBinding) > -1) {
 					var index = keyBindingGroups[keys.length].indexOf(keyBinding);
-					delete keyBindingGroups[keys.length][index];
+					keyBindingGroups[keys.length].splice(index, 1);
 				}
 			}
 		}
