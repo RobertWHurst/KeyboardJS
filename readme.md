@@ -167,3 +167,5 @@ Credits
 
 I made this to enable better access to key controls in my appications. I'd like to share
 it with fellow devs. Feel free to fork this project and make your own changes.
+
+[![endorse](http://api.coderwall.com/robertwhurst/endorsecount.png)](http://coderwall.com/robertwhurst)
