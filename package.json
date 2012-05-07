@@ -1,16 +1,34 @@
 {
   "name": "KeyboardJS",
-  "summary": "A library for binding to keys and key combos without the pain of keycodes.",
-  "description": "A library for binding to keys and key combos without the pain of keycodes.",
-  "homepage": "http://robertwhurst.github.com/KeyboardJS/",
-  "author": "Robert Hurst <robert@arraystudios.com>",
+  "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
   "version": "0.2.2",
-  "main": "keyboard.js",
-  "bpm:build": {
-    "bpm_libs.js": {
-      "files": [
-        "keyboard.js"
-      ]
+  "keywords": [
+    "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
+  ],
+  "maintainers": [
+    {
+      "name": "Robert Hurst",
+      "email": "RobertWHurst@gmail.com",
+      "web": "http://github.com/RobertWHurst"
     }
-  }
+  ],
+  "demos": [
+    "http://robertwhurst.github.com/KeyboardJS/"
+  ],
+  "bugs": {
+    "web": "https://github.com/RobertWHurst/KeyboardJS/issues"
+  },
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git@github.com:RobertWHurst/KeyboardJS.git"
+    }
+  ],
+  "licenses": [
+    {
+      "name": "BSD License",
+      "url": "https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt"
+    }
+  ],
+  "homepage": "http://robertwhurst.github.com/KeyboardJS/"
 }
