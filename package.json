@@ -4,7 +4,7 @@
   "description": "A library for binding to keys and key combos without the pain of keycodes.",
   "homepage": "http://robertwhurst.github.com/KeyboardJS/",
   "author": "Robert Hurst <robert@arraystudios.com>",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "main": "keyboard.js",
   "bpm:build": {
     "bpm_libs.js": {
