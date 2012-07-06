@@ -6,13 +6,13 @@
  * See https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt
  */
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(factory);
-    } else {
-        // Browser globals
-        root.KeyboardJS = factory();
-    }
+	if (typeof define === 'function' && define.amd) {
+		// AMD. Register as an anonymous module.
+		define(factory);
+	} else {
+		// Browser globals
+		root.KeyboardJS = factory();
+	}
 }(this, function() {
 
 	//polyfills for ms's peice o' shit browsers
@@ -114,6 +114,14 @@
 		//execute the end callback on the active key binding
 		return pruneActiveKeyBindings(event);
 
+	});
+
+	//bind to the window blur event and clear all pressed keys
+	bind(window, "blur", function() {
+		activeKeys = [];
+
+		//execute the end callback on the active key binding
+		return pruneActiveKeyBindings(event);
 	});
 
 	/**
