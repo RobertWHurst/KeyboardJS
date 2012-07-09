@@ -5,13 +5,13 @@
  * Licenced under the BSD License.
  * See https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt
  */
-(function (root, factory) {
+(function (context, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD. Register as an anonymous module.
         define(factory);
     } else {
         // Browser globals
-        root.KeyboardJS = factory();
+	    context.k = context.KeyboardJS = factory();
     }
 }(this, function() {
 
