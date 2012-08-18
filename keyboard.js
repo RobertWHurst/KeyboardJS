@@ -116,7 +116,7 @@
 	});
 
 	//bind to the window blur event and clear all pressed keys
-	bind(window, "blur", function() {
+	bind(window, "blur", function(event) {
 		activeKeys = [];
 
 		//execute the end callback on the active key binding
