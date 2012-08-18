@@ -1,6 +1,6 @@
 /*!
  * KeyboardJS
- * 
+ *
  * Copyright 2011, Robert William Hurst
  * Licenced under the BSD License.
  * See https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt
@@ -11,10 +11,9 @@
         define(factory);
     } else {
         // Browser globals
-	    context.k = context.KeyboardJS = factory();
+		context.k = context.KeyboardJS = factory();
     }
 }(this, function() {
-
 	//polyfills for ms's peice o' shit browsers
 	function bind(target, type, handler) { if (target.addEventListener) { target.addEventListener(type, handler, false); } else { target.attachEvent("on" + type, function(event) { return handler.call(target, event); }); } }
 	[].indexOf||(Array.prototype.indexOf=function(a,b,c){for(c=this.length,b=(c+~~b)%c;b<c&&(!(b in this)||this[b]!==a);b++);return b^c?b:-1;});
@@ -117,7 +116,7 @@
 	});
 
 	//bind to the window blur event and clear all pressed keys
-	bind(window, "blur", function() {
+	bind(window, "blur", function(event) {
 		activeKeys = [];
 
 		//execute the end callback on the active key binding
@@ -136,14 +135,14 @@
 				var KeyBindingGroup = keyBindingGroups[keyCount];
 
 				//loop through the key bindings of the same key length.
-				for(var bindingIndex = 0; bindingIndex < KeyBindingGroup.length; bindingIndex += 1) {
+				for(var bindingIndex = 0, groupLen = KeyBindingGroup.length; bindingIndex < groupLen; bindingIndex += 1) {
 					var binding = KeyBindingGroup[bindingIndex],
 
 					//assume the binding is active till a required key is found to be unsatisfied
 						keyBindingActive = true;
 
 					//loop through each key required by the binding.
-					for(var keyIndex = 0; keyIndex < binding.keys.length;  keyIndex += 1) {
+					for(var keyIndex = 0, keysLen = binding.keys.length; keyIndex < keysLen;  keyIndex += 1) {
 						var key = binding.keys[keyIndex];
 
 						//if the current key is not in the active keys array the mark the binding as inactive
@@ -175,16 +174,18 @@
 
 		var bindingStack = queryActiveBindings(),
 			spentKeys = [],
-			output;
+			output,
+			binding, bindingIndex, bindingLen,
+			key, keyIndex, keyLen;
 
 		//loop through each active binding
-		for (var bindingIndex = 0; bindingIndex < bindingStack.length; bindingIndex += 1) {
-			var binding = bindingStack[bindingIndex],
-				usesSpentKey = false;
+		for (bindingIndex = 0, bindingLen = bindingStack.length; bindingIndex < bindingLen; bindingIndex += 1) {
+			binding = bindingStack[bindingIndex];
+			var usesSpentKey = false;
 
 			//check each of the required keys. Make sure they have not been used by another binding
-			for(var keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
-				var key = binding.keys[keyIndex];
+			for(keyIndex = 0, keyLen = binding.keys.length; keyIndex < keyLen; keyIndex += 1) {
+				key = binding.keys[keyIndex];
 				if(spentKeys.indexOf(key) > -1) {
 					usesSpentKey = true;
 					break;
@@ -207,8 +208,8 @@
 				}
 
 				//add the current key binding's keys to the spent keys array
-				for(var keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
-					var key = binding.keys[keyIndex];
+				for(keyIndex = 0, keyLen = binding.keys.length; keyIndex < keyLen; keyIndex += 1) {
+					key = binding.keys[keyIndex];
 					if(spentKeys.indexOf(key) < 0) {
 						spentKeys.push(key);
 					}
@@ -240,7 +241,7 @@
 					active = false;
 
 				//loop thorugh the active bindings
-				for(var bindingIndex = 0; bindingIndex < bindingStack.length; bindingIndex += 1) {
+				for(var bindingIndex = 0, stackLen = bindingStack.length; bindingIndex < stackLen; bindingIndex += 1) {
 					var activeCombo = bindingStack[bindingIndex].keyCombo;
 
 					//check to see if the combo is still active
@@ -292,7 +293,7 @@
 		var bindSets = keyCombo.toLowerCase().replace(/\s/g, '').split(',');
 
 		//create a binding for each key combo
-		for(var i = 0; i < bindSets.length; i += 1) {
+		for(var i = 0, setsLen = bindSets.length; i < setsLen; i += 1) {
 
 			//split up the keys
 			var keys = bindSets[i].split('+');
@@ -418,16 +419,16 @@
 				var KeyBindingGroup = keyBindingGroups[iKCL];
 
 				//loop through the key bindings.
-				for(var iB = 0; iB < KeyBindingGroup.length; iB += 1) {
+				for(var iB = 0, lenB = KeyBindingGroup.length; iB < lenB; iB += 1) {
 					var keyBinding = KeyBindingGroup[iB],
 						remove = false;
 
 					//loop through the current key binding keys.
-					for(var iKB = 0; iKB < keyBinding.keys.length;  iKB += 1) {
+					for(var iKB = 0, lenKB = keyBinding.keys.length; iKB < lenKB;  iKB += 1) {
 						var key = keyBinding.keys[iKB];
 
 						//loop through the keys to be removed
-						for(var iKR = 0; iKR < keys.length; iKR += 1) {
+						for(var iKR = 0, lenKR = keys.length; iKR < lenKR; iKR += 1) {
 							var keyToRemove = keys[iKR];
 							if(keyToRemove === key) {
 								remove = true;
