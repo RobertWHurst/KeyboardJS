@@ -175,7 +175,8 @@
 
 		var bindingStack = queryActiveBindings(),
 			spentKeys = [],
-			output;
+			output,
+			key, keyIndex;
 
 		//loop through each active binding
 		for (var bindingIndex = 0; bindingIndex < bindingStack.length; bindingIndex += 1) {
@@ -183,8 +184,8 @@
 				usesSpentKey = false;
 
 			//check each of the required keys. Make sure they have not been used by another binding
-			for(var keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
-				var key = binding.keys[keyIndex];
+			for(keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
+				key = binding.keys[keyIndex];
 				if(spentKeys.indexOf(key) > -1) {
 					usesSpentKey = true;
 					break;
@@ -207,8 +208,8 @@
 				}
 
 				//add the current key binding's keys to the spent keys array
-				for(var keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
-					var key = binding.keys[keyIndex];
+				for(keyIndex = 0; keyIndex < binding.keys.length; keyIndex += 1) {
+					key = binding.keys[keyIndex];
 					if(spentKeys.indexOf(key) < 0) {
 						spentKeys.push(key);
 					}
