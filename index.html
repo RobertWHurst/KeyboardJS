@@ -5,8 +5,20 @@
 	<title>KeyboardJS Demo - "Build your app, I'll handle the keys."</title>
 	<link rel="stylesheet" href="style.css">
 	<script src="keyboard.js"></script>
+	<script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
 	<script src="demo.js"></script>
-	<script type="text/javascript" src="https://apis.google.com/js/plusone.js" async="true"></script>
+	<script src="https://apis.google.com/js/plusone.js" async="true"></script>
+	<script>
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-8963518-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 </head>
 <body>
 <div class="wrapper">
@@ -17,33 +29,22 @@
 	</header>
 	<div class="content">
 
-
-
 		<h1>Demo</h1>
 		<div class="demoReadout">
 			JS is required...
 		</div>
-
-
 
 		<h1>What is KeyboardJS?</h1>
 		<div>
 			KeyboardJS is a library for binding to keys or key combos. It can be used as both a standalone library or an
 			AMD module (see <a href="http://requirejs.org/" target="_blank">RequireJS</a> for details).
 		</div>
-		
-		
+
+
 		<iframe width="460" height="285" src="http://www.youtube.com/embed/mOtUXRrB350?feature=player_embedded" frameborder="0" allowfullscreen></iframe>
 
 
 		<h1>Get it Here</h1>
-		<div class="downloads">
-			<a href="https://github.com/downloads/RobertWHurst/KeyboardJS/keyboard.0.2.2.min.js" class="download">KeyboardJS v0.2.2 - Minified</a>
-			<a href="https://github.com/downloads/RobertWHurst/KeyboardJS/keyboard.0.2.2.js" class="download">KeyboardJS v0.2.2 - Uncompressed</a>
-		</div>
-
-		<h1>Try out the v0.3.0 pre release</h1>
-		<p>Note that the API for 0.3.0 has changed. Thus documentation below is out of date for this version.</p>
 		<div class="downloads">
 			<a href="https://github.com/downloads/RobertWHurst/KeyboardJS/keyboard.0.3.0.min.js" class="download">KeyboardJS v0.3.0 - Minified</a>
 			<a href="https://github.com/downloads/RobertWHurst/KeyboardJS/keyboard.0.3.0.js" class="download">KeyboardJS v0.3.0 - Uncompressed</a>
@@ -53,22 +54,18 @@
 		<div>
 			KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now).
 			Adding a new locale is easy. map your keyboard to an object and pass it to
-			KeyboardJS.locale.add('myLocale', {/*MAP*/}) then call KeyboardJS.locale.set('myLocale').
+			KeyboardJS.locale.register(localeName, localeDefinition) then call KeyboardJS.locale(localeName).
 			<br>
 			<br>
 			If you create a new locale please consider sending me a pull request or submit it to the
 			<a href="http://github.com/RobertWHurst/KeyboardJS/issues">issue tracker</a> so I can add it to the library.
 		</div>
 
-
-
 		<h1>Methods</h1>
 
-
-
-		<h2>KeyboardJS.bind.key</h2>
+		<h2>KeyboardJS.on</h2>
 		<h3>Usage</h3>
-		<div class="code">KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback);</div>
+		<div class="code">KeyboardJS.on(keyCombo, onDownCallback, onUpCallback);</div>
 		<div>
 			Binds any key or key combo. See 'keyCombo' definition below
 			for details. The onDownCallback is fired once the key or key combo becomes active. The
@@ -81,27 +78,8 @@
 		<h3>Returned</h3>
 		<ul>
 			<li><span class="code">clear()</span> - Removes the key or key combo binding.</li>
+			<li><span class="code">on()</span> - Allows you to bind to the keyup and keydown event of the given combo. An alternative to adding the onDownCallback and onUpCallback.</li>
 		</ul>
-
-
-
-		<h2>KeyboardJS.bind.axis</h2>
-		<h3>Usage</h3>
-		<div class="code">KeyboardJS.bind.axis(upkeyCombo, downkeyCombo, leftkeyCombo, rightkeyCombo, callback);</div>
-		<div>
-			Binds four keys or key combos as an up, down, left, right  axis. See 'keyCombo' definition above
-			for details. The callback is fired when any of the key combos are active. It is passed an axis object.
-			See 'axis' definition below for more details.
-		</div>
-		<h3>Returned</h3>
-		<div>
-			Returns an object containing the following methods.
-		</div>
-		<ul>
-			<li><span class="code">clear()</span> - Removes the axis binding.</li>
-		</ul>
-
-
 
 		<h2>KeyboardJS.activeKeys</h2>
 		<h3>Usage</h3>
@@ -114,43 +92,40 @@
 			Returns an array of key names that are currently being pressed.
 		</div>
 
-		<h2>KeyboardJS.unbind.key</h2>
+		<h2>KeyboardJS.clear</h2>
 		<h3>Usage</h3>
-		<div class="code">KeyboardJS.unbind.key(keyCombo);</div>
+		<div class="code">KeyboardJS.clear(keyCombo);</div>
 		<div>
-			Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
+			Removes all bindings with the given key combo. See 'keyCombo' definition for more details.
 			<br>
 			<br>
-			Please note that if you are just trying to remove one binding you should use the clear method in the object
-			returned by KeyboardJS.bind.key or KeybaordJS.bind.axis instead of this. This function is for removing all
-			binding that use a certain key.
+			Please note that if you are just trying to remove a single binding should use the clear method in the object
+			returned by KeyboardJS.on instead of this. This function is for removing all binding that use a certain key.
 		</div>
 
-
-
-		<h2>KeyboardJS.locale.set</h2>
+		<h2>KeyboardJS.clear.key</h2>
 		<h3>Usage</h3>
-		<div class="code">KeyboardJS.locale.set(localeName);</div>
+		<div class="code">KeyboardJS.clear.key(key);</div>
 		<div>
-			Changes the locale keyboardJS uses to map key presses. Currently only US is possible unless more locales
-			have been added via KeyboardJS.locale.add
+			Removes all bindings that use the given key.
 		</div>
 
-
-
-		<h2>KeyboardJS.locale.add</h2>
+		<h2>KeyboardJS.locale</h2>
 		<h3>Usage</h3>
-		<div class="code">KeyboardJS.locale.add(localeName, keyMap);</div>
+		<div class="code">KeyboardJS.locale(localeName);</div>
 		<div>
-			Adds support for new locals to KeyboardJS. The name of the local and a keyMap are expected.
-			See 'keyMap' definition for more details.
+			Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only supports US keyboards, however
+			it is possible to add additional locales via KeyboardJS.locale.register()
 		</div>
 
-
+		<h2>KeyboardJS.locale.register</h2>
+		<h3>Usage</h3>
+		<div class="code">KeyboardJS.locale.register(localeName, localeDefinition);</div>
+		<div>
+			Adds new locale definitions to KeyboardJS.
+		</div>
 
 		<h1>Definitions</h1>
-
-
 
 		<h2>keyCombo</h2>
 		<div>
@@ -160,38 +135,40 @@
 		<ul>
 			<li><span class="code">'a'</span> - binds to the 'a' key. Pressing 'a' will match this keyCombo.</li>
 			<li><span class="code">'a, b'</span> - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.</li>
+			<li><span class="code">'a b'</span> - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.</li>
 			<li><span class="code">'a + b'</span> - binds to the 'a' and 'b' keys. Pressing both of these keys will match this keyCombo.</li>
+			<li><span class="code">'a > b'</span> - binds to the 'a' and 'b' keys. Pressing 'a' then 'b' will match this keyCombo.</li>
 			<li>
 				<span class="code">'a + b, c + d'</span> - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
 				or the 'c' and the 'd' key will match this keyCombo.
 			</li>
+			<li>
+				<span class="code">'a + b > c + d'</span> - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
+				then the 'c' and the 'd' key will match this keyCombo.
+			</li>
 		</ul>
 
-
-
-		<h2>axis</h2>
+		<h2>localeDefinitions</h2>
 		<div>
-			An array containing two numbers. The first value represents x and the second represents y. These values
-			are 1, 0, or -1.
+			An object that maps keyNames to their keycode and stores locale specific macros. Used for mapping keys on different locales.
 		</div>
 		<h3>examples</h3>
 		<ul>
-			<li><span class="code">[x, y]</span></li>
+			<li>
+				<span class="code">{
+	"map": {
+		"65": ["a"],
+		"66": ["b"],
+		...
+	},
+	"macros": [
+		["shift + `",  ["tilde", "~"]],
+		["shift + 1",  ["exclamation", "!"]],
+		....
+	]
+}</span>
+			</li>
 		</ul>
-
-
-
-		<h2>keyMap</h2>
-		<div>
-			An object that maps keyNames to their keycode. Used for mapping keys on different locales.
-		</div>
-		<h3>examples</h3>
-		<ul>
-			<li><span class="code">{ "keyName": keyCode, ... }</span></li>
-		</ul>
-
-
-
 	</div>
 </div>
 <footer>
@@ -205,18 +182,5 @@
 		project and make your own changes.
 	</div>
 </footer>
-<script type="text/javascript">
-	var _gauges = _gauges || [];
-	(function() {
-		var t   = document.createElement('script');
-		t.type  = 'text/javascript';
-		t.async = true;
-		t.id    = 'gauges-tracker';
-		t.setAttribute('data-site-id', '4ef5667bf5a1f53cc700000b');
-		t.src = '//secure.gaug.es/track.js';
-		var s = document.getElementsByTagName('script')[0];
-		s.parentNode.insertBefore(t, s);
-	})();
-</script>
 </body>
 </html>

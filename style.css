@@ -57,7 +57,8 @@ h3 {
 	background: #555;
 	color: #eee;
 	font-family: monospace;
-	font-size: 36px;
+	font-size: 24px;
+	line-height: 36px;
 	padding: 20px;
 	text-align: center;
 	border: 1px solid #333;
