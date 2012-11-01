@@ -233,6 +233,7 @@
 		throw new Error('Cannot bind to keydown event. Both addEventListener and attachEvent are unsupported by your browser.');
 	}
 
+	KeyboardJS.getActiveKeys = getActiveKeys;
 	KeyboardJS.on = createBinding;
 	KeyboardJS.clear = removeBindingByKeyCombo;
 	KeyboardJS.clear.key = removeBindingByKeyName;
@@ -242,8 +243,8 @@
 	KeyboardJS.macro.remove = removeMacro;
 	KeyboardJS.getKey = getKeyName;
 	KeyboardJS.combo = {};
-	KeyboardJS.parse = parseKeyCombo;
-	KeyboardJS.stringify = stringifyKeyCombo;
+	KeyboardJS.combo.parse = parseKeyCombo;
+	KeyboardJS.combo.stringify = stringifyKeyCombo;
 
 	window.map = map;
 	window.macros = macros;
