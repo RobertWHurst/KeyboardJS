@@ -5,7 +5,7 @@ Getting Started
 ---------------
 
 Download the [library](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
-place it somewhere in your project. All methods are accessed via the KeyboardJS namespace enless the library
+place it somewhere in your project. All methods are accessed via the KeyboardJS namespace unless the library
 is loaded with an AMD module loader.
 
 ##### Example Structure
@@ -46,38 +46,21 @@ KeyboardJS has full support for AMD module loaders such as [RequireJS](http://re
 Methods
 -------
 
-### KeyboardJS.bind.key
+### KeyboardJS.on
 
 ###### Usage
 
-    KeyboardJS.bind.key(keyCombo, onDownCallback, onUpCallback);
+    KeyboardJS.on(keyCombo, onDownCallback, onUpCallback);
 
-Binds any key or key combo. See 'keyCombo' definition below
-for details. The onDownCallback is fired once the key or key combo becomes active. The
-onUpCallback is fired when the combo no longer active (a single key is released).
+Binds any key or key combo. See 'keyCombo' definition below for details. The onDownCallback is fired once the key or key combo becomes active. The onUpCallback is fired when the combo no longer active (a single key is released).
 
-Both the onUpCallback and the onDownCallback are passed three arguments. The first is the
-key event, the second is the keys pressed, and the third is the key combo string.
+Both the onUpCallback and the onUpCallback are passed three arguments. The first is the key event, the second is the keys pressed, and the third is the key combo string.
 
 ###### Returned
 Returns an object containing the following methods.
 
-* clear - Removes the key or key combo binding.
-
-### KeyboardJS.bind.axis
-
-###### Usage
-
-    KeyboardJS.bind.axis(upkeyCombo, downkeyCombo, leftkeyCombo, rightkeyCombo, callback);
-
-Binds four keys or key combos as an up, down, left, right 
-axis. See 'keyCombo' definition above for details. The callback is fired when any of the key
-combos are active. It is passed an axis object. See 'axis' definition below for more details.
-
-###### Returned
-Returns an object containing the following methods.
-
-* clear - Removes the axis binding.
+* clear() - Removes the key or key combo binding.
+* on() - Allows you to bind to the keyup and keydown event of the given combo. An alternative to adding the onDownCallback and onUpCallback.
 
 ### KeyboardJS.activeKeys
 
@@ -87,42 +70,46 @@ Returns an object containing the following methods.
 
 Returns an array of active keys by name.
 
-### KeyboardJS.unbind.key
+### KeyboardJS.clear
 
 ###### Usage
 
-	KeyboardJS.unbind.key(keyCombo);
+    KeyboardJS.clear(keyCombo);
 
-Removes all bindings with a key or key combo. See 'keyCombo' definition for more details.
+Removes all bindings with the given key combo. See 'keyCombo' definition for more details.
 
-Please note that if you are just trying to remove one binding you should use the clear method in the object returned
-by KeyboardJS.bind.key or KeybaordJS.bind.axis instead of this. This function is for removing all binding that use
-a certain key.
+Please note that if you are just trying to remove a single binding should use the clear method in the object returned by KeyboardJS.on instead of this. This function is for removing all binding that use a certain key.
 
-### KeyboardJS.locale.set
+### KeyboardJS.clear.key
 
 ###### Usage
 
-    KeyboardJS.locale.set(localeName);
+    KeyboardJS.clear.key(keyCombo);
 
-Changes the locale keyboardJS uses to map key presses. Currently only US is possible unless more locales have been
-added via KeyboardJS.locale.add
+Removes all bindings that use the given key.
 
-### KeyboardJS.locale.add
+### KeyboardJS.locale
 
 ###### Usage
 
-    KeyboardJS.locale.add(localeName, keyMap);
+    KeyboardJS.locale(localeName);
 
-Adds support for new locals to KeyboardJS. The name of the local and a keyMap are expected. See 'keyMap' definition
-for more details.
+Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only supports US keyboards, however it is possible to add additional locales via KeyboardJS.locale.register().
+
+### KeyboardJS.locale.register
+
+###### Usage
+
+    KeyboardJS.locale.register(localeName, localeDefinition);
+
+Adds new locale definitions to KeyboardJS.
 
 Definitions
 -----------
 
 ### keyCombo
 
-A comma separated string of keys. Combos can be created using the + sign instead of a comma.
+A string containing key names separated by whitespace, `>`, `+`, and `,`.
 
 ###### examples
 
@@ -132,32 +119,31 @@ A comma separated string of keys. Combos can be created using the + sign instead
 * 'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
 or the 'c' and the 'd' key will match this keyCombo.
 
-### axis
+###localeDefinitions
 
-An array containing two numbers. The first value represents x and the second represents y. These values
-are 1, 0, or -1.
-
-###### example
-
-    [x, y]
-
-### keyMap
-
-An object that maps key names to their key code. Used for mapping keys on different locales.
+An object that maps keyNames to their keycode and stores locale specific macros. Used for mapping keys on different locales.
 
 ###### example
 
     {
-        "keyName": keyCode,
-        ...
+        "map": {
+            "65": ["a"],
+            "66": ["b"],
+            ...
+        },
+        "macros": [
+            ["shift + `", ["tilde", "~"]],
+            ["shift + 1", ["exclamation", "!"]],
+            ...
+        ]
     }
 
 Language Support
 ----------------
 
 KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now..,). Adding a new
-locale is easy. Map your keyboard to an object and pass it to KeyboardJS.locale.add('myLocale', {/*MAP*/}) then call
-KeyboardJS.locale.set('myLocale').
+locale is easy. Map your keyboard to an object and pass it to KeyboardJS.locale.register('myLocale', {/*localeDefinition*/}) then call
+KeyboardJS.locale('myLocale').
 
 If you create a new locale please consider sending me a pull request or submit it to the
 [issue tracker](http://github.com/RobertWHurst/KeyboardJS/issues) so I can add it to the library.
@@ -165,7 +151,7 @@ If you create a new locale please consider sending me a pull request or submit i
 Credits
 -------
 
-I made this to enable better access to key controls in my appications. I'd like to share
+I made this to enable better access to key controls in my applications. I'd like to share
 it with fellow devs. Feel free to fork this project and make your own changes.
 
 [![endorse](http://api.coderwall.com/robertwhurst/endorsecount.png)](http://coderwall.com/robertwhurst)

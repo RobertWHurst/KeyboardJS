@@ -654,6 +654,7 @@
 	 * @param  {String} keyName The key name string.
 	 */
 	function removeActiveKey(keyName) {
+		if(keyName === 'super') { activeKeys = []; }
 		activeKeys.splice(activeKeys.indexOf(keyName), 1);
 	}
 
