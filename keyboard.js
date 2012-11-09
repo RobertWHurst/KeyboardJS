@@ -232,7 +232,7 @@
 			if ((+uasm[1]) >= 15) {
 				locales[locale].map["173"] = ["dash", "-"];
 			} else {
-				locales[locale].map["109"] = ["dash", "-"];
+				locales[locale].map["109"].push("dash", "-");
 			}
 		}
 	}
