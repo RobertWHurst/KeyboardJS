@@ -36,7 +36,7 @@
 		library.noConflict('KeyboardJS', 'k');
 	}
 })(this, function(env) {
-	var KeyboardJS = {}, locales, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [], activeMacros = [];
+	var KeyboardJS = {}, locales, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [], activeMacros = [], uas, uasm;
 
 	[].indexOf||(Array.prototype.indexOf=function(a,b,c){for(c=this.length,b=(c+~~b)%c;b<c&&(!(b in this)||this[b]!==a);b++);return b^c?b:-1;});
 
@@ -223,10 +223,18 @@
 	// may not work in Firefox on Mac
 	// for more info, please refer to http://unixpapa.com/js/key.html 
 	// and https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent
-	if (navigator.userAgent && navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+	uas = navigator.userAgent && navigator.userAgent.toLowerCase();
+	if (uas && uas.indexOf('firefox') > -1) {
 		locales[locale].map["59"] = ["semicolon", ";"];
 		locales[locale].map["61"] = ["equal", "equalsign", "="];
-		locales[locale].map["173"] = ["dash", "-"];
+		uasm = uas.match(/firefox\/([0-9]*)(.*)$/);
+		if (uasm && uasm.length > 1) {
+			if ((+uasm[1]) >= 15) {
+				locales[locale].map["173"] = ["dash", "-"];
+			} else {
+				locales[locale].map["109"] = ["dash", "-"];
+			}
+		}
 	}
 	map = locales[locale].map;
 	macros = locales[locale].macros;
