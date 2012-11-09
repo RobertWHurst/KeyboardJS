@@ -219,6 +219,17 @@
 		// http://github.com/RobertWhurst/KeyboardJS/issues/
 	};
 	locale = 'us';
+	//== dwi2: beginning of modification ==//
+	// Fiefox has different keycodes for ';', '=', '-'
+	// may not work in Firefox on Mac
+	// for more info, please refer to http://unixpapa.com/js/key.html 
+	// and https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent
+	if (navigator.userAgent && navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
+		locales[locale].map["59"] = ["semicolon", ";"];
+		locales[locale].map["61"] = ["equal", "equalsign", "="];
+		locales[locale].map["173"] = ["dash", "-"];
+	}
+	//==    dwi2: end of modification    ==//
 	map = locales[locale].map;
 	macros = locales[locale].macros;
 	if(window.addEventListener) {
