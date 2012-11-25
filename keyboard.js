@@ -223,14 +223,14 @@
 	locale = 'us';
 	map = locales[locale].map;
 	macros = locales[locale].macros;
-	if(window.addEventListener) {
-		window.addEventListener('keydown', keydown, false);
-		window.addEventListener('keyup', keyup, false);
-		window.addEventListener('onblur', blur, false);
-	} else if(window.attachEvent) {
-		window.attachEvent('onkeydown', keydown);
-		window.attachEvent('onkeyup', keyup);
-		window.attachEvent('onblur', blur);
+	if(document.addEventListener) {
+		document.addEventListener('keydown', keydown, false);
+		document.addEventListener('keyup', keyup, false);
+		document.addEventListener('onblur', blur, false);
+	} else if(document.attachEvent) {
+		document.attachEvent('onkeydown', keydown);
+		document.attachEvent('onkeyup', keyup);
+		document.attachEvent('onblur', blur);
 	} else {
 		throw new Error('Cannot bind to keydown event. Both addEventListener and attachEvent are unsupported by your browser.');
 	}
