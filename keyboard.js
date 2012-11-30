@@ -226,7 +226,7 @@
 	if(document.addEventListener) {
 		document.addEventListener('keydown', keydown, false);
 		document.addEventListener('keyup', keyup, false);
-		document.addEventListener('onblur', blur, false);
+		document.addEventListener('blur', blur, false);
 	} else if(document.attachEvent) {
 		document.attachEvent('onkeydown', keydown);
 		document.attachEvent('onkeyup', keyup);
