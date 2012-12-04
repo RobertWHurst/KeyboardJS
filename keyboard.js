@@ -405,7 +405,7 @@
 	function removeBindingByKeyCombo(keyCombo) {
 		var bI, binding, keyName;
 		for(bI = 0; bI < bindings.length; bI += 1) {
-			binding = bindings[bi];
+			binding = bindings[bI];
 			if(compareCombos(keyCombo, binding.keyCombo)) {
 				bindings.splice(bI, 1); bI -= 1;
 			}
@@ -414,7 +414,7 @@
 	function removeBindingByKeyName(keyName) {
 		var bI, cI, binding;
 		for(bI = 0; bI < bindings.length; bI += 1) {
-			binding = bindings[bi];
+			binding = bindings[bI];
 			for(cI = 0; cI < binding.keyCombo.length; cI += 1) {
 				if(binding.keyCombo[kI].indexOf(keyName) > -1) {
 					bindings.splice(bI, 1); bI -= 1;
