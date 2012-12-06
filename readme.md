@@ -188,9 +188,9 @@ A string containing key names separated by whitespace, `>`, `+`, and `,`.
 ###### examples
 
 * 'a' - binds to the 'a' key. Pressing 'a' will match this keyCombo.
-* 'a, b' - binds to the 'a' and 'b' keys. Pressing ether of these keys will match this keyCombo.
+* 'a, b' - binds to the 'a' and 'b' keys. Pressing either of these keys will match this keyCombo.
 * 'a + b' - binds to the 'a' and 'b' keys. Pressing both of these keys will match this keyCombo.
-* 'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing ether the 'a' key and the 'b' key,
+* 'a + b, c + d' - binds to the 'a', 'b', 'c' and 'd' keys. Pressing either the 'a' key and the 'b' key,
 or the 'c' and the 'd' key will match this keyCombo.
 
 ###localeDefinitions
