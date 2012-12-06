@@ -1,6 +1,6 @@
 /**
  * Title: KeyboardJS
- * Version: v0.3.0
+ * Version: v0.4.1
  * Description: KeyboardJS is a flexible and easy to use keyboard binding
  * library.
  * Author: Robert Hurst.
@@ -285,7 +285,9 @@
 	KeyboardJS.locale.register = registerLocale;
 	KeyboardJS.macro = createMacro;
 	KeyboardJS.macro.remove = removeMacro;
-	KeyboardJS.getKey = getKeyName;
+	KeyboardJS.key = {};
+	KeyboardJS.key.name = getKeyName;
+	KeyboardJS.key.code = getKeyCode;
 	KeyboardJS.combo = {};
 	KeyboardJS.combo.parse = parseKeyCombo;
 	KeyboardJS.combo.stringify = stringifyKeyCombo;
@@ -750,10 +752,10 @@
 
 	/**
 	 * Parses a key combo string into a 3 dimensional array.
-	 * Level 1 represents each combo as combo strings can contain more than one.
-	 * Level 2 represents each stage. A stages are sub combos that must be
-	 *  satisfied in the order they are defined.
-	 * Level 3 represents each key that must be pressed to satisfy a stage.
+	 * - Level 1 - sub combos.
+	 * - Level 2 - combo stages. A stage is a set of key name pairs that must
+	 *  be satisfied in the order they are defined.
+	 * - Level 3 - each key name to the stage.
 	 * @param  {String|Array}	keyCombo	A key combo string.
 	 * @return {Array}
 	 */
@@ -868,9 +870,9 @@
 	 * @param  {String}	keyNames	The key name string.
 	 */
 	function removeActiveKey(keyName) {
-
-		if( keyName === 'super') { activeKeys = []; } //remove all key on release of super.
-		activeKeys.splice(activeKeys.indexOf(keyName), 1);
+		var keyCode = getKeyCode(keyName);
+		if(keyCode === '91' || keyCode === '92') { activeKeys = []; } //remove all key on release of super.
+		else { activeKeys.splice(activeKeys.indexOf(keyName), 1); }
 	}
 
 	/**

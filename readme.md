@@ -46,6 +46,8 @@ KeyboardJS has full support for AMD module loaders such as [RequireJS](http://re
 Methods
 -------
 
+
+
 ### KeyboardJS.on
 
 ###### Usage
@@ -61,6 +63,8 @@ Returns an object containing the following methods.
 
 * clear() - Removes the key or key combo binding.
 * on() - Allows you to bind to the keyup and keydown event of the given combo. An alternative to adding the onDownCallback and onUpCallback.
+
+
 
 ### KeyboardJS.activeKeys
 
@@ -80,6 +84,8 @@ Removes all bindings with the given key combo. See 'keyCombo' definition for mor
 
 Please note that if you are just trying to remove a single binding should use the clear method in the object returned by KeyboardJS.on instead of this. This function is for removing all binding that use a certain key.
 
+
+
 ### KeyboardJS.clear.key
 
 ###### Usage
@@ -96,6 +102,8 @@ Removes all bindings that use the given key.
 
 Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only supports US keyboards, however it is possible to add additional locales via KeyboardJS.locale.register().
 
+
+
 ### KeyboardJS.locale.register
 
 ###### Usage
@@ -103,6 +111,72 @@ Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS
     KeyboardJS.locale.register(localeName, localeDefinition);
 
 Adds new locale definitions to KeyboardJS.
+
+
+
+### KeyboardJS.macro
+
+###### Usage
+
+    KeyboardJS.macro(keyCombo, keyNames);
+
+Accepts a key combo and an array of key names to inject once the key combo is satisfied.
+
+
+
+### KeyboardJS.macro.remove
+
+###### Usage
+
+    KeyboardJS.macro.remove(keyCombo);
+
+Accepts a key combo and clears any and all macros bound to that key combo.
+
+
+
+### KeyboardJS.key.name
+
+###### Usage
+
+    KeyboardJS.key.name(keyCode);
+
+Accepts a key code and returns the key names defined by the current locale.
+
+
+
+### KeyboardJS.key.code
+
+###### Usage
+
+    KeyboardJS.key.code(keyName);
+
+Accepts a key name and returns the key code defined by the current locale.
+
+
+
+### KeyboardJS.combo.parse
+
+###### Usage
+
+    KeyboardJS.combo.parse(keyCombo);
+
+Parses a key combo string into a 3 dimensional array.
+
+- Level 1 - sub combos.
+- Level 2 - combo stages. A stage is a set of key name pairs that must be satisfied in the order they are defined.
+- Level 3 - each key name to the stage.
+
+
+
+### KeyboardJS.combo.stringify
+
+###### Usage
+
+    KeyboardJS.combo.stringify(keyComboArray);
+
+Stringifys a parsed key combo.
+
+
 
 Definitions
 -----------
