@@ -219,6 +219,7 @@
 
 		//capital A-Z
 		usLocale.macros.push([[[["shift", String.fromCharCode(i + 32)]]], [String.fromCharCode(i)]]);
+		usLocale.macros.push([[[["capslock", String.fromCharCode(i + 32)]]], [String.fromCharCode(i)]]);
 	}
 
 	registerLocale('us', usLocale);
