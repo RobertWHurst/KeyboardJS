@@ -88,13 +88,13 @@
 	}
 })(this, function(env) {
 	var KeyboardJS = {}, locales = {}, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [],
-	activeMacros = [];
+	activeMacros = [], i, usLocale;
 
 	//define US locale
 	//If you create a new locale please submit it as a pull request or post
 	// it in the issue tracker at
 	// http://github.com/RobertWhurst/KeyboardJS/issues/
-	registerLocale('us', {
+	usLocale = {
 		"map": {
 
 			//general
@@ -139,34 +139,6 @@
 			"220": ["backslash", "\\"],
 			"221": ["closebracket", "]"],
 			"222": ["apostrophe", "'"],
-
-			//a-z
-			"65": ["a"],
-			"66": ["b"],
-			"67": ["c"],
-			"68": ["d"],
-			"69": ["e"],
-			"70": ["f"],
-			"71": ["g"],
-			"72": ["h"],
-			"73": ["i"],
-			"74": ["j"],
-			"75": ["k"],
-			"76": ["l"],
-			"77": ["m"],
-			"78": ["n"],
-			"79": ["o"],
-			"80": ["p"],
-			"81": ["q"],
-			"82": ["r"],
-			"83": ["s"],
-			"84": ["t"],
-			"85": ["u"],
-			"86": ["v"],
-			"87": ["w"],
-			"88": ["x"],
-			"89": ["y"],
-			"90": ["z"],
 
 			//0-9
 			"48": ["zero", "0"],
@@ -216,57 +188,40 @@
 		"macros": [
 
 			//secondary key symbols
-			[[[["shift", "graveaccent"]]], ["tilde", "~"]],
-			[[[["shift", "one"]]], ["exclamation", "exclamationpoint", "!"]],
-			[[[["shift", "two"]]], ["at", "@"]],
-			[[[["shift", "three"]]], ["number", "#"]],
-			[[[["shift", "four"]]], ["dollar", "dollars", "dollarsign", "$"]],
-			[[[["shift", "five"]]], ["percent", "%"]],
-			[[[["shift", "six"]]], ["caret", "^"]],
-			[[[["shift", "seven"]]], ["ampersand", "and", "&"]],
-			[[[["shift", "eight"]]], ["asterisk", "*"]],
-			[[[["shift", "nine"]]], ["openparen", "("]],
-			[[[["shift", "zero"]]], ["closeparen", ")"]],
-			[[[["shift", "dash"]]], ["underscore", "_"]],
-			[[[["shift", "equal"]]], ["plus", "+"]],
-			[[[["shift", "openbracket"]]], ["opencurlybrace", "opencurlybracket", "{"]],
-			[[[["shift", "closebracket"]]], ["closecurlybrace", "closecurlybracket", "}"]],
-			[[[["shift", "backslash"]]], ["verticalbar", "|"]],
-			[[[["shift", "semicolon"]]], ["colon", ":"]],
-			[[[["shift", "apostrophe"]]], ["quotationmark", "\""]],
-			[[[["shift", "comma"]]], ["openanglebracket", "<"]],
-			[[[["shift", "period"]]], ["closeanglebracket", ">"]],
-			[[[["shift", "forwardslash"]]], ["questionmark", "?"]],
-
-			//capital A-Z
-			[[[["shift", "a"]]], ["A"]],
-			[[[["shift", "b"]]], ["B"]],
-			[[[["shift", "c"]]], ["C"]],
-			[[[["shift", "d"]]], ["D"]],
-			[[[["shift", "e"]]], ["E"]],
-			[[[["shift", "f"]]], ["F"]],
-			[[[["shift", "g"]]], ["G"]],
-			[[[["shift", "h"]]], ["H"]],
-			[[[["shift", "i"]]], ["I"]],
-			[[[["shift", "j"]]], ["J"]],
-			[[[["shift", "k"]]], ["K"]],
-			[[[["shift", "l"]]], ["L"]],
-			[[[["shift", "m"]]], ["M"]],
-			[[[["shift", "n"]]], ["N"]],
-			[[[["shift", "o"]]], ["O"]],
-			[[[["shift", "p"]]], ["P"]],
-			[[[["shift", "q"]]], ["Q"]],
-			[[[["shift", "r"]]], ["R"]],
-			[[[["shift", "s"]]], ["S"]],
-			[[[["shift", "t"]]], ["T"]],
-			[[[["shift", "u"]]], ["U"]],
-			[[[["shift", "v"]]], ["V"]],
-			[[[["shift", "w"]]], ["W"]],
-			[[[["shift", "x"]]], ["X"]],
-			[[[["shift", "y"]]], ["Y"]],
-			[[[["shift", "z"]]], ["Z"]]
+			[[[["shift", "`"]]], ["tilde", "~"]],
+			[[[["shift", "1"]]], ["exclamation", "exclamationpoint", "!"]],
+			[[[["shift", "2"]]], ["at", "@"]],
+			[[[["shift", "3"]]], ["number", "#"]],
+			[[[["shift", "4"]]], ["dollar", "dollars", "dollarsign", "$"]],
+			[[[["shift", "5"]]], ["percent", "%"]],
+			[[[["shift", "6"]]], ["caret", "^"]],
+			[[[["shift", "7"]]], ["ampersand", "and", "&"]],
+			[[[["shift", "8"]]], ["asterisk", "*"]],
+			[[[["shift", "9"]]], ["openparen", "("]],
+			[[[["shift", "0"]]], ["closeparen", ")"]],
+			[[[["shift", "-"]]], ["underscore", "_"]],
+			[[[["shift", "="]]], ["plus", "+"]],
+			[[[["shift", "("]]], ["opencurlybrace", "opencurlybracket", "{"]],
+			[[[["shift", ")"]]], ["closecurlybrace", "closecurlybracket", "}"]],
+			[[[["shift", "\\"]]], ["verticalbar", "|"]],
+			[[[["shift", ";"]]], ["colon", ":"]],
+			[[[["shift", "'"]]], ["quotationmark", "\""]],
+			[[[["shift", ","]]], ["openanglebracket", "<"]],
+			[[[["shift", "."]]], ["closeanglebracket", ">"]],
+			[[[["shift", "/"]]], ["questionmark", "?"]]
 		]
-	});
+	};
+
+	//generate as many as possible to save characters
+	for (i = 65; i <= 90; i++) {
+		//a-z
+		usLocale.map[i] = String.fromCharCode(i + 32);
+
+		//capital A-Z
+		usLocale.macros.push([[[["shift", String.fromCharCode(i + 32)]]], [String.fromCharCode(i)]]);
+	}
+
+	registerLocale('us', usLocale);
 
 	//set us as the default locale
 	getSetLocale('us');
