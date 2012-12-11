@@ -19,7 +19,7 @@ load the script with a script tag.
 
 ##### Example index.html
 
-    <doctype html>
+    <!doctype html>
     <html>
         <head>
             <title>KeyboardJS Demo</title>
