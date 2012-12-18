@@ -390,7 +390,7 @@
 		var mI, combo, kI;
 		for(mI = 0; mI < macros.length; mI += 1) {
 			combo = parseKeyCombo(macros[mI][0]);
-			if(activeMacros.indexOf(macros[mI]) === -1 && isSatifiedCombo(combo)) {
+			if(activeMacros.indexOf(macros[mI]) === -1 && isSatisfiedCombo(combo)) {
 				activeMacros.push(macros[mI]);
 				for(kI = 0; kI < macros[mI][1].length; kI += 1) {
 					addActiveKey(macros[mI][1][kI]);
@@ -408,7 +408,7 @@
 		var mI, combo, kI;
 		for(mI = 0; mI < activeMacros.length; mI += 1) {
 			combo = parseKeyCombo(activeMacros[mI][0]);
-			if(isSatifiedCombo(combo) === false) {
+			if(isSatisfiedCombo(combo) === false) {
 				for(kI = 0; kI < activeMacros[mI][1].length; kI += 1) {
 					removeActiveKey(activeMacros[mI][1][kI]);
 				}
@@ -571,7 +571,7 @@
 	 * @param  {KeyboardEvent}	event	The keyboard event.
 	 */
 	function executeBindings(event) {
-		var bI, sBI, binding, bidningKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatified,
+		var bI, sBI, binding, bidningKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatisfied,
 		index, sortedBindings = [], bindingWeight;
 
 		remainingKeys = [].concat(activeKeys);
@@ -585,14 +585,14 @@
 			for(bI = 0; bI < sortedBindings[sBI].length; bI += 1) {
 				binding = sortedBindings[sBI][bI];
 				bindingKeys = extractComboKeys(binding.keyCombo);
-				bindingKeysSatified = true;
+				bindingKeysSatisfied = true;
 				for(kI = 0; kI < bindingKeys.length; kI += 1) {
 					if(remainingKeys.indexOf(bindingKeys[kI]) === -1) {
-						bindingKeysSatified = false;
+						bindingKeysSatisfied = false;
 						break;
 					}
 				}
-				if(bindingKeysSatified && isSatifiedCombo(binding.keyCombo)) {
+				if(bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
 					activeBindings.push(binding);
 					for(kI = 0; kI < bindingKeys.length; kI += 1) {
 						index = remainingKeys.indexOf(bindingKeys[kI]);
@@ -624,7 +624,7 @@
 		var bI, cI, binding, killEventBubble;
 		for(bI = 0; bI < activeBindings.length; bI += 1) {
 			binding = activeBindings[bI];
-			if(isSatifiedCombo(binding.keyCombo) === false) {
+			if(isSatisfiedCombo(binding.keyCombo) === false) {
 				for(cI = 0; cI < binding.keyUpCallback.length; cI += 1) {
 					if (binding.keyUpCallback[cI](event) === false) {
 						killEventBubble = true;
@@ -670,7 +670,7 @@
 	 * @param  {String}	keyCombo	A key combo string or array.
 	 * @return {Boolean}
 	 */
-	function isSatifiedCombo(keyCombo) {
+	function isSatisfiedCombo(keyCombo) {
 		var cI, sI, stage, kI, stageOffset = 0, index;
 		keyCombo = parseKeyCombo(keyCombo);
 		for(cI = 0; cI < keyCombo.length; cI += 1) {
