@@ -236,6 +236,7 @@
 	KeyboardJS.activeKeys = getActiveKeys;
 	KeyboardJS.on = createBinding;
 	KeyboardJS.clear = removeBindingByKeyCombo;
+    KeyboardJS.clear.all = removeBindingAll;
 	KeyboardJS.clear.key = removeBindingByKeyName;
 	KeyboardJS.locale = getSetLocale;
 	KeyboardJS.locale.register = registerLocale;
@@ -548,6 +549,13 @@
 		}
 	}
 
+    /**
+     * Clears all binding.
+     */
+    function removeBindingAll(){
+        bindings.splice(0 , bindings.length);
+    }
+    
 	/**
 	 * Clears all binding attached to key combos containing a given key name.
 	 * @param  {String}	keyName
