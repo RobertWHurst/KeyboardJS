@@ -360,7 +360,7 @@
 		if(typeof injectedKeys !== 'object' || typeof injectedKeys.push !== 'function') {
 			throw new Error("Cannot create macro. The injectedKeys must be an array.");
 		}
-		marcos.push([combo, injectKeys]);
+		macros.push([combo, injectedKeys]);
 	}
 
 	/**
