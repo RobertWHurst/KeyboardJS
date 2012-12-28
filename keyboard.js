@@ -212,7 +212,7 @@
 			['shift + ;', ["colon", ":"]],
 			['shift + \'', ["quotationmark", "\""]],
 			['shift + !,', ["openanglebracket", "<"]],
-			['shift + .', ["closeanglebracket", ">"]],`
+			['shift + .', ["closeanglebracket", ">"]],
 			['shift + /', ["questionmark", "?"]]
 		]
 	};
