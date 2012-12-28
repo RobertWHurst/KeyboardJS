@@ -2,6 +2,7 @@ $(function() {
 	var $demoReadout, konami, kI = 0;
 
 	$demoReadout = $('.demoReadout');
+	$demoReadout.HTML('Press some keys...');
 	konami = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
 
 	$(document).on('keydown', updateReadout);
