@@ -58,7 +58,7 @@
 
 			//sets library namespaces
 			function noConflict(    ) {
-				var args, nI;
+				var args, nI, newNamespaces;
 
 				newNamespaces = Array.prototype.slice.apply(arguments);
 
@@ -88,13 +88,18 @@
 	}
 })(this, function(env) {
 	var KeyboardJS = {}, locales = {}, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [],
-	activeMacros = [];
+	activeMacros = [], aI, usLocale;
+
+
+	///////////////////////
+	// DEFUALT US LOCALE //
+	///////////////////////
 
 	//define US locale
 	//If you create a new locale please submit it as a pull request or post
 	// it in the issue tracker at
 	// http://github.com/RobertWhurst/KeyboardJS/issues/
-	registerLocale('us', {
+	usLocale = {
 		"map": {
 
 			//general
@@ -139,34 +144,6 @@
 			"220": ["backslash", "\\"],
 			"221": ["closebracket", "]"],
 			"222": ["apostrophe", "'"],
-
-			//a-z
-			"65": ["a"],
-			"66": ["b"],
-			"67": ["c"],
-			"68": ["d"],
-			"69": ["e"],
-			"70": ["f"],
-			"71": ["g"],
-			"72": ["h"],
-			"73": ["i"],
-			"74": ["j"],
-			"75": ["k"],
-			"76": ["l"],
-			"77": ["m"],
-			"78": ["n"],
-			"79": ["o"],
-			"80": ["p"],
-			"81": ["q"],
-			"82": ["r"],
-			"83": ["s"],
-			"84": ["t"],
-			"85": ["u"],
-			"86": ["v"],
-			"87": ["w"],
-			"88": ["x"],
-			"89": ["y"],
-			"90": ["z"],
 
 			//0-9
 			"48": ["zero", "0"],
@@ -216,63 +193,49 @@
 		"macros": [
 
 			//secondary key symbols
-			[[[["shift", "graveaccent"]]], ["tilde", "~"]],
-			[[[["shift", "one"]]], ["exclamation", "exclamationpoint", "!"]],
-			[[[["shift", "two"]]], ["at", "@"]],
-			[[[["shift", "three"]]], ["number", "#"]],
-			[[[["shift", "four"]]], ["dollar", "dollars", "dollarsign", "$"]],
-			[[[["shift", "five"]]], ["percent", "%"]],
-			[[[["shift", "six"]]], ["caret", "^"]],
-			[[[["shift", "seven"]]], ["ampersand", "and", "&"]],
-			[[[["shift", "eight"]]], ["asterisk", "*"]],
-			[[[["shift", "nine"]]], ["openparen", "("]],
-			[[[["shift", "zero"]]], ["closeparen", ")"]],
-			[[[["shift", "dash"]]], ["underscore", "_"]],
-			[[[["shift", "equal"]]], ["plus", "+"]],
-			[[[["shift", "openbracket"]]], ["opencurlybrace", "opencurlybracket", "{"]],
-			[[[["shift", "closebracket"]]], ["closecurlybrace", "closecurlybracket", "}"]],
-			[[[["shift", "backslash"]]], ["verticalbar", "|"]],
-			[[[["shift", "semicolon"]]], ["colon", ":"]],
-			[[[["shift", "apostrophe"]]], ["quotationmark", "\""]],
-			[[[["shift", "comma"]]], ["openanglebracket", "<"]],
-			[[[["shift", "period"]]], ["closeanglebracket", ">"]],
-			[[[["shift", "forwardslash"]]], ["questionmark", "?"]],
-
-			//capital A-Z
-			[[[["shift", "a"]]], ["A"]],
-			[[[["shift", "b"]]], ["B"]],
-			[[[["shift", "c"]]], ["C"]],
-			[[[["shift", "d"]]], ["D"]],
-			[[[["shift", "e"]]], ["E"]],
-			[[[["shift", "f"]]], ["F"]],
-			[[[["shift", "g"]]], ["G"]],
-			[[[["shift", "h"]]], ["H"]],
-			[[[["shift", "i"]]], ["I"]],
-			[[[["shift", "j"]]], ["J"]],
-			[[[["shift", "k"]]], ["K"]],
-			[[[["shift", "l"]]], ["L"]],
-			[[[["shift", "m"]]], ["M"]],
-			[[[["shift", "n"]]], ["N"]],
-			[[[["shift", "o"]]], ["O"]],
-			[[[["shift", "p"]]], ["P"]],
-			[[[["shift", "q"]]], ["Q"]],
-			[[[["shift", "r"]]], ["R"]],
-			[[[["shift", "s"]]], ["S"]],
-			[[[["shift", "t"]]], ["T"]],
-			[[[["shift", "u"]]], ["U"]],
-			[[[["shift", "v"]]], ["V"]],
-			[[[["shift", "w"]]], ["W"]],
-			[[[["shift", "x"]]], ["X"]],
-			[[[["shift", "y"]]], ["Y"]],
-			[[[["shift", "z"]]], ["Z"]]
+			['shift + `', ["tilde", "~"]],
+			['shift + 1', ["exclamation", "exclamationpoint", "!"]],
+			['shift + 2', ["at", "@"]],
+			['shift + 3', ["number", "#"]],
+			['shift + 4', ["dollar", "dollars", "dollarsign", "$"]],
+			['shift + 5', ["percent", "%"]],
+			['shift + 6', ["caret", "^"]],
+			['shift + 7', ["ampersand", "and", "&"]],
+			['shift + 8', ["asterisk", "*"]],
+			['shift + 9', ["openparen", "("]],
+			['shift + 0', ["closeparen", ")"]],
+			['shift + -', ["underscore", "_"]],
+			['shift + =', ["plus", "+"]],
+			['shift + (', ["opencurlybrace", "opencurlybracket", "{"]],
+			['shift + )', ["closecurlybrace", "closecurlybracket", "}"]],
+			['shift + \\', ["verticalbar", "|"]],
+			['shift + ;', ["colon", ":"]],
+			['shift + \'', ["quotationmark", "\""]],
+			['shift + !,', ["openanglebracket", "<"]],
+			['shift + .', ["closeanglebracket", ">"]],`
+			['shift + /', ["questionmark", "?"]]
 		]
-	});
-
-	//set us as the default locale
+	};
+	//a-z and A-Z
+	for (aI = 65; aI <= 90; aI += 1) {
+		usLocale.map[aI] = String.fromCharCode(aI + 32);
+		usLocale.macros.push(['shift + ' + String.fromCharCode(aI + 32) + ', capslock + ' + String.fromCharCode(aI + 32), [String.fromCharCode(aI)]]);
+	}
+	registerLocale('us', usLocale);
 	getSetLocale('us');
+
+
+	//////////
+	// INIT //
+	//////////
 
 	//enable the library
 	enable();
+
+
+	/////////
+	// API //
+	/////////
 
 	//assemble the library and return it
 	KeyboardJS.enable = enable;
@@ -289,9 +252,15 @@
 	KeyboardJS.key.name = getKeyName;
 	KeyboardJS.key.code = getKeyCode;
 	KeyboardJS.combo = {};
+	KeyboardJS.combo.active = isSatisfiedCombo;
 	KeyboardJS.combo.parse = parseKeyCombo;
 	KeyboardJS.combo.stringify = stringifyKeyCombo;
 	return KeyboardJS;
+
+
+	//////////////////////
+	// INSTANCE METHODS //
+	//////////////////////
 
 	/**
 	 * Enables KeyboardJS
@@ -323,6 +292,11 @@
 			window.detachEvent('onblur', reset);
 		}
 	}
+
+
+	////////////////////
+	// EVENT HANDLERS //
+	////////////////////
 
 	/**
 	 * Exits all active bindings. Optionally passes an event to all binding
@@ -391,6 +365,11 @@
 		return false;
 	}
 
+
+	////////////
+	// MACROS //
+	////////////
+
 	/**
 	 * Accepts a key combo and an array of key names to inject once the key
 	 *  combo is satisfied.
@@ -404,7 +383,7 @@
 		if(typeof injectedKeys !== 'object' || typeof injectedKeys.push !== 'function') {
 			throw new Error("Cannot create macro. The injectedKeys must be an array.");
 		}
-		marcos.push([combo, injectKeys]);
+		macros.push([combo, injectedKeys]);
 	}
 
 	/**
@@ -434,7 +413,7 @@
 		var mI, combo, kI;
 		for(mI = 0; mI < macros.length; mI += 1) {
 			combo = parseKeyCombo(macros[mI][0]);
-			if(activeMacros.indexOf(macros[mI]) === -1 && isSatifiedCombo(combo)) {
+			if(activeMacros.indexOf(macros[mI]) === -1 && isSatisfiedCombo(combo)) {
 				activeMacros.push(macros[mI]);
 				for(kI = 0; kI < macros[mI][1].length; kI += 1) {
 					addActiveKey(macros[mI][1][kI]);
@@ -452,7 +431,7 @@
 		var mI, combo, kI;
 		for(mI = 0; mI < activeMacros.length; mI += 1) {
 			combo = parseKeyCombo(activeMacros[mI][0]);
-			if(isSatifiedCombo(combo) === false) {
+			if(isSatisfiedCombo(combo) === false) {
 				for(kI = 0; kI < activeMacros[mI][1].length; kI += 1) {
 					removeActiveKey(activeMacros[mI][1][kI]);
 				}
@@ -461,6 +440,11 @@
 			}
 		}
 	}
+
+
+	//////////////
+	// BINDINGS //
+	//////////////
 
 	/**
 	 * Creates a binding object, and, if provided, binds a key down hander and
@@ -598,14 +582,18 @@
 	 */
 	function removeBindingByKeyName(keyName) {
 		var bI, cI, binding;
-		for(bI = 0; bI < bindings.length; bI += 1) {
-			binding = bindings[bI];
-			for(cI = 0; cI < binding.keyCombo.length; cI += 1) {
-				if(binding.keyCombo[kI].indexOf(keyName) > -1) {
-					bindings.splice(bI, 1); bI -= 1;
-					break;
+		if(keyName) {
+			for(bI = 0; bI < bindings.length; bI += 1) {
+				binding = bindings[bI];
+				for(cI = 0; cI < binding.keyCombo.length; cI += 1) {
+					if(binding.keyCombo[kI].indexOf(keyName) > -1) {
+						bindings.splice(bI, 1); bI -= 1;
+						break;
+					}
 				}
 			}
+		} else {
+			bindings = [];
 		}
 	}
 
@@ -615,7 +603,7 @@
 	 * @param  {KeyboardEvent}	event	The keyboard event.
 	 */
 	function executeBindings(event) {
-		var bI, sBI, binding, bidningKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatified,
+		var bI, sBI, binding, bidningKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatisfied,
 		index, sortedBindings = [], bindingWeight;
 
 		remainingKeys = [].concat(activeKeys);
@@ -629,14 +617,14 @@
 			for(bI = 0; bI < sortedBindings[sBI].length; bI += 1) {
 				binding = sortedBindings[sBI][bI];
 				bindingKeys = extractComboKeys(binding.keyCombo);
-				bindingKeysSatified = true;
+				bindingKeysSatisfied = true;
 				for(kI = 0; kI < bindingKeys.length; kI += 1) {
 					if(remainingKeys.indexOf(bindingKeys[kI]) === -1) {
-						bindingKeysSatified = false;
+						bindingKeysSatisfied = false;
 						break;
 					}
 				}
-				if(bindingKeysSatified && isSatifiedCombo(binding.keyCombo)) {
+				if(bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
 					activeBindings.push(binding);
 					for(kI = 0; kI < bindingKeys.length; kI += 1) {
 						index = remainingKeys.indexOf(bindingKeys[kI]);
@@ -646,7 +634,7 @@
 						}
 					}
 					for(cI = 0; cI < binding.keyDownCallback.length; cI += 1) {
-						if (binding.keyDownCallback[cI](event) === false) {
+						if (binding.keyDownCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 							killEventBubble = true;
 						}
 					}
@@ -668,9 +656,9 @@
 		var bI, cI, binding, killEventBubble;
 		for(bI = 0; bI < activeBindings.length; bI += 1) {
 			binding = activeBindings[bI];
-			if(isSatifiedCombo(binding.keyCombo) === false) {
+			if(isSatisfiedCombo(binding.keyCombo) === false) {
 				for(cI = 0; cI < binding.keyUpCallback.length; cI += 1) {
-					if (binding.keyUpCallback[cI](event) === false) {
+					if (binding.keyUpCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 						killEventBubble = true;
 					}
 				}
@@ -683,6 +671,11 @@
 			}
 		}
 	}
+
+
+	///////////////////
+	// COMBO STRINGS //
+	///////////////////
 
 	/**
 	 * Compares two key combos returning true when they are functionally
@@ -714,10 +707,12 @@
 	 * @param  {String}	keyCombo	A key combo string or array.
 	 * @return {Boolean}
 	 */
-	function isSatifiedCombo(keyCombo) {
-		var cI, sI, stage, kI, stageOffset = 0, index;
+	function isSatisfiedCombo(keyCombo) {
+		var cI, sI, stage, kI, stageOffset = 0, index, comboMatches;
 		keyCombo = parseKeyCombo(keyCombo);
 		for(cI = 0; cI < keyCombo.length; cI += 1) {
+			comboMatches = true;
+			stageOffset = 0;
 			for(sI = 0; sI < keyCombo[cI].length; sI += 1) {
 				stage = [].concat(keyCombo[cI][sI]);
 				for(kI = stageOffset; kI < activeKeys.length; kI += 1) {
@@ -727,10 +722,11 @@
 						stageOffset = kI;
 					}
 				}
-				if(stage.length !== 0) { return false; }
+				if(stage.length !== 0) { comboMatches = false; break; }
 			}
+			if(comboMatches) { return true; }
 		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -846,6 +842,11 @@
 		return output.join(' ');
 	}
 
+
+	/////////////////
+	// ACTIVE KEYS //
+	/////////////////
+
 	/**
 	 * Returns the a copy of the active keys array.
 	 * @return {Array}
@@ -874,6 +875,11 @@
 		if(keyCode === '91' || keyCode === '92') { activeKeys = []; } //remove all key on release of super.
 		else { activeKeys.splice(activeKeys.indexOf(keyName), 1); }
 	}
+
+
+	/////////////
+	// LOCALES //
+	/////////////
 
 	/**
 	 * Registers a new locale. This is useful if you would like to add support for a new keyboard layout. It could also be useful for
