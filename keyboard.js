@@ -212,7 +212,7 @@
 			['shift + ;', ["colon", ":"]],
 			['shift + \'', ["quotationmark", "\""]],
 			['shift + !,', ["openanglebracket", "<"]],
-			['shift + .', ["closeanglebracket", ">"]],
+			['shift + .', ["closeanglebracket", ">"]],`
 			['shift + /', ["questionmark", "?"]]
 		]
 	};
@@ -252,6 +252,7 @@
 	KeyboardJS.key.name = getKeyName;
 	KeyboardJS.key.code = getKeyCode;
 	KeyboardJS.combo = {};
+	KeyboardJS.combo.active = isSatisfiedCombo;
 	KeyboardJS.combo.parse = parseKeyCombo;
 	KeyboardJS.combo.stringify = stringifyKeyCombo;
 	return KeyboardJS;
