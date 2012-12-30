@@ -5,7 +5,7 @@ KeyboardJS is a easy to use keyboard wrapper. It features support for the follow
 + Advanced key combos - Support for advanced combos with ordered stages.
 + Key combo overlap prevention - Prevents against bindings with shorter combos firing when another binding with a longer combo, sharing the same keys, has already been executed.
 + Macro keys - Support for adding vurtual keys backed by a key combo instead of a physical key.
-+ Keyboard locales - Support for multible locales. Comes with US locale.
++ Keyboard locales - Support for multiple locales. Comes with US locale.
 
 ## Examples
 
