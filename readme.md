@@ -1,47 +1,81 @@
-KeyboardJS Library
-==================
+# KeyboardJS
 
-Getting Started
----------------
+## Introduction
 
-Download the [library](https://github.com/RobertWHurst/KeyboardJS/zipball/master) and
-place it somewhere in your project. All methods are accessed via the KeyboardJS namespace unless the library
-is loaded with an AMD module loader.
+KeyboardS is a easy to use keyboard wrapper. It features support for the following:
 
-##### Example Structure
++ Advanced key combos - Support for advanced combos with ordered stages.
++ Key combo overlap prevention - Prevents against bindings with shorter combos firing when another binding with a longer combo, sharing the same keys, has already been executed.
++ Macro keys - Support for adding vurtual keys backed by a key combo instead of a physical key.
++ Keyboard locales - Support for multible locales. Comes with US locale.
 
-    /
-    /keyboard.js
-    /app.js
-    /index.html
+## Examples
 
-load the script with a script tag.
+### Key Binding
 
-##### Example index.html
+```javascript
+KeyboardJS.on('a', function() {
+    console.log('you pressed a!');
+});
 
-    <!doctype html>
-    <html>
-        <head>
-            <title>KeyboardJS Demo</title>
-            <script src="keyboard.js"></script>
-            <script src="app.js"></script>
-        </head>
-        <body>
-            <!-- Markup goes here... -->
-        </body>
-    </html>
+*** User presses 'a'
+>>> 'you pressed a!'
+*** User releases 'a'
 
-What can I do with KeyboardJS?
-------------------------------
+```
 
-KeyboardJS will allow you to bind to any key the browser can detect. It allows for
-setting up complex key combos or even single key binds with ease. It is aware of combo
-overlap and will not fire simpler combos or single key bindings when they share key with
-larger combos.
+### Key Combo Binding
 
-Basically if you want to use the keyboard, this will let you do it without restrictions.
+```javascript
+KeyboardJS.on('ctrl + m', function() {
+    console.log('ctrl m!');
+});
 
-KeyboardJS has full support for AMD module loaders such as [RequireJS](http://requirejs.org/).
+//note the user can press the keys in any order
+*** User presses 'ctrl' and 'm'
+>>> 'ctrl m!'
+*** User releases 'ctrl' and 'm'
+```
+### Ordered Combo Binding
+
+```javascript
+KeyboardJS.on('ctrl > m', function() {
+    console.log('ctrl m!');
+});
+
+*** User presses 'ctrl'
+*** User presses 'm'
+>>> 'ctrl m!'
+*** User releases 'ctrl' and 'm'
+
+//if the keys are pressed in the wrong order the binding will not be triggered
+*** User presses 'm'
+*** User presses 'ctrl'
+
+*** User releases 'm' and 'ctrl'
+```
+
+### Overlap Prevention
+
+```javascript
+KeyboardJS.on('ctrl > m', function() {
+    console.log('ctrl m!');
+});
+KeyboardJS.on('shift + ctrl > m', function() {
+    console.log('shift ctrl m!');
+});
+
+*** User presses 'ctrl'
+*** User presses 'm'
+>>> 'ctrl m!'
+*** User releases 'ctrl' and 'm'
+
+//note that shift ctrl m does not trigger the ctrl m binding
+*** User presses 'shift' and 'ctrl'
+*** User presses 'm'
+>>> 'shift ctrl m!'
+*** User releases 'shift', 'ctrl' and 'm'
+```
 
 Methods
 -------
