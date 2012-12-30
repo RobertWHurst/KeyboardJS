@@ -1,8 +1,6 @@
 # KeyboardJS
 
-## Introduction
-
-KeyboardS is a easy to use keyboard wrapper. It features support for the following:
+KeyboardJS is a easy to use keyboard wrapper. It features support for the following:
 
 + Advanced key combos - Support for advanced combos with ordered stages.
 + Key combo overlap prevention - Prevents against bindings with shorter combos firing when another binding with a longer combo, sharing the same keys, has already been executed.
