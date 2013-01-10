@@ -242,6 +242,7 @@
 	KeyboardJS.disable = disable;
 	KeyboardJS.activeKeys = getActiveKeys;
 	KeyboardJS.on = createBinding;
+	KeyboardJS.onPress = keyPressBinding;
 	KeyboardJS.clear = removeBindingByKeyCombo;
 	KeyboardJS.clear.key = removeBindingByKeyName;
 	KeyboardJS.locale = getSetLocale;
@@ -923,4 +924,28 @@
 		//return the current locale
 		return locale;
 	}
+
+    /**
+     * Creates binding that fires keyDownCallback and keyUpCallback only once when the combo is pressed/released
+     *
+     * @param  {String}		keyCombo
+     * @param  {Function}	keyDownCallback	[Optional]
+     * @param  {Function}	keyUpCallback	[Optional]
+     * @return {Object}		binding
+     */
+    function keyPressBinding(keyCombo, keyDownCallback, keyUpCallback) {
+        var keyPressed = false;
+
+        return KeyboardJS.on(keyCombo, function() {
+            if(!keyPressed) {
+                keyPressed = true;
+                if(typeof keyDownCallback === 'function') { keyDownCallback(); }
+            }
+        }, function(){
+            if(keyPressed) {
+                keyPressed = false;
+                if(typeof keyUpCallback === 'function') { keyUpCallback(); }
+            }
+        });
+    }
 });
