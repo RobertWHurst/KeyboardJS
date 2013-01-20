@@ -270,6 +270,8 @@
 			document.addEventListener('keydown', keydown, false);
 			document.addEventListener('keyup', keyup, false);
 			window.addEventListener('blur', reset, false);
+			window.addEventListener('webkitfullscreenchange', reset, false);
+			window.addEventListener('mozfullscreenchange', reset, false);
 		} else if(window.attachEvent) {
 			document.attachEvent('onkeydown', keydown);
 			document.attachEvent('onkeyup', keyup);
@@ -286,6 +288,8 @@
 			document.removeEventListener('keydown', keydown, false);
 			document.removeEventListener('keyup', keyup, false);
 			window.removeEventListener('blur', reset, false);
+			window.removeEventListener('webkitfullscreenchange', reset, false);
+			window.removeEventListener('mozfullscreenchange', reset, false);
 		} else if(window.detachEvent) {
 			document.detachEvent('onkeydown', keydown);
 			document.detachEvent('onkeyup', keyup);
