@@ -98,7 +98,13 @@ Returns an object containing the following methods.
 * clear() - Removes the key or key combo binding.
 * on() - Allows you to bind to the keyup and keydown event of the given combo. An alternative to adding the onDownCallback and onUpCallback.
 
+### KeyboardJS.onPress
 
+###### Usage
+
+    KeyboardJS.onPress(keyCombo, onDownCallback, onUpCallback);
+
+Acts almost exactly same way as 'on' method, except fires the callbacks only once. I.e. if you hold down the combo, the down callback is not fired repeatedly, and also up callback is fired only once when the combo is released.
 
 ### KeyboardJS.activeKeys
 
