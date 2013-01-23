@@ -84,7 +84,7 @@ Methods
 
 ###### Usage
 
-    KeyboardJS.on(string keyCombo[, function onDownCallback[, function onUpCallback]]) => object Binding
+    KeyboardJS.on(string keyCombo[, function onDownCallback[, function onUpCallback]]) => object binding
 
 Binds any key or key combo. See 'keyCombo' definition below for details. The onDownCallback is fired once the key or key combo becomes active. The onUpCallback is fired when the combo no longer active (a single key is released).
 
