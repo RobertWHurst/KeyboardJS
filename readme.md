@@ -84,7 +84,7 @@ Methods
 
 ###### Usage
 
-    KeyboardJS.on(String keyCombo[, Function onDownCallback[, Function onUpCallback]]) => Object Binding
+    KeyboardJS.on(string keyCombo[, function onDownCallback[, function onUpCallback]]) => object Binding
 
 Binds any key or key combo. See 'keyCombo' definition below for details. The onDownCallback is fired once the key or key combo becomes active. The onUpCallback is fired when the combo no longer active (a single key is released).
 
@@ -102,7 +102,7 @@ Returns an object containing the following methods.
 
 ###### Usage
 
-    KeyboardJS.activeKeys() => Array activeKeys
+    KeyboardJS.activeKeys() => array activeKeys
 
 Returns an array of active keys by name.
 
@@ -110,7 +110,7 @@ Returns an array of active keys by name.
 
 ###### Usage
 
-    KeyboardJS.clear(String keyCombo)
+    KeyboardJS.clear(string keyCombo)
 
 Removes all bindings with the given key combo. See 'keyCombo' definition for more details.
 
@@ -122,7 +122,7 @@ Please note that if you are just trying to remove a single binding should use th
 
 ###### Usage
 
-    KeyboardJS.clear.key(String keyCombo)
+    KeyboardJS.clear.key(string keyCombo)
 
 Removes all bindings that use the given key.
 
@@ -130,7 +130,7 @@ Removes all bindings that use the given key.
 
 ###### Usage
 
-    KeyboardJS.locale([String localeName]) => localeName
+    KeyboardJS.locale([string localeName]) => string localeName
 
 Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only supports US keyboards, however it is possible to add additional locales via KeyboardJS.locale.register().
 
@@ -140,7 +140,7 @@ Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS
 
 ###### Usage
 
-    KeyboardJS.locale.register(String localeName, Object localeDefinition)
+    KeyboardJS.locale.register(string localeName, object localeDefinition)
 
 Adds new locale definitions to KeyboardJS.
 
@@ -150,7 +150,7 @@ Adds new locale definitions to KeyboardJS.
 
 ###### Usage
 
-    KeyboardJS.macro(String keyCombo, Array keyNames)
+    KeyboardJS.macro(string keyCombo, array keyNames)
 
 Accepts a key combo and an array of key names to inject once the key combo is satisfied.
 
@@ -160,7 +160,7 @@ Accepts a key combo and an array of key names to inject once the key combo is sa
 
 ###### Usage
 
-    KeyboardJS.macro.remove(String keyCombo)
+    KeyboardJS.macro.remove(string keyCombo)
 
 Accepts a key combo and clears any and all macros bound to that key combo.
 
@@ -170,7 +170,7 @@ Accepts a key combo and clears any and all macros bound to that key combo.
 
 ###### Usage
 
-    KeyboardJS.key.name(Number keyCode) => Array keyNames
+    KeyboardJS.key.name(number keyCode) => array keyNames
 
 Accepts a key code and returns the key names defined by the current locale.
 
@@ -180,7 +180,7 @@ Accepts a key code and returns the key names defined by the current locale.
 
 ###### Usage
 
-    KeyboardJS.key.code(String keyName) => Number keyCode
+    KeyboardJS.key.code(string keyName) => number keyCode
 
 Accepts a key name and returns the key code defined by the current locale.
 
@@ -190,7 +190,7 @@ Accepts a key name and returns the key code defined by the current locale.
 
 ###### Usage
 
-    KeyboardJS.combo.parse(keyCombo) => Array keyComboArray
+    KeyboardJS.combo.parse(string keyCombo) => array keyComboArray
 
 Parses a key combo string into a 3 dimensional array.
 
@@ -204,7 +204,7 @@ Parses a key combo string into a 3 dimensional array.
 
 ###### Usage
 
-    KeyboardJS.combo.stringify(Array keyComboArray) => String KeyCombo
+    KeyboardJS.combo.stringify(array keyComboArray) => string KeyCombo
 
 Stringifys a parsed key combo.
 
