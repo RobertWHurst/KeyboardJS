@@ -694,11 +694,11 @@
 		keyComboArrayB = parseKeyCombo(keyComboArrayB);
 		if(keyComboArrayA.length !== keyComboArrayB.length) { return false; }
 		for(cI = 0; cI < keyComboArrayA.length; cI += 1) {
-			if(keyComboArrayA[aI].length !== keyComboArrayB[aI].length) { return false; }
-			for(sI = 0; sI < keyComboArrayA[aI].length; sI += 1) {
-				if(keyComboArrayA[aI][sI].length !== keyComboArrayB[aI][sI].length) { return false; }
-				for(kI = 0; kI < keyComboArrayA[aI][sI].length; kI += 1) {
-					if(keyComboArrayB[aI][sI].indexOf(keyComboArrayA[aI][sI][kI]) === -1) { return false; }
+			if(keyComboArrayA[cI].length !== keyComboArrayB[cI].length) { return false; }
+			for(sI = 0; sI < keyComboArrayA[cI].length; sI += 1) {
+				if(keyComboArrayA[cI][sI].length !== keyComboArrayB[cI][sI].length) { return false; }
+				for(kI = 0; kI < keyComboArrayA[cI][sI].length; kI += 1) {
+					if(keyComboArrayB[cI][sI].indexOf(keyComboArrayA[cI][sI][kI]) === -1) { return false; }
 				}
 			}
 		}
