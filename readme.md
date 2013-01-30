@@ -88,7 +88,7 @@ Methods
 
 Binds any key or key combo. See 'keyCombo' definition below for details. The onDownCallback is fired once the key or key combo becomes active. The onUpCallback is fired when the combo no longer active (a single key is released).
 
-Both the onUpCallback and the onUpCallback are passed three arguments. The first is the key event, the second is the keys pressed, and the third is the key combo string.
+Both the onDownCallback and the onUpCallback are passed three arguments. The first is the key event, the second is the keys pressed, and the third is the key combo string.
 
 ###### Returned
 Returns an object containing the following methods.
