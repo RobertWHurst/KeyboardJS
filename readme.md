@@ -1,5 +1,8 @@
 # KeyboardJS
 
+[![Endorse](http://api.coderwall.com/robertwhurst/endorsecount.png)](http://coderwall.com/robertwhurst)
+[![Flattr This](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/1381991)
+
 KeyboardJS is a easy to use keyboard wrapper. It features support for the following:
 
 + Advanced key combos - Support for advanced combos with ordered stages.
