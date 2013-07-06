@@ -1,7 +1,7 @@
 {
   "name": "KeyboardJS",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
   ],
