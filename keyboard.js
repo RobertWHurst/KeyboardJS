@@ -585,11 +585,11 @@
 	 * @param  {String}	keyName
 	 */
 	function removeBindingByKeyName(keyName) {
-		var bI, cI, binding;
+		var bI, kI, binding;
 		if(keyName) {
 			for(bI = 0; bI < bindings.length; bI += 1) {
 				binding = bindings[bI];
-				for(cI = 0; cI < binding.keyCombo.length; cI += 1) {
+				for(kI = 0; kI < binding.keyCombo.length; kI += 1) {
 					if(binding.keyCombo[kI].indexOf(keyName) > -1) {
 						bindings.splice(bI, 1); bI -= 1;
 						break;
