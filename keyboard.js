@@ -607,7 +607,7 @@
 	 * @param  {KeyboardEvent}	event	The keyboard event.
 	 */
 	function executeBindings(event) {
-		var bI, sBI, binding, bidningKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatisfied,
+		var bI, sBI, binding, bindingKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatisfied,
 		index, sortedBindings = [], bindingWeight;
 
 		remainingKeys = [].concat(activeKeys);
