@@ -318,11 +318,15 @@
 	 * @param  {KeyboardEvent}	event
 	 */
 	function keydown(event) {
-		var keyNames, kI;
+		var keyNames, keyName, kI;
 		keyNames = getKeyName(event.keyCode);
 		if(keyNames.length < 1) { return; }
+		event.isRepeat = false;
 		for(kI = 0; kI < keyNames.length; kI += 1) {
-			addActiveKey(keyNames[kI]);
+		    keyName = keyNames[kI];
+		    if (getActiveKeys().indexOf(keyName) != -1)
+		        event.isRepeat = true;
+			addActiveKey(keyName);
 		}
 		executeMacros();
 		executeBindings(event);
