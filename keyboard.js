@@ -18,6 +18,8 @@
 	if(typeof define === 'function' && define.amd) { define(constructAMD); }
 
 	//GLOBAL
+	else if(typeof module !== 'undefined') {constructCommonJS()}
+
 	else { constructGlobal(); }
 
 	/**
@@ -35,6 +37,27 @@
 			library.fork = init;
 			return library;
 		}
+	}
+
+	/**
+	 * Construct CommonJS version of the library
+	 */
+	function constructCommonJS() {
+
+		//create a library instance
+		module.exports = init();
+
+		return;
+
+		//spawns a library instance
+		function init() {
+			var library;
+			library = factory('CommonJS');
+			library.fork = init;
+			return library;
+
+		}
+
 	}
 
 	/**
@@ -86,6 +109,7 @@
 			}
 		}
 	}
+
 })(this, function(env) {
 	var KeyboardJS = {}, locales = {}, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [],
 	activeMacros = [], aI, usLocale;
