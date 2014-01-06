@@ -17,9 +17,10 @@
 	//AMD
 	if(typeof define === 'function' && define.amd) { define(constructAMD); }
 
-	//GLOBAL
+	//CommonJS
 	else if(typeof module !== 'undefined') {constructCommonJS()}
 
+	//GLOBAL
 	else { constructGlobal(); }
 
 	/**
