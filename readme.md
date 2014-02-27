@@ -2,7 +2,6 @@
 
 [![Endorse](http://api.coderwall.com/robertwhurst/endorsecount.png)](http://coderwall.com/robertwhurst)
 [![Flattr This](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/1381991)
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/RobertWHurst/keyboardjs/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 KeyboardJS is a easy to use keyboard wrapper. It features support for the following:
 
