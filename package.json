@@ -1,5 +1,5 @@
 {
-  "name": "KeyboardJS",
+  "name": "keyboardjs",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
   "version": "0.4.2",
   "keywords": [
@@ -30,5 +30,6 @@
       "url": "https://raw.github.com/RobertWHurst/KeyboardJS/master/license.txt"
     }
   ],
-  "homepage": "http://robertwhurst.github.com/KeyboardJS/"
+  "homepage": "http://robertwhurst.github.com/KeyboardJS/",
+  "main": "keyboard.js"
 }
