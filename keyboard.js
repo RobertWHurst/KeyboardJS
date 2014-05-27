@@ -198,7 +198,7 @@
 			"108": ["numenter"],
 			"109": ["numsubtract", "num-"],
 			"110": ["numdecimal", "num."],
-			"111": ["numdevide", "num/"],
+			"111": ["numdivide", "num/"],
 			"144": ["numlock", "num"],
 
 			//function keys
