@@ -17,6 +17,9 @@
 	//AMD
 	if(typeof define === 'function' && define.amd) { define(constructAMD); }
 
+	//CommonJS
+	else if(typeof module !== 'undefined') {constructCommonJS()}
+
 	//GLOBAL
 	else { constructGlobal(); }
 
@@ -35,6 +38,27 @@
 			library.fork = init;
 			return library;
 		}
+	}
+
+	/**
+	 * Construct CommonJS version of the library
+	 */
+	function constructCommonJS() {
+
+		//create a library instance
+		module.exports = init();
+
+		return;
+
+		//spawns a library instance
+		function init() {
+			var library;
+			library = factory('CommonJS');
+			library.fork = init;
+			return library;
+
+		}
+
 	}
 
 	/**
@@ -86,6 +110,7 @@
 			}
 		}
 	}
+
 })(this, function(env) {
 	var KeyboardJS = {}, locales = {}, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [],
 	activeMacros = [], aI, usLocale;
@@ -173,7 +198,7 @@
 			"108": ["numenter"],
 			"109": ["numsubtract", "num-"],
 			"110": ["numdecimal", "num."],
-			"111": ["numdevide", "num/"],
+			"111": ["numdivide", "num/"],
 			"144": ["numlock", "num"],
 
 			//function keys
