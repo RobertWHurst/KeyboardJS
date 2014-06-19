@@ -29,12 +29,12 @@
 	function constructAMD() {
 
 		//create a library instance
-		return init();
+		return init(context);
 
 		//spawns a library instance
-		function init() {
+		function init(context) {
 			var library;
-			library = factory('amd');
+			library = factory(context, 'amd');
 			library.fork = init;
 			return library;
 		}
@@ -46,14 +46,14 @@
 	function constructCommonJS() {
 
 		//create a library instance
-		module.exports = init();
+		module.exports = init(context);
 
 		return;
 
 		//spawns a library instance
-		function init() {
+		function init(context) {
 			var library;
-			library = factory('CommonJS');
+			library = factory(context, 'CommonJS');
 			library.fork = init;
 			return library;
 
@@ -68,16 +68,16 @@
 		var library;
 
 		//create a library instance
-		library = init();
-		library.noConflict('KeyboardJS', 'k');
+		library = init(context);
 
 		//spawns a library instance
-		function init() {
+		function init(context) {
 			var library, namespaces = [], previousValues = {};
 
-			library = factory('global');
+			library = factory(context, 'global');
 			library.fork = init;
 			library.noConflict = noConflict;
+			library.noConflict('KeyboardJS', 'k');
 			return library;
 
 			//sets library namespaces
@@ -111,13 +111,13 @@
 		}
 	}
 
-})(this, function(env) {
+})(this, function(targetWindow, env) {
 	var KeyboardJS = {}, locales = {}, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [],
 	activeMacros = [], aI, usLocale;
-
+	targetWindow = targetWindow || window;
 
 	///////////////////////
-	// DEFUALT US LOCALE //
+	// DEFAULT US LOCALE //
 	///////////////////////
 
 	//define US locale
@@ -291,16 +291,16 @@
 	 * Enables KeyboardJS
 	 */
 	function enable() {
-		if(window.addEventListener) {
-			document.addEventListener('keydown', keydown, false);
-			document.addEventListener('keyup', keyup, false);
-			window.addEventListener('blur', reset, false);
-			window.addEventListener('webkitfullscreenchange', reset, false);
-			window.addEventListener('mozfullscreenchange', reset, false);
-		} else if(window.attachEvent) {
-			document.attachEvent('onkeydown', keydown);
-			document.attachEvent('onkeyup', keyup);
-			window.attachEvent('onblur', reset);
+		if(targetWindow.addEventListener) {
+			targetWindow.document.addEventListener('keydown', keydown, false);
+			targetWindow.document.addEventListener('keyup', keyup, false);
+			targetWindow.addEventListener('blur', reset, false);
+			targetWindow.addEventListener('webkitfullscreenchange', reset, false);
+			targetWindow.addEventListener('mozfullscreenchange', reset, false);
+		} else if(targetWindow.attachEvent) {
+			targetWindow.document.attachEvent('onkeydown', keydown);
+			targetWindow.document.attachEvent('onkeyup', keyup);
+			targetWindow.attachEvent('onblur', reset);
 		}
 	}
 
@@ -309,16 +309,16 @@
 	 */
 	function disable() {
 		reset();
-		if(window.removeEventListener) {
-			document.removeEventListener('keydown', keydown, false);
-			document.removeEventListener('keyup', keyup, false);
-			window.removeEventListener('blur', reset, false);
-			window.removeEventListener('webkitfullscreenchange', reset, false);
-			window.removeEventListener('mozfullscreenchange', reset, false);
-		} else if(window.detachEvent) {
-			document.detachEvent('onkeydown', keydown);
-			document.detachEvent('onkeyup', keyup);
-			window.detachEvent('onblur', reset);
+		if(targetWindow.removeEventListener) {
+			targetWindow.document.removeEventListener('keydown', keydown, false);
+			targetWindow.document.removeEventListener('keyup', keyup, false);
+			targetWindow.removeEventListener('blur', reset, false);
+			targetWindow.removeEventListener('webkitfullscreenchange', reset, false);
+			targetWindow.removeEventListener('mozfullscreenchange', reset, false);
+		} else if(targetWindow.detachEvent) {
+			targetWindow.document.detachEvent('onkeydown', keydown);
+			targetWindow.document.detachEvent('onkeyup', keyup);
+			targetWindow.detachEvent('onblur', reset);
 		}
 	}
 
