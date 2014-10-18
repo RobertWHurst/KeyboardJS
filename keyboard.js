@@ -18,7 +18,7 @@
 	if(typeof define === 'function' && define.amd) { define(constructAMD); }
 
 	//CommonJS
-	else if(typeof module !== 'undefined') {constructCommonJS()}
+	else if(typeof module !== 'undefined') { constructCommonJS(); }
 
 	//GLOBAL
 	else { constructGlobal(); }
@@ -82,11 +82,11 @@
 
 			//sets library namespaces
 			function noConflict(    ) {
-				var args, nI, newNamespaces;
+				var nI, nIL, newNamespaces;
 
 				newNamespaces = Array.prototype.slice.apply(arguments);
 
-				for(nI = 0; nI < namespaces.length; nI += 1) {
+				for(nI = 0, nIL = newNamespaces.length; nI < nIL; nI += 1) {
 					if(typeof previousValues[namespaces[nI]] === 'undefined') {
 						delete context[namespaces[nI]];
 					} else {
@@ -96,7 +96,7 @@
 
 				previousValues = {};
 
-				for(nI = 0; nI < newNamespaces.length; nI += 1) {
+				for(nI = 0, nIL = newNamespaces.length; nI < nIL; nI += 1) {
 					if(typeof newNamespaces[nI] !== 'string') {
 						throw new Error('Cannot replace namespaces. All new namespaces must be strings.');
 					}
@@ -343,11 +343,12 @@
 	 * @param  {KeyboardEvent}	event
 	 */
 	function keydown(event) {
-		var keyNames, keyName, kI;
+		var keyNames, keyName, kI, kIL;
 		keyNames = getKeyName(event.keyCode);
-		if(keyNames.length < 1) { return; }
+		kIL = keyNames.length;
+		if(kIL < 1) { return; }
 		event.isRepeat = false;
-		for(kI = 0; kI < keyNames.length; kI += 1) {
+		for(kI = 0; kI < kIL; kI += 1) {
 		    keyName = keyNames[kI];
 		    if (getActiveKeys().indexOf(keyName) != -1)
 		        event.isRepeat = true;
@@ -362,10 +363,11 @@
 	 * @param  {KeyboardEvent} event
 	 */
 	function keyup(event) {
-		var keyNames, kI;
+		var keyNames, kI, kIL;
 		keyNames = getKeyName(event.keyCode);
-		if(keyNames.length < 1) { return; }
-		for(kI = 0; kI < keyNames.length; kI += 1) {
+		kIL = keyNames.length;
+		if(kIL < 1) { return; }
+		for(kI = 0; kI < kIL; kI += 1) {
 			removeActiveKey(keyNames[kI]);
 		}
 		pruneMacros();
@@ -425,9 +427,9 @@
 	 * @param  {String} combo
 	 */
 	function removeMacro(combo) {
-		var macro;
+		var mI, mIL, macro;
 		if(typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) { throw new Error("Cannot remove macro. The combo must be a string or array."); }
-		for(mI = 0; mI < macros.length; mI += 1) {
+		for(mI = 0, mIL = macros.length; mI < mIL; mI += 1) {
 			macro = macros[mI];
 			if(compareCombos(combo, macro[0])) {
 				removeActiveKey(macro[1]);
@@ -443,12 +445,12 @@
 	 *  into active keys.
 	 */
 	function executeMacros() {
-		var mI, combo, kI;
-		for(mI = 0; mI < macros.length; mI += 1) {
+		var mI, mIL, combo, kI, kIL;
+		for(mI = 0, mIL = macros.length; mI < mIL; mI += 1) {
 			combo = parseKeyCombo(macros[mI][0]);
 			if(activeMacros.indexOf(macros[mI]) === -1 && isSatisfiedCombo(combo)) {
 				activeMacros.push(macros[mI]);
-				for(kI = 0; kI < macros[mI][1].length; kI += 1) {
+				for(kI = 0, kIL = macros[mI][1].length; kI < kIL; kI += 1) {
 					addActiveKey(macros[mI][1][kI]);
 				}
 			}
@@ -461,11 +463,11 @@
 	 *  from active keys.
 	 */
 	function pruneMacros() {
-		var mI, combo, kI;
-		for(mI = 0; mI < activeMacros.length; mI += 1) {
+		var mI, mIL, combo, kI, kIL;
+		for(mI = 0, mIL = activeMacros.length; mI < mIL; mI += 1) {
 			combo = parseKeyCombo(activeMacros[mI][0]);
 			if(isSatisfiedCombo(combo) === false) {
-				for(kI = 0; kI < activeMacros[mI][1].length; kI += 1) {
+				for(kI = 0, kIL = activeMacros[mI][1].length; kI < kIL; kI += 1) {
 					removeActiveKey(activeMacros[mI][1][kI]);
 				}
 				activeMacros.splice(mI, 1);
@@ -489,7 +491,7 @@
 	 * @return {Object}		binding
 	 */
 	function createBinding(keyCombo, keyDownCallback, keyUpCallback) {
-		var api = {}, binding, subBindings = [], bindingApi = {}, kI,
+		var api = {}, binding, subBindings = [], kI, kIL,
 		subCombo;
 
 		//break the combo down into a combo array
@@ -498,7 +500,7 @@
 		}
 
 		//bind each sub combo contained within the combo string
-		for(kI = 0; kI < keyCombo.length; kI += 1) {
+		for(kI = 0, kIL = keyCombo.length; kI < kIL; kI += 1) {
 			binding = {};
 
 			//stringify the combo again
@@ -530,8 +532,8 @@
 		 * Clears the binding
 		 */
 		function clear() {
-			var bI;
-			for(bI = 0; bI < subBindings.length; bI += 1) {
+			var bI, bIL;
+			for(bI = 0, bIL = subBindings.length; bI < bIL; bI += 1) {
 				bindings.splice(bindings.indexOf(subBindings[bI]), 1);
 			}
 		}
@@ -544,7 +546,7 @@
 		 * @return {Object}	subBinding
 		 */
 		function on(eventName    ) {
-			var api = {}, callbacks, cI, bI;
+			var api = {}, callbacks, cI, cIL, bI, bIL;
 
 			//validate event name
 			if(typeof eventName !== 'string') { throw new Error('Cannot bind callback. The event name must be a string.'); }
@@ -554,14 +556,14 @@
 			callbacks = Array.prototype.slice.apply(arguments, [1]);
 
 			//stash each the new binding
-			for(cI = 0; cI < callbacks.length; cI += 1) {
+			for(cI = 0, cIL = callbacks.length; cI < cIL; cI += 1) {
 				if(typeof callbacks[cI] === 'function') {
 					if(eventName === 'keyup') {
-						for(bI = 0; bI < subBindings.length; bI += 1) {
+						for(bI = 0, bIL = subBindings.length; bI < bIL; bI += 1) {
 							subBindings[bI].keyUpCallback.push(callbacks[cI]);
 						}
 					} else if(eventName === 'keydown') {
-						for(bI = 0; bI < subBindings.length; bI += 1) {
+						for(bI = 0, bIL = subBindings.length; bI < bIL; bI += 1) {
 							subBindings[bI].keyDownCallback.push(callbacks[cI]);
 						}
 					}
@@ -576,15 +578,15 @@
 			 * Clears the binding
 			 */
 			function clear() {
-				var cI, bI;
-				for(cI = 0; cI < callbacks.length; cI += 1) {
+				var cI, cIL, bI, bIL;
+				for(cI = 0, cIL = callbacks.length; cI < cIL; cI += 1) {
 					if(typeof callbacks[cI] === 'function') {
 						if(eventName === 'keyup') {
-							for(bI = 0; bI < subBindings.length; bI += 1) {
+							for(bI = 0, bIL = subBindings.length; bI < bIL; bI += 1) {
 								subBindings[bI].keyUpCallback.splice(subBindings[bI].keyUpCallback.indexOf(callbacks[cI]), 1);
 							}
 						} else {
-							for(bI = 0; bI < subBindings.length; bI += 1) {
+							for(bI = 0, bIL = subBindings.length; bI < bIL; bI += 1) {
 								subBindings[bI].keyDownCallback.splice(subBindings[bI].keyDownCallback.indexOf(callbacks[cI]), 1);
 							}
 						}
@@ -600,8 +602,8 @@
 	 * @param  {String}	keyCombo
 	 */
 	function removeBindingByKeyCombo(keyCombo) {
-		var bI, binding, keyName;
-		for(bI = 0; bI < bindings.length; bI += 1) {
+		var bI, bIL, binding;
+		for(bI = 0, bIL = bindings.length; bI < bIL; bI += 1) {
 			binding = bindings[bI];
 			if(compareCombos(keyCombo, binding.keyCombo)) {
 				bindings.splice(bI, 1); bI -= 1;
@@ -614,11 +616,11 @@
 	 * @param  {String}	keyName
 	 */
 	function removeBindingByKeyName(keyName) {
-		var bI, kI, binding;
+		var bI, bIL, kI, kIL, binding;
 		if(keyName) {
-			for(bI = 0; bI < bindings.length; bI += 1) {
+			for(bI = 0, bIL = bindings.length; bI < bIL; bI += 1) {
 				binding = bindings[bI];
-				for(kI = 0; kI < binding.keyCombo.length; kI += 1) {
+				for(kI = 0, kIL = binding.keyCombo.length; kI < kIL; kI += 1) {
 					if(binding.keyCombo[kI].indexOf(keyName) > -1) {
 						bindings.splice(bI, 1); bI -= 1;
 						break;
@@ -636,22 +638,22 @@
 	 * @param  {KeyboardEvent}	event	The keyboard event.
 	 */
 	function executeBindings(event) {
-		var bI, sBI, binding, bindingKeys, remainingKeys, cI, killEventBubble, kI, bindingKeysSatisfied,
+		var bI, bIL, sBI, binding, bindingKeys, remainingKeys, cI, cIL, killEventBubble, kI, kIL, bindingKeysSatisfied,
 		index, sortedBindings = [], bindingWeight;
 
 		remainingKeys = [].concat(activeKeys);
-		for(bI = 0; bI < bindings.length; bI += 1) {
+		for(bI = 0, bIL = bindings.length; bI < bIL; bI += 1) {
 			bindingWeight = extractComboKeys(bindings[bI].keyCombo).length;
 			if(!sortedBindings[bindingWeight]) { sortedBindings[bindingWeight] = []; }
 			sortedBindings[bindingWeight].push(bindings[bI]);
 		}
 		for(sBI = sortedBindings.length - 1; sBI >= 0; sBI -= 1) {
 			if(!sortedBindings[sBI]) { continue; }
-			for(bI = 0; bI < sortedBindings[sBI].length; bI += 1) {
+			for(bI = 0, bIL = sortedBindings[sBI].length; bI < bIL; bI += 1) {
 				binding = sortedBindings[sBI][bI];
 				bindingKeys = extractComboKeys(binding.keyCombo);
 				bindingKeysSatisfied = true;
-				for(kI = 0; kI < bindingKeys.length; kI += 1) {
+				for(kI = 0, kIL = bindingKeys.length; kI < kIL; kI += 1) {
 					if(remainingKeys.indexOf(bindingKeys[kI]) === -1) {
 						bindingKeysSatisfied = false;
 						break;
@@ -659,14 +661,14 @@
 				}
 				if(bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
 					activeBindings.push(binding);
-					for(kI = 0; kI < bindingKeys.length; kI += 1) {
+					for(kI = 0, kIL = bindingKeys.length; kI < kIL; kI += 1) {
 						index = remainingKeys.indexOf(bindingKeys[kI]);
 						if(index > -1) {
 							remainingKeys.splice(index, 1);
 							kI -= 1;
 						}
 					}
-					for(cI = 0; cI < binding.keyDownCallback.length; cI += 1) {
+					for(cI = 0, cIL = binding.keyDownCallback.length; cI < cIL; cI += 1) {
 						if (binding.keyDownCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 							killEventBubble = true;
 						}
@@ -686,11 +688,11 @@
 	 * @param  {KeyboardEvent}	event
 	 */
 	function pruneBindings(event) {
-		var bI, cI, binding, killEventBubble;
-		for(bI = 0; bI < activeBindings.length; bI += 1) {
+		var bI, bIL, cI, cIL, binding, killEventBubble;
+		for(bI = 0, bIL = activeBindings.length; bI < bIL; bI += 1) {
 			binding = activeBindings[bI];
 			if(isSatisfiedCombo(binding.keyCombo) === false) {
-				for(cI = 0; cI < binding.keyUpCallback.length; cI += 1) {
+				for(cI = 0, cIL = binding.keyUpCallback.length; cI < cIL; cI += 1) {
 					if (binding.keyUpCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 						killEventBubble = true;
 					}
@@ -718,15 +720,15 @@
 	 * @return {Boolean}
 	 */
 	function compareCombos(keyComboArrayA, keyComboArrayB) {
-		var cI, sI, kI;
+		var cI, cIL, sI, sIL, kI, kIL;
 		keyComboArrayA = parseKeyCombo(keyComboArrayA);
 		keyComboArrayB = parseKeyCombo(keyComboArrayB);
 		if(keyComboArrayA.length !== keyComboArrayB.length) { return false; }
-		for(cI = 0; cI < keyComboArrayA.length; cI += 1) {
+		for(cI = 0, cIL = keyComboArrayA.length; cI < cIL; cI += 1) {
 			if(keyComboArrayA[cI].length !== keyComboArrayB[cI].length) { return false; }
-			for(sI = 0; sI < keyComboArrayA[cI].length; sI += 1) {
+			for(sI = 0, sIL = keyComboArrayA[cI].length; sI < sIL; sI += 1) {
 				if(keyComboArrayA[cI][sI].length !== keyComboArrayB[cI][sI].length) { return false; }
-				for(kI = 0; kI < keyComboArrayA[cI][sI].length; kI += 1) {
+				for(kI = 0, kIL = keyComboArrayA[cI][sI].length; kI < kIL; kI += 1) {
 					if(keyComboArrayB[cI][sI].indexOf(keyComboArrayA[cI][sI][kI]) === -1) { return false; }
 				}
 			}
@@ -741,14 +743,14 @@
 	 * @return {Boolean}
 	 */
 	function isSatisfiedCombo(keyCombo) {
-		var cI, sI, stage, kI, stageOffset = 0, index, comboMatches;
+		var cI, cIL, sI, sIL, stage, kI, kIL, stageOffset = 0, index, comboMatches;
 		keyCombo = parseKeyCombo(keyCombo);
-		for(cI = 0; cI < keyCombo.length; cI += 1) {
+		for(cI = 0, cIL = keyCombo.length; cI < cIL; cI += 1) {
 			comboMatches = true;
 			stageOffset = 0;
-			for(sI = 0; sI < keyCombo[cI].length; sI += 1) {
+			for(sI = 0, sIL = keyCombo[cI].length; sI < sIL; sI += 1) {
 				stage = [].concat(keyCombo[cI][sI]);
-				for(kI = stageOffset; kI < activeKeys.length; kI += 1) {
+				for(kI = stageOffset, kIL = activeKeys.length; kI < kIL; kI += 1) {
 					index = stage.indexOf(activeKeys[kI]);
 					if(index > -1) {
 						stage.splice(index, 1);
@@ -769,10 +771,10 @@
 	 * @return {Array}
 	 */
 	function extractComboKeys(keyCombo) {
-		var cI, sI, kI, keys = [];
+		var cI, cIL, sI, sIL, keys = [];
 		keyCombo = parseKeyCombo(keyCombo);
-		for(cI = 0; cI < keyCombo.length; cI += 1) {
-			for(sI = 0; sI < keyCombo[cI].length; sI += 1) {
+		for(cI = 0, cIL = keyCombo.length; cI < cIL; cI += 1) {
+			for(sI = 0, sIL = keyCombo[cI].length; sI < sIL; sI += 1) {
 				keys = keys.concat(keyCombo[cI][sI]);
 			}
 		}
@@ -862,12 +864,12 @@
 	 * @return {String}
 	 */
 	function stringifyKeyCombo(keyComboArray) {
-		var cI, ccI, output = [];
+		var cI, cIL, ccI, ccIL, output = [];
 		if(typeof keyComboArray === 'string') { return keyComboArray; }
 		if(typeof keyComboArray !== 'object' || typeof keyComboArray.push !== 'function') { throw new Error('Cannot stringify key combo.'); }
-		for(cI = 0; cI < keyComboArray.length; cI += 1) {
+		for(cI = 0, cIL = keyComboArray.length; cI < cIL; cI += 1) {
 			output[cI] = [];
-			for(ccI = 0; ccI < keyComboArray[cI].length; ccI += 1) {
+			for(ccI = 0, ccIL = keyComboArray[cI].length; ccI < ccIL; ccI += 1) {
 				output[cI][ccI] = keyComboArray[cI][ccI].join(' + ');
 			}
 			output[cI] = output[cI].join(' > ');
