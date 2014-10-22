@@ -212,6 +212,24 @@ Parses a key combo string into a 3 dimensional array.
 Stringifys a parsed key combo.
 
 
+### KeyboardJS.pressKey
+
+###### Usage
+
+    KeyboardJS.pressKey(string keyName)
+
+Add an active key to an array of active keys by name.
+
+
+### KeyboardJS.releaseKey
+
+###### Usage
+
+    KeyboardJS.releaseKey(string keyName)
+
+Removes an active key from an array of active keys by name.
+
+
 
 Definitions
 -----------

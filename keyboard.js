@@ -266,6 +266,8 @@
 	KeyboardJS.enable = enable;
 	KeyboardJS.disable = disable;
 	KeyboardJS.activeKeys = getActiveKeys;
+	KeyboardJS.releaseKey = removeActiveKey;
+	KeyboardJS.pressKey = addActiveKey;
 	KeyboardJS.on = createBinding;
 	KeyboardJS.clear = removeBindingByKeyCombo;
 	KeyboardJS.clear.key = removeBindingByKeyName;
