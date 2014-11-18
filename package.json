@@ -18,12 +18,10 @@
   "bugs": {
     "web": "https://github.com/RobertWHurst/KeyboardJS/issues"
   },
-  "repositories": [
-    {
+  "repository": {
       "type": "git",
       "url": "git@github.com:RobertWHurst/KeyboardJS.git"
-    }
-  ],
+  },
   "licenses": [
     {
       "name": "BSD License",
