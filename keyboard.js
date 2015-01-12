@@ -791,10 +791,10 @@
 	 * @return {Array}
 	 */
 	function parseKeyCombo(keyCombo) {
-		var s = keyCombo, i = 0, op = 0, ws = false, nc = false, combos = [], combo = [], stage = [], key = '';
-
 		if(typeof keyCombo === 'object' && typeof keyCombo.push === 'function') { return keyCombo; }
 		if(typeof keyCombo !== 'string') { throw new Error('Cannot parse "keyCombo" because its type is "' + (typeof keyCombo) + '". It must be a "string".'); }
+
+		var s = keyCombo.toLowerCase(), i = 0, op = 0, ws = false, nc = false, combos = [], combo = [], stage = [], key = '';
 
 		//remove leading whitespace
 		while(s.charAt(i) === ' ') { i += 1; }
