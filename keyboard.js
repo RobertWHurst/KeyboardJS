@@ -488,11 +488,20 @@
 	 * @param  {String}		keyCombo
 	 * @param  {Function}	keyDownCallback	[Optional]
 	 * @param  {Function}	keyUpCallback	[Optional]
+     * @param  {Object}     options         [Optional]
 	 * @return {Object}		binding
 	 */
-	function createBinding(keyCombo, keyDownCallback, keyUpCallback) {
+	function createBinding(keyCombo, keyDownCallback, keyUpCallback, options) {
 		var api = {}, binding, subBindings = [], bindingApi = {}, kI,
 		subCombo;
+
+        if (typeof(keyDownCallback) !== "function" && keyDownCallback !== undefined) {
+            throw new Error('Keydown callback must be a function.');
+        }
+        if (typeof(keyUpCallback) !== "function" && keyUpCallback !== undefined) {
+            throw new Error('Keyup callback must be a function.');
+        }
+        options = options || {};
 
 		//break the combo down into a combo array
 		if(typeof keyCombo === 'string') {
@@ -513,6 +522,10 @@
 			binding.keyCombo = subCombo;
 			binding.keyDownCallback = [];
 			binding.keyUpCallback = [];
+            binding.options = {
+                preventDefault: options.preventDefault || false,
+                preventRepeat: options.preventRepeat || false
+            };
 
 			//inject the key down and key up callbacks if given
 			if(keyDownCallback) { binding.keyDownCallback.push(keyDownCallback); }
@@ -669,11 +682,21 @@
 						}
 					}
 					for(cI = 0; cI < binding.keyDownCallback.length; cI += 1) {
+
+                        if (
+                            binding.options.preventRepeat === true &&
+                            event.isRepeat === true) {
+                            continue;
+                        }
+
 						if (binding.keyDownCallback[cI](event, getActiveKeys(), binding.keyCombo) === false) {
 							killEventBubble = true;
 						}
 					}
-					if(killEventBubble === true) {
+                    if (
+                        killEventBubble === true ||
+                        binding.options.preventDefault === true
+                    ) {
 						event.preventDefault();
 						event.stopPropagation();
 					}
