@@ -137,7 +137,7 @@
         activeBindings = [],
 	    activeMacros = [],
         aI,
-        usLocale;
+        qwertyLayout;
 
     targetWindow = targetWindow || window;
 
@@ -145,7 +145,7 @@
 	// DEFAULT US LOCALE //
 	///////////////////////
 
-	usLocale = {
+    qwertyLayout = {
 		"map": {
 
 			//general
@@ -265,8 +265,8 @@
 
 	//a-z and A-Z
 	for (aI = 65; aI <= 90; aI += 1) {
-		usLocale.map[aI] = String.fromCharCode(aI + 32);
-		usLocale.macros.push(
+        qwertyLayout.map[aI] = String.fromCharCode(aI + 32);
+        qwertyLayout.macros.push(
             [
                 'shift + ' + String.fromCharCode(aI + 32) + ', capslock + ' + String.fromCharCode(aI + 32),
                 [String.fromCharCode(aI)]
@@ -274,8 +274,8 @@
         );
 	}
 
-	registerLocale('us', usLocale);
-	setLocale('us');
+	registerLocale('qwerty', qwertyLayout);
+	setLocale('qwerty');
 
 
 	//////////
