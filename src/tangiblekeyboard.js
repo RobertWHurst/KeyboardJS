@@ -142,7 +142,7 @@
     targetWindow = targetWindow || window;
 
 	///////////////////////
-	// DEFAULT US LOCALE //
+	// DEFAULT US LAYOUT //
 	///////////////////////
 
     qwertyLayout = {
@@ -275,7 +275,7 @@
 	}
 
 	registerLayout('qwerty', qwertyLayout);
-	setLocale('qwerty');
+	setLayout('qwerty');
 
 
 	//////////
@@ -428,7 +428,7 @@
      * @param  {String}	layoutName	The new layout to use.
      * @return {Object}
      */
-    TangibleKeyboard.setLocale = setLocale;
+    TangibleKeyboard.setLayout = setLayout;
 
     /**
      * Returns the currently-assigned layout.
@@ -436,17 +436,17 @@
      * @method getLayout
      * @return {String} The layout identifier.
      */
-    TangibleKeyboard.getLocale = getLocale;
+    TangibleKeyboard.getLayout = getLayout;
 
     /**
-     * Registers a new locale. This is useful if you would like to add support for a new
+     * Registers a new layout. This is useful if you would like to add support for a new
      * keyboard layout. It could also be useful for alternative key names. For example, if
-     * you program games you could create a locale for your key mappings. Instead of key
+     * you program games you could create a layout for your key mappings. Instead of key
      * 65 mapped to 'a' you could map it to 'jump'.
      *
      * @method registerLayout
-     * @param  {String}	localeName	The name of the new locale.
-     * @param  {Object}	localeMap	The locale map.
+     * @param  {String}	layoutName	The name of the new key layout.
+     * @param  {Object}	layoutMap	The layout map.
      */
     TangibleKeyboard.registerLayout = registerLayout;
 
@@ -470,17 +470,17 @@
     TangibleKeyboard.removeMacro = removeMacro;
 
     /**
-     * Accepts a key code and returns the key names defined by the current locale.
+     * Accepts a key code and returns the key names defined by the current key layout.
      *
      * @method getKeyName
      * @param  {Number}	keyCode
      * @return {Array}	keyNames	An array of key names defined for the key
-     *  code as defined by the current locale.
+     *  code as defined by the current layout.
      */
     TangibleKeyboard.getKeyName = getKeyName;
 
     /**
-     * Accepts a key name and returns the key code defined by the current locale.
+     * Accepts a key name and returns the key code defined by the current key layout.
      *
      * @method getKeyCode
      *
@@ -1209,7 +1209,7 @@
 	}
 
 
-	function setLocale(localeName) {
+	function setLayout(localeName) {
 
         if (typeof localeName !== 'string') {
             throw new Error('Cannot set locale. The locale name must be a string.');
@@ -1230,7 +1230,7 @@
 
 	}
 
-    function getLocale() {
+    function getLayout() {
         return locale;
     }
 
