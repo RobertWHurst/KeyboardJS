@@ -128,7 +128,7 @@
     'use strict';
 
 	var TangibleKeyboard = {},
-        locales = {},
+        layouts = {},
         locale,
         map,
         macros,
@@ -274,7 +274,7 @@
         );
 	}
 
-	registerLocale('qwerty', qwertyLayout);
+	registerLayout('qwerty', qwertyLayout);
 	setLocale('qwerty');
 
 
@@ -444,11 +444,11 @@
      * you program games you could create a locale for your key mappings. Instead of key
      * 65 mapped to 'a' you could map it to 'jump'.
      *
-     * @method registerLocale
+     * @method registerLayout
      * @param  {String}	localeName	The name of the new locale.
      * @param  {Object}	localeMap	The locale map.
      */
-    TangibleKeyboard.registerLocale = registerLocale;
+    TangibleKeyboard.registerLayout = registerLayout;
 
     /**
      * Accepts a key combo and an array of key names to inject once the key combo is
@@ -1181,7 +1181,7 @@
 	// LAYOUTS //
 	/////////////
 
-	function registerLocale(localeName, localeMap) {
+	function registerLayout(localeName, localeMap) {
 
 		// Validate arguments
 		if(typeof localeName !== 'string') {
@@ -1205,7 +1205,7 @@
 
 		// Stash the locale
 		if(!localeMap.macros) { localeMap.macros = []; }
-        locales[localeName] = localeMap;
+        layouts[localeName] = localeMap;
 	}
 
 
@@ -1215,15 +1215,15 @@
             throw new Error('Cannot set locale. The locale name must be a string.');
         }
 
-        if (!locales[localeName]) {
+        if (!layouts[localeName]) {
             throw new Error(
                 'Cannot set locale to "' + localeName + '" because no such locale ' +
                 'has been registered.');
         }
 
         // Set the requested map and macros
-        map = locales[localeName].map;
-        macros = locales[localeName].macros;
+        map = layouts[localeName].map;
+        macros = layouts[localeName].macros;
 
         // Set the current locale
         locale = localeName;
