@@ -17,6 +17,9 @@
  *
  * To complete
  *
+ * @todo Check why a reset is issued upon fullscreenchange.
+ * @todo the issue for long-held keys that trigger a bunch of crap on release
+ *
  * @class TangibleKeyboard
  * @static
  * @version @@version
@@ -129,7 +132,7 @@
 
 	var TangibleKeyboard = {},
         layouts = {},
-        locale,
+        layout,
         map,
         macros,
         activeKeys = [],
@@ -299,12 +302,13 @@
     TangibleKeyboard.version = '@@version';
 
     /**
-     * An array of the names of all the currently active keys (i.e. keydown state). This
-     * array will include all the names of all the keys that are currently pressed as long
-     * as they are defined in the currently-active layout.
+     * [read-only] An array of the names of all the currently active keys (i.e. keydown
+     * state). This array will include all the names of all the keys that are currently
+     * pressed as long as they are defined in the currently-active layout.
      *
      * @property activeKeys
-     * @return {Array}
+     * @readOnly
+     * @type {Array}
      */
     TangibleKeyboard.activeKeys = activeKeys;
 
@@ -337,7 +341,7 @@
     TangibleKeyboard.removeActiveKey = removeActiveKey;
 
     /**
-     * Adds a key to the active keys array (if it not there already).
+     * Adds a key to the array of active keys (if it not there already).
      *
      * @method addActiveKey
      * @param {String}	keyName	The name of the key.
@@ -371,11 +375,11 @@
      * becomes active. The `onUpCallback` is fired when the key or combo is no longer
      * active (as soon as a single key is released).
      *
-     * When triggered, the user-defined up and down callbacks are passed three arguments:
+     * When triggered, the user-defined callbacks are passed three arguments:
      *
-     * 1. the keydown or keyup event (as received from the host environment)
+     * 1. the keydown or keyup `Event` object (as received from the host environment)
      * 2. the array of currently active keys
-     * 3. the key or combo string
+     * 3. the key selector string
      *
      * @method on
      *
@@ -406,22 +410,23 @@
      * Clears all bindings attached to a given key selector string. The key name order
      * does not matter as long as the key selectors equate.
      *
-     * @method clear
+     * @method removeBindingByKeySelector
      * @param  {String}	keySelector
      */
-    TangibleKeyboard.clear = removeBindingByKeyCombo;
+    TangibleKeyboard.removeBindingByKeySelector = removeBindingByKeySelector;
 
     /**
      * Clears all bindings attached to key selectors matching the supplied key name.
      *
-     * @method clearKey
+     * @method removeBindingByKeyName
      * @param  {String}	keyName
      */
-    TangibleKeyboard.clearKey = removeBindingByKeyName;
+    TangibleKeyboard.removeBindingByKeyName = removeBindingByKeyName;
 
     /**
-     * Assigns a new layout. The new layout must have been previously registered with the
-     * `registerLayout()` function. By default, only the 'qwerty' layout is registered.
+     * Assigns a new key layout. The new layout must have been previously registered with
+     * the `registerLayout()` function. By default, only the 'qwerty' layout is
+     * registered.
      *
      * @method setLayout
      *
@@ -451,8 +456,55 @@
     TangibleKeyboard.registerLayout = registerLayout;
 
     /**
-     * Accepts a key combo and an array of key names to inject once the key combo is
-     * satisfied.
+     * Registers a new key layout and immediately assigns it as the currently-active
+     * layout.
+     *
+     * @method registerAndSetLayout
+     * @param  {String}	layoutName	The name of the new key layout.
+     * @param  {Object}	layoutMap	The layout map.
+     */
+    TangibleKeyboard.registerAndSetLayout = function (layoutName, layoutMap) {
+        registerLayout(layoutName, layoutMap);
+        setLayout(layoutName);
+    };
+
+    /**
+     * Accepts a key code and returns the key names defined by the current key layout.
+     *
+     * @method getKeyName
+     * @param  {Number}	keyCode
+     * @return {Array}	keyNames	An array of key names defined for the key code as
+     * defined by the current layout.
+     */
+    TangibleKeyboard.getKeyName = getKeyName;
+
+    /**
+     * Accepts a key name and returns the key code defined by the current key layout.
+     *
+     * @method getKeyCode
+     * @param  {String}	keyName
+     * @return {Number|Boolean}
+     */
+    TangibleKeyboard.getKeyCode = getKeyCode;
+
+    /**
+     * Transforms an array of key selectors into a single key selection string. If a
+     * single selector is passed in, it will be returned as is.
+     *
+     * @param  {Array|String} keySelectorArray An array of key selectors. If a key
+     * selector string is passed instead, it will simply be returned.
+     * @return {String}
+     */
+    TangibleKeyboard.stringify = stringifyKeyCombo;
+
+
+
+
+
+
+    /**
+     * Accepts a key selector and an array of key names to inject once the key selector is
+     * satisfied. TO COMPLETE!!
      *
      * @method createMacro
      *
@@ -462,32 +514,12 @@
     TangibleKeyboard.createMacro = createMacro;
 
     /**
-     * Clears all macros bound to the specified key combo.
+     * Clears all macros bound to the specified key selector. TO COMPLETE!!
      *
      * @method removeMacro
      * @param  {String} combo
      */
     TangibleKeyboard.removeMacro = removeMacro;
-
-    /**
-     * Accepts a key code and returns the key names defined by the current key layout.
-     *
-     * @method getKeyName
-     * @param  {Number}	keyCode
-     * @return {Array}	keyNames	An array of key names defined for the key
-     *  code as defined by the current layout.
-     */
-    TangibleKeyboard.getKeyName = getKeyName;
-
-    /**
-     * Accepts a key name and returns the key code defined by the current key layout.
-     *
-     * @method getKeyCode
-     *
-     * @param  {String}	keyName
-     * @return {Number|Boolean}
-     */
-    TangibleKeyboard.getKeyCode = getKeyCode;
 
     /**
      * Checks to see if a key combo string or key array is satisfied by the currently
@@ -509,16 +541,6 @@
      * @return {Array}
      */
     TangibleKeyboard.combo.parse = parseKeyCombo;
-
-    /**
-     * Transforms an array of key selectors into a single key selection string. If a
-     * single selector is passed in, it will be returned as is.
-     *
-     * @param  {Array|String} keySelectorArray An array of key selectors. If a key
-     * selector string is passed instead, it will simply be returned.
-     * @return {String}
-     */
-    TangibleKeyboard.stringify = stringifyKeyCombo;
 
 	return TangibleKeyboard;
 
@@ -807,7 +829,7 @@
 		}
 	}
 
-	function removeBindingByKeyCombo(keyCombo) {
+	function removeBindingByKeySelector(keyCombo) {
 		var bI, binding;
 		for(bI = 0; bI < bindings.length; bI += 1) {
 			binding = bindings[bI];
@@ -894,6 +916,7 @@
                         ) {
                             continue;
                         }
+
 
 						if (binding.keyDownCallback[cI](event, activeKeys, binding.keyCombo) === false) {
 							killEventBubble = true;
@@ -1181,57 +1204,57 @@
 	// LAYOUTS //
 	/////////////
 
-	function registerLayout(localeName, localeMap) {
+	function registerLayout(layoutName, layoutMap) {
 
 		// Validate arguments
-		if(typeof localeName !== 'string') {
+		if(typeof layoutName !== 'string') {
             throw new Error(
-                'Cannot register new locale. The locale name must be a string.'
+                'Cannot register new layout. The layout name must be a string.'
             );
         }
 
-		if(typeof localeMap !== 'object') {
+		if(typeof layoutMap !== 'object') {
             throw new Error(
-                'Cannot register "' + localeName + '" locale. The locale map must be ' +
+                'Cannot register "' + layoutName + '" layout. The layout map must be ' +
                 'an object.'
             );
         }
 
-		if(typeof localeMap.map !== 'object') {
+		if(typeof layoutMap.map !== 'object') {
             throw new Error(
-                'Cannot register "' + localeName + '" locale. The locale map is invalid.'
+                'Cannot register "' + layoutName + '" layout. The layout map is invalid.'
             );
         }
 
-		// Stash the locale
-		if(!localeMap.macros) { localeMap.macros = []; }
-        layouts[localeName] = localeMap;
+		// Stash the layout
+		if(!layoutMap.macros) { layoutMap.macros = []; }
+        layouts[layoutName] = layoutMap;
 	}
 
 
-	function setLayout(localeName) {
+	function setLayout(layoutName) {
 
-        if (typeof localeName !== 'string') {
-            throw new Error('Cannot set locale. The locale name must be a string.');
+        if (typeof layoutName !== 'string') {
+            throw new Error('Cannot set layout. The layout name must be a string.');
         }
 
-        if (!layouts[localeName]) {
+        if (!layouts[layoutName]) {
             throw new Error(
-                'Cannot set locale to "' + localeName + '" because no such locale ' +
+                'Cannot set layout to "' + layoutName + '" because no such layout ' +
                 'has been registered.');
         }
 
         // Set the requested map and macros
-        map = layouts[localeName].map;
-        macros = layouts[localeName].macros;
+        map = layouts[layoutName].map;
+        macros = layouts[layoutName].macros;
 
-        // Set the current locale
-        locale = localeName;
+        // Set the current layout
+        layout = layoutName;
 
 	}
 
     function getLayout() {
-        return locale;
+        return layout;
     }
 
 });
