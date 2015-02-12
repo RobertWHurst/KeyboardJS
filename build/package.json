@@ -1,6 +1,6 @@
 {
   "name": "TangibleKeyboard",
-  "version": "1.0.0-alpha.26",
+  "version": "1.0.0-beta.0",
   "description": "An easy to use and flexible keyboard binding library to attach events to key presses, key sequences and key combos.",
   "author": "Jean-Philippe Côté",
   "url": "http://cote.cc/projects/tangiblekeyboard",
