@@ -191,8 +191,8 @@
     }
 
     // Global
-    else if (TangibleKeyboard) {
-        TangibleKeyboard.registerLayout('ipacve', layout);
+    else if (scope.TangibleKeyboard) {
+        scope.TangibleKeyboard.registerLayout('ipacve', layout);
     }
 
 }(window));
