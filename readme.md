@@ -1,13 +1,12 @@
 # KeyboardJS
 
-[![Endorse](http://api.coderwall.com/robertwhurst/endorsecount.png)](http://coderwall.com/robertwhurst)
-[![Flattr This](http://api.flattr.com/button/flattr-badge-large.png)](http://flattr.com/thing/1381991)
-
 KeyboardJS is an easy to use keyboard wrapper. It supports the following:
 
 + Advanced key combos - Support for advanced combos with ordered stages.
-+ Key combo overlap prevention - Prevents against bindings with shorter combos firing when another binding with a longer combo, sharing the same keys, has already been executed.
-+ Macro keys - Support for adding vurtual keys backed by a key combo instead of a physical key.
++ Key combo overlap prevention - Prevents against bindings with shorter combos firing when
+another binding with a longer combo, sharing the same keys, has already been executed.
++ Macro keys - Support for adding vurtual keys backed by a key combo instead of a physical
+key.
 + Keyboard locales - Support for multiple locales. Comes with US locale.
 
 ## Examples
@@ -83,7 +82,7 @@ Methods
 
 
 
-### KeyboardJS.on
+### KeyboardJS.on()
 
 ###### Usage
 
@@ -97,11 +96,12 @@ Both the onDownCallback and the onUpCallback are passed three arguments. The fir
 Returns an object containing the following methods.
 
 * clear() - Removes the key or key combo binding.
-* on() - Allows you to bind to the keyup and keydown event of the given combo. An alternative to adding the onDownCallback and onUpCallback.
+* on() - Allows you to bind to the keyup and keydown event of the given combo. An
+alternative to adding the onDownCallback and onUpCallback.
 
 
 
-### KeyboardJS.activeKeys
+### KeyboardJS.activeKeys()
 
 ###### Usage
 
@@ -109,7 +109,7 @@ Returns an object containing the following methods.
 
 Returns an array of active keys by name.
 
-### KeyboardJS.clear
+### KeyboardJS.clear()
 
 ###### Usage
 
@@ -117,11 +117,13 @@ Returns an array of active keys by name.
 
 Removes all bindings with the given key combo. See 'keyCombo' definition for more details.
 
-Please note that if you are just trying to remove a single binding should use the clear method in the object returned by KeyboardJS.on instead of this. This function is for removing all binding that use a certain key.
+Please note that if you are just trying to remove a single binding should use the clear
+method in the object returned by KeyboardJS.on instead of this. This function is for
+removing all binding that use a certain key.
 
 
 
-### KeyboardJS.clear.key
+### KeyboardJS.clear.key()
 
 ###### Usage
 
@@ -129,17 +131,19 @@ Please note that if you are just trying to remove a single binding should use th
 
 Removes all bindings that use the given key.
 
-### KeyboardJS.locale
+### KeyboardJS.locale()
 
 ###### Usage
 
     KeyboardJS.locale([string localeName]) => string localeName
 
-Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only supports US keyboards, however it is possible to add additional locales via KeyboardJS.locale.register().
+Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only
+supports US keyboards, however it is possible to add additional locales via
+KeyboardJS.locale.register().
 
 
 
-### KeyboardJS.locale.register
+### KeyboardJS.locale.register()
 
 ###### Usage
 
@@ -149,7 +153,7 @@ Adds new locale definitions to KeyboardJS.
 
 
 
-### KeyboardJS.macro
+### KeyboardJS.macro()
 
 ###### Usage
 
@@ -159,7 +163,7 @@ Accepts a key combo and an array of key names to inject once the key combo is sa
 
 
 
-### KeyboardJS.macro.remove
+### KeyboardJS.macro.remove()
 
 ###### Usage
 
@@ -169,7 +173,7 @@ Accepts a key combo and clears any and all macros bound to that key combo.
 
 
 
-### KeyboardJS.key.name
+### KeyboardJS.key.name()
 
 ###### Usage
 
@@ -179,7 +183,7 @@ Accepts a key code and returns the key names defined by the current locale.
 
 
 
-### KeyboardJS.key.code
+### KeyboardJS.key.code()
 
 ###### Usage
 
@@ -189,7 +193,7 @@ Accepts a key name and returns the key code defined by the current locale.
 
 
 
-### KeyboardJS.combo.parse
+### KeyboardJS.combo.parse()
 
 ###### Usage
 
@@ -203,7 +207,7 @@ Parses a key combo string into a 3 dimensional array.
 
 
 
-### KeyboardJS.combo.stringify
+### KeyboardJS.combo.stringify()
 
 ###### Usage
 
@@ -212,7 +216,7 @@ Parses a key combo string into a 3 dimensional array.
 Stringifys a parsed key combo.
 
 
-### KeyboardJS.pressKey
+### KeyboardJS.pressKey()
 
 ###### Usage
 
@@ -221,7 +225,7 @@ Stringifys a parsed key combo.
 Add an active key to an array of active keys by name.
 
 
-### KeyboardJS.releaseKey
+### KeyboardJS.releaseKey()
 
 ###### Usage
 
@@ -268,12 +272,14 @@ An object that maps keyNames to their keycode and stores locale specific macros.
 Language Support
 ----------------
 
-KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now..,). Adding a new
-locale is easy. Map your keyboard to an object and pass it to KeyboardJS.locale.register('myLocale', {/*localeDefinition*/}) then call
+KeyboardJS can support any locale, however out of the box it just comes with the US locale
+(for now..,). Adding a new locale is easy. Map your keyboard to an object and pass it to
+KeyboardJS.locale.register('myLocale', {/*localeDefinition*/}) then call
 KeyboardJS.locale('myLocale').
 
 If you create a new locale please consider sending me a pull request or submit it to the
-[issue tracker](http://github.com/RobertWHurst/KeyboardJS/issues) so I can add it to the library.
+[issue tracker](http://github.com/RobertWHurst/KeyboardJS/issues) so I can add it to the
+library.
 
 Credits
 -------
