@@ -11,11 +11,81 @@
  * repeat prevention. This means you can, if you so wish, ignore repeated `keydown` events
  * sent by the OS when a key is being held down. This version also allows you to specify
  * whether browser actions tied to certain key combinations should be triggered or not
- * (preventDefault).
+ * (`preventDefault`).
  *
- * #### Usage ####
+ * #### Basic usage ####
  *
- * To complete
+ * Using `TangibleKeyboard` is quite simple. Simply link to the JS file and use the `on()`
+ * method to attach a callback. Here's an example that will trigger a user function when
+ * the "a" key is pressed:
+ *
+ *      <script src="tangiblekeyboard.js"></script>
+ *
+ *      <script>
+ *          TangibleKeyboard.on(
+ *              'a',
+ *              {
+ *                  onKeyDown: function(e, keys, combo) { console.log(e); }
+ *              }
+ *          );
+ *      </script>
+ *
+ * That's it.
+ *
+ * if you want to prevent default browser actions from being triggered, set
+ * `preventDefault` to `true`. If you want to prevent repeated events from being triggered
+ * when a key is being held down, set `preventRepeat` to `true`:
+ *
+ *      <script>
+ *          TangibleKeyboard.on(
+ *              'a',
+ *              {
+ *                  onKeyDown: function(e, keys, combo) { console.log(e); },
+ *                  preventDefault: true,
+ *                  preventRepeat: true
+ *              }
+ *          );
+ *      </script>
+ *
+ * #### Using a different keyboard layout ####
+ *
+ * `TangibleKeyboard` is, by default, configured to use the basic qwerty keyboard layout.
+ * If you want to use another one, such as the bundled IpacVE layout, you need to assign
+ * the layout:
+ *
+ *      <script src="tangiblekeyboard.js"></script>
+ *      <script src="layouts/tangiblekeyboard.layout.ipacve.js"></script>
+ *
+ *      <script>
+ *          TangibleKeyboard.setLayout('ipacve');
+ *
+ *          TangibleKeyboard.on(
+ *              '1RGHT',
+ *              {
+ *                  onKeyDown: function(e, keys, combo) { console.log(e); }
+ *              }
+ *          );
+ *      </script>
+ *
+ * #### Using it with AMD and CommonJS ####
+ *
+ * `TangibleKeyboard` is compatible with AMD and CommonJS. Here's an example of using an
+ * alternative keyboard layout with AMD:
+ *
+ *      define(function (require) {
+ *
+ *          var tk = require('tangiblekeyboard');
+ *          var layout = require('layouts/tangiblekeyboard.layout.ipacve');
+ *          tk.registerAndSetLayout("ipacve", layout);
+ *
+ *          tk.on(
+ *              '1RGHT',
+ *              {
+ *                  onKeyDown: function(e, keys, combo) { console.log(e); }
+ *              }
+ *          );
+ *
+ *      });
  *
  * @todo Check why a reset is issued upon fullscreenchange.
  * @todo the issue for long-held keys that trigger a bunch of crap on release
@@ -349,8 +419,9 @@
     TangibleKeyboard.addActiveKey = addActiveKey;
 
     /**
-     * Binds keys or combinations of keys to user-defined functions. The keys are defined
-     * by using a key selector string. This string is simply a list of key names separated
+     * Binds keys or combinations of keys to user-defined callback functions. At least one
+     * callback function (keydown or keyup) must be specified. The keys are defined by
+     * using a key selector string. This string is simply a list of key names separated
      * by one of the following operators:
      *
      * + <code>&nbsp;</code> (space)
@@ -370,10 +441,21 @@
      * + `'a + b, b + c'` : Simultaneously pressing the 'a' and 'b' keys or the 'b' and 'c'
      * keys will trigger the user-defined callbacks.
      *
-     * The second and third arguments define the functions to trigger when a keydown or
-     * keyup event is detected. The `onDownCallback` is fired once the key or combo
-     * becomes active. The `onUpCallback` is fired when the key or combo is no longer
-     * active (as soon as a single key is released).
+     * #### Example ####
+     *
+     * 	var binding = TangibleKeyboard.on(
+     * 	    'a',
+     * 	    {
+     * 	        keyDownCallback: function(e, keys, combo) { console.log(e); },
+     * 	        keyUpCallback: function(e, keys, combo) { console.log(e); },
+     * 	        preventRepeat: true,
+     * 	        preventDefault: true
+     * 	    }
+     * 	);
+     *
+     * The `onDownCallback` is fired once the key or combo becomes active. The
+     * `onUpCallback` is fired when the key or combo is no longer active (as soon as a
+     * single key is released).
      *
      * When triggered, the user-defined callbacks are passed three arguments:
      *
@@ -386,11 +468,11 @@
      * @param keySelector {String} The key selector is a string defining the key(s) or key
      *      combination(s) that will trigger the callbacks. See the documentation for the
      *      `TangibleKeyboard.on()` method for full key selector syntax.
-     * @param [keyDownCallback] {Function} The function to execute when the key(s) or key
-     *      combination(s) are engaged.
-     * @param [keyUpCallback] {Function} The function to execute when the key(s) or key
-     *      combination(s) are disengaged.
      * @param [options] {Object}
+     * @param [options.onKeyDown] {Function} The function to execute when the key(s)
+     *      or key combination(s) are engaged.
+     * @param [options.onKeyUp] {Function} The function to execute when the key(s)
+     *      or key combination(s) are disengaged.
      * @param [options.preventRepeat=false] {Boolean} Whether to prevent repeated events
      *      from firing when the key is being held down.
      * @param [options.preventDefault=false] {Boolean} Whether to prevent default browser
@@ -584,11 +666,12 @@
 	////////////////////
 
 	/**
-	 * Exits all active bindings. Optionally passes an event to all binding
-	 *  handlers.
+	 * Exits all active bindings. Optionally passes an event to all binding handlers.
+     * 
 	 * @param  {KeyboardEvent}	[event]
 	 */
 	function reset(event) {
+
 		activeKeys = [];
 		pruneMacros();
 		pruneBindings(event);
@@ -614,6 +697,8 @@
             }
 			addActiveKey(keyName);
 		}
+
+
 		executeMacros();
 		executeBindings(event);
 	}
@@ -621,7 +706,7 @@
 	// Key up event handler.
 	function keyup(event) {
 
-		var keyNames, kI;
+        var keyNames, kI;
 
 		keyNames = getKeyName(event.keyCode);
 		if(keyNames.length < 1) { return; }
@@ -651,7 +736,10 @@
 	////////////
 
 	function createMacro(combo, injectedKeys) {
-		if(typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) {
+		if(
+            typeof combo !== 'string' &&
+            (typeof combo !== 'object' || typeof combo.push !== 'function')
+        ) {
 			throw new Error("Cannot create macro. The combo must be a string or array.");
 		}
 		if(typeof injectedKeys !== 'object' || typeof injectedKeys.push !== 'function') {
@@ -662,7 +750,12 @@
 
 	function removeMacro(combo) {
 		var macro;
-		if(typeof combo !== 'string' && (typeof combo !== 'object' || typeof combo.push !== 'function')) { throw new Error("Cannot remove macro. The combo must be a string or array."); }
+		if(
+            typeof combo !== 'string' &&
+            (typeof combo !== 'object' || typeof combo.push !== 'function')
+        ) {
+            throw new Error("Cannot remove macro. The combo must be a string or array.");
+        }
 		for(var mI = 0; mI < macros.length; mI += 1) {
 			macro = macros[mI];
 			if(compareCombos(combo, macro[0])) {
@@ -674,9 +767,8 @@
 	}
 
 	/**
-	 * Executes macros against the active keys. Each macro's key combo is
-	 *  checked and if found to be satisfied, the macro's key names are injected
-	 *  into active keys.
+	 * Executes macros against the active keys. Each macro's key combo is checked and if
+     * found to be satisfied, the macro's key names are injected into active keys.
 	 */
 	function executeMacros() {
 		var mI, combo, kI;
@@ -692,9 +784,8 @@
 	}
 
 	/**
-	 * Prunes active macros. Checks each active macro's key combo and if found
-	 *  to no longer to be satisfied, each of the macro's key names are removed
-	 *  from active keys.
+	 * Prunes active macros. Checks each active macro's key combo and if found to no
+     * longer be satisfied, each of the macro's key names are removed from active keys.
 	 */
 	function pruneMacros() {
 		var mI, combo, kI;
@@ -715,17 +806,31 @@
 	// BINDINGS //
 	//////////////
 
-	function createBinding(keyCombo, keyDownCallback, keyUpCallback, options) {
-		var api = {}, binding, subBindings = [], kI,
-		subCombo;
+	//function createBinding(keyCombo, keyDownCallback, keyUpCallback, options) {
+    function createBinding(keyCombo, options) {
 
-        if (typeof(keyDownCallback) !== "function" && keyDownCallback !== undefined) {
+        var api = {},
+            binding,
+            subBindings = [],
+            kI,
+		    subCombo,
+            keyDownCallback,
+            keyUpCallback;
+
+        options = options || {};
+        keyDownCallback = options.onKeyDown || undefined;
+        keyUpCallback = options.onKeyUp || undefined;
+
+        if (keyDownCallback === undefined && keyUpCallback === undefined) {
+            throw new Error('A keydown or keyup callback must be specified.');
+        }
+
+        if (keyDownCallback !== undefined && typeof(keyDownCallback) !== "function") {
             throw new Error('Keydown callback must be a function.');
         }
-        if (typeof(keyUpCallback) !== "function" && keyUpCallback !== undefined) {
+        if (keyUpCallback !== undefined && typeof(keyUpCallback) !== "function") {
             throw new Error('Keyup callback must be a function.');
         }
-        options = options || {};
 
 		//break the combo down into a combo array
 		if(typeof keyCombo === 'string') {
@@ -740,7 +845,11 @@
 			subCombo = stringifyKeyCombo([keyCombo[kI]]);
 
 			//validate the sub combo
-			if(typeof subCombo !== 'string') { throw new Error('Failed to bind key combo. The key combo must be string.'); }
+			if(typeof subCombo !== 'string') {
+                throw new Error(
+                    'Failed to bind key combo. The key combo must be string.'
+                );
+            }
 
 			//create the binding
 			binding.keyCombo = subCombo;
@@ -776,9 +885,9 @@
 		}
 
 		/**
-		 * Accepts an event name. and any number of callbacks. When the event is
-		 *  emitted, all callbacks are executed. Available events are key up and
-		 *  key down.
+         * Adds any number of callbacks to the event specified by name in the first
+         * parameter (`keyup` or `keydown`).
+         *
 		 * @param  {String}	eventName
 		 * @return {Object}	subBinding
 		 */
@@ -786,8 +895,14 @@
 			var api = {}, callbacks, cI, bI;
 
 			//validate event name
-			if(typeof eventName !== 'string') { throw new Error('Cannot bind callback. The event name must be a string.'); }
-			if(eventName !== 'keyup' && eventName !== 'keydown') { throw new Error('Cannot bind callback. The event name must be a "keyup" or "keydown".'); }
+			if(typeof eventName !== 'string') {
+                throw new Error('Cannot bind callback. The event name must be a string.');
+            }
+			if(eventName !== 'keyup' && eventName !== 'keydown') {
+                throw new Error(
+                    'Cannot bind callback. The event name must be a "keyup" or "keydown".'
+                );
+            }
 
 			//gather the callbacks
 			callbacks = Array.prototype.slice.apply(arguments, [1]);
@@ -814,11 +929,17 @@
                     if(typeof callbacks[cI] === 'function') {
                         if(eventName === 'keyup') {
                             for(bI = 0; bI < subBindings.length; bI += 1) {
-                                subBindings[bI].keyUpCallback.splice(subBindings[bI].keyUpCallback.indexOf(callbacks[cI]), 1);
+                                subBindings[bI].keyUpCallback.splice(
+                                    subBindings[bI].keyUpCallback.indexOf(callbacks[cI]),
+                                    1
+                                );
                             }
                         } else {
                             for(bI = 0; bI < subBindings.length; bI += 1) {
-                                subBindings[bI].keyDownCallback.splice(subBindings[bI].keyDownCallback.indexOf(callbacks[cI]), 1);
+                                subBindings[bI].keyDownCallback.splice(
+                                    subBindings[bI].keyDownCallback.indexOf(callbacks[cI]),
+                                    1
+                                );
                             }
                         }
                     }
@@ -857,11 +978,13 @@
 	}
 
 	/**
-	 * Executes bindings that are active. Only allows the keys to be used once
-	 *  as to prevent binding overlap.
-	 * @param  {KeyboardEvent}	event	The keyboard event.
+	 * Executes bindings that are active. Only allows the keys to be used once as to
+     * prevent binding overlap.
+	 *
+     * @param  {KeyboardEvent}	event	The keyboard event.
 	 */
 	function executeBindings(event) {
+
 		var bI,
             sBI,
             binding,
@@ -876,30 +999,40 @@
             bindingWeight;
 
 		remainingKeys = [].concat(activeKeys);
+
+        // Sort bindings ?
 		for(bI = 0; bI < bindings.length; bI += 1) {
 			bindingWeight = extractComboKeys(bindings[bI].keyCombo).length;
 			if(!sortedBindings[bindingWeight]) { sortedBindings[bindingWeight] = []; }
 			sortedBindings[bindingWeight].push(bindings[bI]);
 		}
+
 		for(sBI = sortedBindings.length - 1; sBI >= 0; sBI -= 1) {
+
 			if(!sortedBindings[sBI]) { continue; }
+
 			for(bI = 0; bI < sortedBindings[sBI].length; bI += 1) {
+
 				binding = sortedBindings[sBI][bI];
 				bindingKeys = extractComboKeys(binding.keyCombo);
 				bindingKeysSatisfied = true;
+
 				for(kI = 0; kI < bindingKeys.length; kI += 1) {
 					if(remainingKeys.indexOf(bindingKeys[kI]) === -1) {
 						bindingKeysSatisfied = false;
 						break;
 					}
 				}
+
 				if(bindingKeysSatisfied && isSatisfiedCombo(binding.keyCombo)) {
 
-                    //if (binding.options.preventRepeat !== true) {
-                    //if (activeBindings.indexOf(binding) < 0) {
+                    if (event.isRepeat && binding.options.preventRepeat) {
+                        // not a repeat or repeat prevention not enabled
+                    } else if (event.isRepeat && event.type === "keydown") {
+                        // is a repeat but is a keydown
+                    } else {
                         activeBindings.push(binding);
-                    //}
-                    //}
+                    }
 
                     for(kI = 0; kI < bindingKeys.length; kI += 1) {
 						index = remainingKeys.indexOf(bindingKeys[kI]);
@@ -908,6 +1041,7 @@
 							kI -= 1;
 						}
 					}
+
 					for(cI = 0; cI < binding.keyDownCallback.length; cI += 1) {
 
                         if (
@@ -917,11 +1051,16 @@
                             continue;
                         }
 
-
-						if (binding.keyDownCallback[cI](event, activeKeys, binding.keyCombo) === false) {
+                        // Execute the callback
+						if (
+                            binding.keyDownCallback[cI](
+                                event, activeKeys, binding.keyCombo
+                            ) === false
+                        ) {
 							killEventBubble = true;
 						}
 					}
+
                     if (
                         killEventBubble === true ||
                         binding.options.preventDefault === true
@@ -929,15 +1068,17 @@
 						event.preventDefault();
 						event.stopPropagation();
 					}
+
 				}
 			}
 		}
 	}
 
 	/**
-	 * Removes bindings that are no longer satisfied by the active keys. Also
-	 *  fires the key up callbacks.
-	 * @param  {KeyboardEvent}	event
+	 * Removes bindings that are no longer satisfied by the active keys. Also fires the
+     * key up callbacks.
+	 *
+     * @param  {KeyboardEvent}	event
 	 */
 	function pruneBindings(event) {
 
@@ -945,10 +1086,6 @@
             cI,
             binding,
             killEventBubble;
-
-        //console.log("COUCOUC!!!!!");
-        //console.log(activeBindings.length);
-        //console.log(activeBindings);
 
 		for (bI = 0; bI < activeBindings.length; bI += 1) {
 
@@ -989,8 +1126,8 @@
 	///////////////////
 
 	/**
-	 * Compares two key combos returning true when they are functionally
-	 *  equivalent.
+	 * Compares two key combos and return true when they are functionally equivalent.
+     *
 	 * @param  {String|Array}	keyComboArrayA keyCombo A key combo string or array.
 	 * @param  {String|Array}	keyComboArrayB keyCombo A key combo string or array.
 	 * @return {Boolean}
@@ -1041,9 +1178,10 @@
 	}
 
 	/**
-	 * Accepts a key combo array or string and returns a flat array containing all keys referenced by
-	 * the key combo.
-	 * @param  {String|Array}	keyCombo	A key combo string or array.
+	 * Accepts a key combo array or string and returns a flat array containing all keys
+     * referenced by the key combo.
+     *
+	 * @param  {String|Array} keyCombo	A key combo string or array.
 	 * @return {Array}
 	 */
 	function extractComboKeys(keyCombo) {
@@ -1056,7 +1194,6 @@
 		}
 		return keys;
 	}
-
 
 	function parseKeyCombo(keyCombo) {
 
@@ -1170,10 +1307,6 @@
 	/////////////////
 	// ACTIVE KEYS //
 	/////////////////
-    //
-	//function getActiveKeys() {
-	//	return [].concat(activeKeys);
-	//}
 
 	function addActiveKey(keyName) {
 
@@ -1186,6 +1319,7 @@
 
 		if(activeKeys.indexOf(keyName) > -1) { return; }
 		activeKeys.push(keyName);
+
 	}
 
 	function removeActiveKey(keyName) {
@@ -1230,7 +1364,6 @@
 		if(!layoutMap.macros) { layoutMap.macros = []; }
         layouts[layoutName] = layoutMap;
 	}
-
 
 	function setLayout(layoutName) {
 
