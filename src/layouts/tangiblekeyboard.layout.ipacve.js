@@ -3,7 +3,7 @@
 /**
  * #### Overview ####
  *
- * The IpacVE is a keyboard emulator manufactured by
+ * The IpacVE is a 32-input keyboard emulator manufactured by
  * <a href="http://www.ultimarc.com/">Ultimarc</a>. It is mostly used in arcade game
  * emulators but is also a popular way to connect switches in physical computing projects.
  * This layout will enable you to specify bindings using the labels printed on the board
@@ -154,7 +154,7 @@
         /**
          * An array of all macros defined by this layout. Please note that the IpacVE
          * only sends the resulting key and not all keys in the macro sequence. This is
-         * different from most regular keyboards.
+         * different from how most regular keyboards work.
          *
          *  * 1STRT + 2STRT : 2B
          *  * 1STRT + 1RGHT : 2A
