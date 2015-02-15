@@ -137,7 +137,7 @@
 
         "map": {
             "9": ["2A"],                // tab
-            "13": ["1B", "3SW3"],      // enter
+            "13": ["1B", "3SW3"],       // enter
             "16": ["1SW4", "3SW2"],     // left shift, right shift
             "17": ["1SW1", "3SW1"],     // left control, right control
             "18": ["1SW2"],             // left alt
