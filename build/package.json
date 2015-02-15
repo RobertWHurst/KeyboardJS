@@ -1,0 +1,24 @@
+{
+  "name": "TangibleKeyboard",
+  "version": "1.0.0-beta.2",
+  "description": "An easy to use and flexible keyboard binding library to attach events to key presses and key combinations.",
+  "author": "Jean-Philippe Côté",
+  "url": "http://cote.cc/projects/tangiblekeyboard",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cotejp/tangiblekeyboard"
+  },
+  "bugs": {
+    "url": "https://github.com/cotejp/tangiblekeyboard/issues"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-bumpup": "^0.6.2",
+    "grunt-contrib-clean": "^0.6.0",
+    "grunt-contrib-compress": "^0.13.0",
+    "grunt-contrib-copy": "^0.7.0",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-contrib-yuidoc": "^0.7.0",
+    "grunt-replace": "^0.8.0"
+  }
+}
