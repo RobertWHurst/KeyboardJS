@@ -1,0 +1,7 @@
+
+# Directories
+dist
+test
+
+# Editors
+.c9
