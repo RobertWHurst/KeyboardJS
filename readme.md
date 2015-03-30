@@ -10,6 +10,8 @@ KeyboardJS is an easy to use keyboard wrapper. It supports the following:
 + Macro keys - Support for adding vurtual keys backed by a key combo instead of a physical key.
 + Keyboard locales - Support for multiple locales. Comes with US locale.
 
+_Note: KeyboardJS 2 is coming soon. Checkout the [next branch](https://github.com/RobertWHurst/KeyboardJS/tree/next) for a preview_
+
 ## Examples
 
 ### Key Binding
