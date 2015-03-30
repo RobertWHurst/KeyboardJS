@@ -345,15 +345,30 @@
 	 * @param  {KeyboardEvent}	event
 	 */
 	function keydown(event) {
-		var keyNames, keyName, kI;
+		var keyNames, keyName, kI, cKey, kJ, aKeys, cKeys = [], keys = [];
 		keyNames = getKeyName(event.keyCode);
 		if(keyNames.length < 1) { return; }
 		event.isRepeat = false;
 		for(kI = 0; kI < keyNames.length; kI += 1) {
-		    keyName = keyNames[kI];
-		    if (getActiveKeys().indexOf(keyName) != -1)
-		        event.isRepeat = true;
-			addActiveKey(keyName);
+			keyName = keyNames[kI];
+			keys.push(keyName);
+		}
+		if (event.ctrlKey) cKeys.push(17);
+		if (event.altKey) cKeys.push(18);
+		if (event.shiftKey) cKeys.push(16);
+		for (kJ = 0; kJ < cKeys.length; kJ += 1) {
+			keyNames = getKeyName(cKeys[kJ]);
+			for (kI = 0; kI < keyNames.length; kI += 1) {
+				keys.push(keyNames[kI]);
+			}
+		}
+		event.isRepeat = true;
+		aKeys = getActiveKeys();
+		for (kI = 0; kI < keys.length; kI += 1) {
+			if (aKeys.indexOf(keys[kI]) === -1) {
+				event.isRepeat = false;
+			}
+			addActiveKey(keys[kI]);
 		}
 		executeMacros();
 		executeBindings(event);
