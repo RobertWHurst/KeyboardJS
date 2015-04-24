@@ -382,7 +382,9 @@
 	 *  code as defined by the current locale.
 	 */
 	function getKeyName(keyCode) {
-		return map[keyCode] || [];
+		var keyNames = map[keyCode] || [];
+		if(typeof keyNames === 'string') { keyNames = [keyNames]; }
+		return keyNames;
 	}
 
 	/**
