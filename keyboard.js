@@ -17,6 +17,9 @@
 	//AMD
 	if(typeof define === 'function' && define.amd) { define(constructAMD); }
 
+        //Electron's require doesn't work for KeyboardJS
+        else if(context.process && context.process.versions && context.process.versions.electron) { constructGlobal(); }  
+        
 	//CommonJS
 	else if(typeof module !== 'undefined') {constructCommonJS()}
 
