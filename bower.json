@@ -1,0 +1,12 @@
+{
+  "name": "KeyboardJS",
+  "homepage": "https://github.com/Latros/KeyboardJS",
+  "version": "0.4.2",
+  "main": "keyboard.js"
+  "_release": "0.4.2",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.4.2",
+    "commit": "b15788655c7e501e4bc145c8b3f7a0c4c801e38c"
+  }
+}
