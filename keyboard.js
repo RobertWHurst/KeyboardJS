@@ -246,6 +246,28 @@
 		usLocale.map[aI] = String.fromCharCode(aI + 32);
 		usLocale.macros.push(['shift + ' + String.fromCharCode(aI + 32) + ', capslock + ' + String.fromCharCode(aI + 32), [String.fromCharCode(aI)]]);
 	}
+
+  // Support command key on Mac.
+	// This is unfortunately browser specific
+	if(/^Mac/.test(navigator.platform)){
+		// Chrome,Safari
+		if(/Chrome/.test(navigator.userAgent) ||
+			 /Safari/.test(navigator.userAgent)){
+				 usLocale.map["93"] = usLocale.map["92"];
+		}
+		// Opera
+		if(/Opera/.test(navigator.userAgent)){
+			usLocale.map["17"] = usLocale.map["91"];
+			delete usLocale.map["91"];
+		}
+		// Firefox
+		if(/Firefox/.test(navigator.userAgent)){
+			usLocale.map["224"] = usLocale.map["91"];
+			delete usLocale.map["91"];
+		}
+		delete usLocale.map["92"];
+	}
+
 	registerLocale('us', usLocale);
 	getSetLocale('us');
 
@@ -909,6 +931,22 @@
 		var keyCode = getKeyCode(keyName);
 		if(keyCode === '91' || keyCode === '92') { activeKeys = []; } //remove all key on release of super.
 		else { activeKeys.splice(activeKeys.indexOf(keyName), 1); }
+		// Mac Specific remove all keys on release of super
+		if(/^Mac/.test(navigator.platform)){
+			// Chrome,Safari
+			if(/Chrome/.test(navigator.userAgent) ||
+				 /Safari/.test(navigator.userAgent)){
+				if(keyCode === '91' || keyCode === '93') { activeKeys = []; }
+			}
+			// Opera
+			if(/Opera/.test(navigator.userAgent) && keyCode == "17"){
+				activeKeys = [];
+			}
+			// Firefox
+			if(/Firefox/.test(navigator.userAgent) && keyCode == "224"){
+				activeKeys = [];
+			}
+		}
 	}
 
 
@@ -959,3 +997,5 @@
 		return locale;
 	}
 });
+
+
