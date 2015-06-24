@@ -1,7 +1,7 @@
 {
   "name": "keyboardjs",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
   ],
@@ -19,8 +19,8 @@
     "web": "https://github.com/RobertWHurst/KeyboardJS/issues"
   },
   "repository": {
-      "type": "git",
-      "url": "git@github.com:RobertWHurst/KeyboardJS.git"
+    "type": "git",
+    "url": "git@github.com:RobertWHurst/KeyboardJS.git"
   },
   "licenses": [
     {
