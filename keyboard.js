@@ -114,7 +114,7 @@
 })(this, function(targetWindow, env) {
 	var KeyboardJS = {}, locales = {}, locale, map, macros, activeKeys = [], bindings = [], activeBindings = [],
 	activeMacros = [], aI, usLocale;
-	targetWindow = targetWindow || window;
+	targetWindow = (targetWindow && Object.getOwnPropertyNames(targetWindow).length > 0 ) ? targetWindow : window;
 
 	///////////////////////
 	// DEFAULT US LOCALE //
