@@ -2,6 +2,7 @@
 KeyboardJS
 ==========
 
+[ ![Build Status](https://travis-ci.org/RobertWHurst/KeyboardJS.svg?branch=master) ](https://travis-ci.org/RobertWHurst/KeyboardJS)
 [ ![NPM Version](http://img.shields.io/npm/v/keyboardjs.svg?style=flat) ](https://www.npmjs.org/package/keyboardjs)
 [ ![Downloads This Week](http://img.shields.io/npm/dm/keyboardjs.svg?style=flat) ](https://www.npmjs.org/package/keyboardjs)
 [ ![License](http://img.shields.io/npm/l/keyboardjs.svg?style=flat) ](https://www.npmjs.org/package/keyboardjs)
