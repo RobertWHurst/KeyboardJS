@@ -564,9 +564,12 @@ describe('Keyboard', function() {
         preventRepeat: false
       });
       keyboard.pressKey('a');
-      keyboard.releaseKey('a');
+      keyboard.pressKey('b');
 
-      assert.ok(releaseHandler.calledOnce);
+      keyboard.releaseKey('a');
+      keyboard.releaseKey('b');
+
+      assert.ok(releaseHandler.calledTwice);
     });
   });
 
