@@ -1,7 +1,7 @@
 {
   "name": "keyboardjs",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "main": "index.js",
   "scripts": {
     "test": "mocha test/**/*.spec.js",
