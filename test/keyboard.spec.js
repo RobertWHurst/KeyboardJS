@@ -117,6 +117,34 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
       assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
     });
+
+    it('binds press and release handlers to any keypress', function() {
+      var pressHandler = function() {};
+      var releaseHandler = function() {};
+
+      keyboard.bind(pressHandler, releaseHandler);
+
+      assert.equal(keyboard._listeners[0].keyCombo, null);
+      assert.equal(keyboard._listeners[0].pressHandler, pressHandler);
+      assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
+    });
+
+    it('accepts preventRepeat as a final argument', function() {
+      var pressHandler = function() {};
+      var releaseHandler = function() {};
+
+      keyboard.bind('a', pressHandler, releaseHandler, true);
+      keyboard.bind(pressHandler, releaseHandler, true);
+
+      assert.equal(keyboard._listeners[0].keyCombo.sourceStr, 'a');
+      assert.equal(keyboard._listeners[0].pressHandler, pressHandler);
+      assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
+      assert.equal(keyboard._listeners[0].preventRepeat, true);
+      assert.equal(keyboard._listeners[1].keyCombo, null);
+      assert.equal(keyboard._listeners[1].pressHandler, pressHandler);
+      assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
+      assert.equal(keyboard._listeners[1].preventRepeat, true);
+    });
   });
 
 
@@ -209,6 +237,26 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
       assert.equal(keyboard._listeners[1].pressHandler, pressHandler);
       assert.equal(keyboard._listeners[1].releaseHandler, null);
+    });
+
+    it('unbinds press and release handlers bound to any key press', function() {
+      keyboard._listeners.push({
+        keyCombo: null,
+        pressHandler: pressHandler,
+        releaseHandler: releaseHandler,
+        preventRepeat: false
+      });
+
+
+      keyboard.unbind(pressHandler, releaseHandler);
+
+      assert.equal(keyboard._listeners.length, 3);
+      assert.equal(keyboard._listeners[0].pressHandler, pressHandler);
+      assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
+      assert.equal(keyboard._listeners[1].pressHandler, null);
+      assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
+      assert.equal(keyboard._listeners[2].pressHandler, pressHandler);
+      assert.equal(keyboard._listeners[2].releaseHandler, null);
     });
   });
 
@@ -383,6 +431,21 @@ describe('Keyboard', function() {
       assert.ok(pressHandler.calledOnce);
     });
 
+    it('executes bindings without a combo', function() {
+      var pressHandler = sinon.stub();
+      keyboard._listeners.push({
+        keyCombo: null,
+        pressHandler: pressHandler,
+        releaseHandler: null,
+        preventRepeat: false
+      });
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('b');
+
+      assert.ok(pressHandler.calledTwice);
+    });
+
     it('prevents combo overlap by marking off keys once they have been used by a combo', function() {
       var aPressHandler  = sinon.stub();
       var aBPressHandler = sinon.stub();
@@ -487,6 +550,20 @@ describe('Keyboard', function() {
       });
       keyboard.pressKey('a');
 
+      keyboard.releaseKey('a');
+
+      assert.ok(releaseHandler.calledOnce);
+    });
+
+    it('executes the releaseHandler without a combo', function() {
+      var releaseHandler = sinon.stub();
+      keyboard._listeners.push({
+        keyCombo: null,
+        pressHandler: null,
+        releaseHandler: releaseHandler,
+        preventRepeat: false
+      });
+      keyboard.pressKey('a');
       keyboard.releaseKey('a');
 
       assert.ok(releaseHandler.calledOnce);
