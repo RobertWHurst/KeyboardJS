@@ -17,11 +17,11 @@ support so you can create with a locale that better matches your needs.
 
 KeyboardJS is available as a NPM module for use with
 [browserify](http://browserify.org/) (or in node.js). If you don't use
-browserify you can simply include 
+browserify you can simply include
 [keyboard.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/dist/keyboard.js)
-or 
-[keyboard.min.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/dist/keyboard.min.js) 
-from the dist folder in this repo. These files are 
+or
+[keyboard.min.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/dist/keyboard.min.js)
+from the dist folder in this repo. These files are
 [UMD](https://github.com/umdjs/umd) wrapped so they can be used with or without
 a module loader such as [requireJS](http://requirejs.org/).
 
@@ -116,6 +116,14 @@ __Using contexts__
 
   // you can always figure out your context too
   var contextName = keyboardJS.getContext();
+
+  // you can also set up handlers for a context without losing the current context
+  keyboardJS.withContext('bar', function() {
+    // these will execute in the bar context
+    keyboardJS.bind('7', function(e) {});
+    keyboardJS.bind('8', function(e) {});
+    keyboardJS.bind('9', function(e) {});
+  });
 ```
 
 
