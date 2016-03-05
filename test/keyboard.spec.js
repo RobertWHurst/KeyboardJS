@@ -334,10 +334,11 @@ describe('Keyboard', function() {
       var doc = { addEventListener: sinon.stub() };
 
       keyboard.watch(win, doc);
+      var readable = keyboard._readable;
 
-      assert.equal(keyboard._isModernBrowser, true);
-      assert.equal(keyboard._targetWindow, win);
-      assert.equal(keyboard._targetElement, doc);
+      assert.equal(readable._isModernBrowser, true);
+      assert.equal(readable._targetWindow, win);
+      assert.equal(readable._targetElement, doc);
       assert.ok(win.addEventListener.firstCall.args[0], 'focus');
       assert.ok(win.addEventListener.secondCall.args[0], 'blur');
       assert.ok(doc.addEventListener.firstCall.args[0], 'keydown');
@@ -349,10 +350,11 @@ describe('Keyboard', function() {
       var doc = { attachEvent: sinon.stub() };
 
       keyboard.watch(win, doc);
+      var readable = keyboard._readable;
 
-      assert.equal(keyboard._isModernBrowser, false);
-      assert.equal(keyboard._targetWindow, win);
-      assert.equal(keyboard._targetElement, doc);
+      assert.equal(readable._isModernBrowser, false);
+      assert.equal(readable._targetWindow, win);
+      assert.equal(readable._targetElement, doc);
       assert.ok(win.attachEvent.firstCall.args[0], 'onfocus');
       assert.ok(win.attachEvent.secondCall.args[0], 'onblur');
       assert.ok(doc.attachEvent.firstCall.args[0], 'onkeydown');
@@ -364,13 +366,14 @@ describe('Keyboard', function() {
   describe('#stop', function() {
 
     it('dettaches from the currently attached window and document', function() {
-      var doc = keyboard._targetElement = { removeEventListener: sinon.stub() };
-      var win = keyboard._targetWindow   = { removeEventListener: sinon.stub() };
+      var doc = keyboard._readable._targetElement = { removeEventListener: sinon.stub() };
+      var win = keyboard._readable._targetWindow   = { removeEventListener: sinon.stub() };
 
+      var readable = keyboard._readable;
       keyboard.stop();
 
-      assert.equal(keyboard._targetWindow, null);
-      assert.equal(keyboard._targetElement, null);
+      assert.equal(readable._targetWindow, null);
+      assert.equal(readable._targetElement, null);
       assert.ok(win.removeEventListener.firstCall.args[0], 'focus');
       assert.ok(win.removeEventListener.secondCall.args[0], 'blur');
       assert.ok(doc.removeEventListener.firstCall.args[0], 'keydown');
@@ -381,14 +384,15 @@ describe('Keyboard', function() {
       var doc = { detachEvent: sinon.stub() };
       var win = { detachEvent: sinon.stub() };
 
-      keyboard._isModernBrowser = false;
-      keyboard._targetElement   = doc;
-      keyboard._targetWindow    = win;
+      var readable = keyboard._readable;
+      readable._isModernBrowser = false;
+      readable._targetElement   = doc;
+      readable._targetWindow    = win;
 
       keyboard.stop();
 
-      assert.equal(keyboard._targetWindow, null);
-      assert.equal(keyboard._targetElement, null);
+      assert.equal(readable._targetWindow, null);
+      assert.equal(readable._targetElement, null);
       assert.ok(win.detachEvent.firstCall.args[0], 'onfocus');
       assert.ok(win.detachEvent.secondCall.args[0], 'onblur');
       assert.ok(doc.detachEvent.firstCall.args[0], 'onkeydown');
