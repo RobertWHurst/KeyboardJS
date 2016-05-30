@@ -29,6 +29,8 @@ a module loader such as [requireJS](http://requirejs.org/).
 npm install keyboardjs
 ```
 
+Note that all key names can be found in [./locales/us.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/locales/us.js).
+
 If you're looking for the previous v1.x.x release of KeyboardJS you can find it
 [here](https://github.com/RobertWHurst/KeyboardJS/tree/legacy).
 
