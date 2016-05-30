@@ -372,6 +372,9 @@ describe('Keyboard', function() {
       assert.ok(global.addEventListener.secondCall.args[0], 'blur');
       assert.ok(global.document.addEventListener.firstCall.args[0], 'keydown');
       assert.ok(global.document.addEventListener.secondCall.args[0], 'keyup');
+      
+      delete global.addEventListener;
+      delete global.document;
     });
     
     it('throws is error if the target window does not have the nessisary methods', function() {
