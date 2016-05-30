@@ -358,6 +358,36 @@ describe('Keyboard', function() {
       assert.ok(doc.attachEvent.firstCall.args[0], 'onkeydown');
       assert.ok(doc.attachEvent.secondCall.args[0], 'onkeyup');
     });
+    
+    it('attaches to the global namespace if a window and document is not given', function() {
+      global.addEventListener = sinon.stub();
+      global.document         = { addEventListener = sinon.stub() };
+
+      keyboard.watch();
+
+      assert.equal(keyboard._isModernBrowser, true);
+      assert.equal(keyboard._targetWindow, global);
+      assert.equal(keyboard._targetElement, global.document);
+      assert.ok(global.addEventListener.firstCall.args[0], 'focus');
+      assert.ok(global.addEventListener.secondCall.args[0], 'blur');
+      assert.ok(global.document.addEventListener.firstCall.args[0], 'keydown');
+      assert.ok(global.document.addEventListener.secondCall.args[0], 'keyup');
+    });
+    
+    it('throws is error if the target window does not have the nessisary methods', function() {
+      var win = {};
+      var doc = {};
+      
+      assert.throws(function() {
+        keyboard.watch(win, doc);
+      }, /^(?=.*targetWindow)(?=.*addEventListener)(?=.*attachEvent).*$/);
+    });
+    
+    it('throws is error a target window was not given and if the global does contain the nessisary functions', function() {
+      assert.throws(function() {
+        keyboard.watch();
+      }, /^(?=.*global)(?=.*addEventListener)(?=.*attachEvent).*$/);
+    });
   });
 
 
