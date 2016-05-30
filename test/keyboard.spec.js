@@ -361,7 +361,7 @@ describe('Keyboard', function() {
     
     it('attaches to the global namespace if a window and document is not given', function() {
       global.addEventListener = sinon.stub();
-      global.document         = { addEventListener = sinon.stub() };
+      global.document         = { addEventListener: sinon.stub() };
 
       keyboard.watch();
 
@@ -395,7 +395,7 @@ describe('Keyboard', function() {
 
     it('dettaches from the currently attached window and document', function() {
       var doc = keyboard._targetElement = { removeEventListener: sinon.stub() };
-      var win = keyboard._targetWindow   = { removeEventListener: sinon.stub() };
+      var win = keyboard._targetWindow  = { removeEventListener: sinon.stub() };
 
       keyboard.stop();
 
