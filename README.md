@@ -49,6 +49,9 @@ keyboardJS.bind('a + b > c', function(e) {
 keyboardJS.bind(['a + b > c', 'z + y > z'], function(e) {
   console.log('a and b then c or z and y then z is pressed');
 });
+keyboardJS.bind('', function(e) {
+  console.log('any key was pressed');
+});
 
 // keyboardJS.bind === keyboardJS.on === keyboardJS.addListener
 ```
