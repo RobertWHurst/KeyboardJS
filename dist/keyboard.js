@@ -201,8 +201,9 @@ Keyboard.prototype.getLocale = function(localName) {
   return this._locales[localName] || null;
 };
 
-Keyboard.prototype.bind = function(keyComboStr, pressHandler, releaseHandler, preventRepeatByDefault) {
+Keyboard.prototype.bind = function(keyComboStr, pressHandler, releaseHandler, preventRepeatByDefault, preventDefaultEvent) {
   if (keyComboStr === null || typeof keyComboStr === 'function') {
+    preventDefaultEvent    = preventRepeatByDefault;
     preventRepeatByDefault = releaseHandler;
     releaseHandler         = pressHandler;
     pressHandler           = keyComboStr;
@@ -225,7 +226,8 @@ Keyboard.prototype.bind = function(keyComboStr, pressHandler, releaseHandler, pr
     pressHandler           : pressHandler           || null,
     releaseHandler         : releaseHandler         || null,
     preventRepeat          : preventRepeatByDefault || false,
-    preventRepeatByDefault : preventRepeatByDefault || false
+    preventRepeatByDefault : preventRepeatByDefault || false,
+    preventDefaultEvent    : preventDefaultEvent    || false
   });
 };
 Keyboard.prototype.addListener = Keyboard.prototype.bind;
@@ -471,6 +473,9 @@ Keyboard.prototype._applyBindings = function(event) {
         }
 
         if (listener.pressHandler && !listener.preventRepeat) {
+          if (listener.preventDefaultEvent) {
+            event.preventDefault();
+          }
           listener.pressHandler.call(this, event);
           if (preventRepeat) {
             listener.preventRepeat = preventRepeat;
