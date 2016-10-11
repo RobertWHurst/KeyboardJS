@@ -1,0 +1,5 @@
+{
+  "name": "keyboardjs",
+  "homepage": "https://github.com/RobertWHurst/KeyboardJS",
+  "main": "dist/keyboard.js"
+}
