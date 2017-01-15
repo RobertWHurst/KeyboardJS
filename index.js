@@ -1,13 +1,13 @@
 
-var Keyboard = require('./lib/keyboard');
-var Locale   = require('./lib/locale');
-var KeyCombo = require('./lib/key-combo');
+import Keyboard from './lib/keyboard';
+import Locale from './lib/locale';
+import KeyCombo from './lib/key-combo';
+import usLocale from './locales/us';
 
-var keyboard = new Keyboard();
+const keyboard = new Keyboard();
+keyboard.setLocale('us', usLocale);
 
-keyboard.setLocale('us', require('./locales/us'));
-
-exports          = module.exports = keyboard;
-exports.Keyboard = Keyboard;
-exports.Locale   = Locale;
-exports.KeyCombo = KeyCombo;
+module.exports = keyboard;
+export { Keyboard };
+export { Locale} ;
+export { KeyCombo };
