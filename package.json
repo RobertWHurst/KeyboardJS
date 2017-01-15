@@ -4,8 +4,8 @@
   "version": "2.3.3",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.spec.js",
     "build": "browserify -g uglifyify -s keyboardJS ./index.js > ./dist/keyboard.min.js & browserify --debug -s keyboardJS ./index.js > ./dist/keyboard.js"
+    "test": "mocha --compilers js:babel-core/register test/**/*.spec.js",
   },
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
@@ -21,6 +21,8 @@
   "license": "MIT",
   "devDependencies": {
     "browserify": "^6.0.2",
+    "babel-core": "^6.21.0",
+    "babel-preset-es2015": "^6.18.0",
     "mocha": "^2.2.5",
     "sinon": "^1.15.3",
     "uglifyify": "^2.5.0"
