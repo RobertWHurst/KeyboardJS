@@ -1,25 +1,25 @@
 
-var sinon    = require('sinon');
-var assert   = require('assert');
-var Keyboard = require('../lib/keyboard');
-var KeyCombo = require('../lib/key-combo');
-var Locale   = require('../lib/locale');
-var doc      = require('./fixtures/document');
-var win      = require('./fixtures/window');
+import sinon from 'sinon';
+import assert from 'assert';
+import Keyboard from '../lib/keyboard';
+import KeyCombo from '../lib/key-combo';
+import Locale from '../lib/locale';
+import doc from './fixtures/document';
+import win from './fixtures/window';
 
 
-describe('Keyboard', function() {
+describe('Keyboard', () => {
 
-  var keyboard;
-  beforeEach(function() {
+  let keyboard;
+  beforeEach(() => {
     keyboard = new Keyboard(win, doc);
   });
 
 
-  describe('#setLocale', function() {
+  describe('#setLocale', () => {
 
-    it('creates and sets a locale', function() {
-      keyboard.setLocale('testName', function(locale, platform, userAgent) {
+    it('creates and sets a locale', () => {
+      keyboard.setLocale('testName', (locale, platform, userAgent) => {
         assert.equal(platform,  'test-platform');
         assert.equal(userAgent, 'test-user-agent');
 
@@ -30,7 +30,7 @@ describe('Keyboard', function() {
       assert.equal(keyboard._locales.testName.test, 1);
     });
 
-    it('sets a locale', function() {
+    it('sets a locale', () => {
       keyboard._locales.testName = { test: 2 };
 
       keyboard.setLocale('testName');
@@ -38,7 +38,7 @@ describe('Keyboard', function() {
       assert.equal(keyboard._locale.test, 2);
     });
 
-    it('accepts locale instance and sets it', function() {
+    it('accepts locale instance and sets it', () => {
       keyboard.setLocale({
         localeName: 'testName',
         test: 3
@@ -49,33 +49,33 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#getLocale', function() {
+  describe('#getLocale', () => {
 
-    it('returns the current locale', function() {
+    it('returns the current locale', () => {
       keyboard._locales.testName = { test: 4, localeName: 'testName' };
       keyboard._locale = keyboard._locales.testName;
 
-      var locale = keyboard.getLocale();
+      const locale = keyboard.getLocale();
 
       assert.equal(locale.test, 4);
     });
 
-    it('returns the a locale by name', function() {
+    it('returns the a locale by name', () => {
       keyboard._locales.testName = { test: 5 };
       keyboard._locale = keyboard._locales.testName;
 
-      var locale = keyboard.getLocale('testName');
+      const locale = keyboard.getLocale('testName');
 
       assert.equal(locale.test, 5);
     });
   });
 
 
-  describe('#bind', function() {
+  describe('#bind', () => {
 
-    it('binds a combo to press handler and release handlers', function() {
-      var pressHandler = function() {};
-      var releaseHandler = function() {};
+    it('binds a combo to press handler and release handlers', () => {
+      const pressHandler = () => {};
+      const releaseHandler = () => {};
 
       keyboard.bind('a', pressHandler, releaseHandler);
 
@@ -84,8 +84,8 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
     });
 
-    it('binds a combo to a press handler', function() {
-      var pressHandler = function() {};
+    it('binds a combo to a press handler', () => {
+      const pressHandler = () => {};
 
       keyboard.bind('a', pressHandler);
 
@@ -94,8 +94,8 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[0].releaseHandler, null);
     });
 
-    it('binds a combo to a release handler', function() {
-      var releaseHandler = function() {};
+    it('binds a combo to a release handler', () => {
+      const releaseHandler = () => {};
 
       keyboard.bind('a', null, releaseHandler);
 
@@ -104,9 +104,9 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
     });
 
-    it('binds several combos to press and release handlers', function() {
-      var pressHandler = function() {};
-      var releaseHandler = function() {};
+    it('binds several combos to press and release handlers', () => {
+      const pressHandler = () => {};
+      const releaseHandler = () => {};
 
       keyboard.bind(['a', 'b'], pressHandler, releaseHandler);
 
@@ -118,9 +118,9 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
     });
 
-    it('binds press and release handlers to any keypress', function() {
-      var pressHandler = function() {};
-      var releaseHandler = function() {};
+    it('binds press and release handlers to any keypress', () => {
+      const pressHandler = () => {};
+      const releaseHandler = () => {};
 
       keyboard.bind(pressHandler, releaseHandler);
 
@@ -129,9 +129,9 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
     });
 
-    it('accepts preventRepeat as a final argument', function() {
-      var pressHandler = function() {};
-      var releaseHandler = function() {};
+    it('accepts preventRepeat as a final argument', () => {
+      const pressHandler = () => {};
+      const releaseHandler = () => {};
 
       keyboard.bind('a', pressHandler, releaseHandler, true);
       keyboard.bind(pressHandler, releaseHandler, true);
@@ -148,51 +148,51 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#addListener', function() {
+  describe('#addListener', () => {
 
-    it('is an alias for bind', function() {
+    it('is an alias for bind', () => {
       assert.equal(keyboard.addListener, keyboard.bind);
     });
   });
 
 
-  describe('#on', function() {
+  describe('#on', () => {
 
-    it('is an alias for bind', function() {
+    it('is an alias for bind', () => {
       assert.equal(keyboard.on, keyboard.bind);
     });
   });
 
-  describe('#unbind', function() {
+  describe('#unbind', () => {
 
-    var pressHandler = function() {};
-    var releaseHandler = function() {};
-    beforeEach(function() {
+    const pressHandler = () => {};
+    const releaseHandler = () => {};
+    beforeEach(() => {
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
-        pressHandler: pressHandler,
-        releaseHandler: releaseHandler,
+        pressHandler,
+        releaseHandler,
         preventRepeat: false
       });
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: null,
-        releaseHandler: releaseHandler,
+        releaseHandler,
         preventRepeat: false
       });
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
-        pressHandler: pressHandler,
+        pressHandler,
         releaseHandler: null,
         preventRepeat: false
       });
     });
 
-    afterEach(function() {
+    afterEach(() => {
       keyboard._listeners.length = 0;
     });
 
-    it('unbinds a combo from press handler and release handlers', function() {
+    it('unbinds a combo from press handler and release handlers', () => {
       keyboard.unbind('a', pressHandler, releaseHandler);
 
       assert.equal(keyboard._listeners.length, 2);
@@ -202,7 +202,7 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[1].releaseHandler, null);
     });
 
-    it('unbinds a combo from a press handler', function() {
+    it('unbinds a combo from a press handler', () => {
       keyboard.unbind('a', pressHandler);
 
       assert.equal(keyboard._listeners.length, 2);
@@ -212,7 +212,7 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
     });
 
-    it('unbinds a combo from a release handler', function() {
+    it('unbinds a combo from a release handler', () => {
       keyboard.unbind('a', null, releaseHandler);
 
       assert.equal(keyboard._listeners.length, 2);
@@ -222,11 +222,11 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[1].releaseHandler, null);
     });
 
-    it('unbinds a several combos from press and release handlers', function() {
+    it('unbinds a several combos from press and release handlers', () => {
       keyboard._listeners.push({
         keyCombo: new KeyCombo('b'),
-        pressHandler: pressHandler,
-        releaseHandler: releaseHandler,
+        pressHandler,
+        releaseHandler,
         preventRepeat: false
       });
 
@@ -239,11 +239,11 @@ describe('Keyboard', function() {
       assert.equal(keyboard._listeners[1].releaseHandler, null);
     });
 
-    it('unbinds press and release handlers bound to any key press', function() {
+    it('unbinds press and release handlers bound to any key press', () => {
       keyboard._listeners.push({
         keyCombo: null,
-        pressHandler: pressHandler,
-        releaseHandler: releaseHandler,
+        pressHandler,
+        releaseHandler,
         preventRepeat: false
       });
 
@@ -261,25 +261,25 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#removeListener', function() {
+  describe('#removeListener', () => {
 
-    it('is an alias for unbind', function() {
+    it('is an alias for unbind', () => {
       assert.equal(keyboard.removeListener, keyboard.unbind);
     });
   });
 
 
-  describe('#off', function() {
+  describe('#off', () => {
 
-    it('is an alias for unbind', function() {
+    it('is an alias for unbind', () => {
       assert.equal(keyboard.off, keyboard.unbind);
     });
   });
 
 
-  describe('#setContext', function() {
+  describe('#setContext', () => {
 
-    it('releases all keys before setting the context', function() {
+    it('releases all keys before setting the context', () => {
       keyboard._locale = {};
       sinon.stub(keyboard, 'releaseAllKeys');
 
@@ -290,14 +290,14 @@ describe('Keyboard', function() {
       keyboard.releaseAllKeys.restore();
     });
 
-    it('creates a new context with the given name if it doesn\'t exist.', function() {
+    it('creates a new context with the given name if it doesn\'t exist.', () => {
       keyboard.setContext('myContext');
 
       assert.ok(keyboard._contexts.myContext);
       assert.equal(keyboard._currentContext, 'myContext');
     });
 
-    it('applies an existing context if one with the given name already exists', function() {
+    it('applies an existing context if one with the given name already exists', () => {
       keyboard._contexts.myContext = [1];
 
       keyboard.setContext('myContext');
@@ -308,9 +308,9 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#getContext', function() {
+  describe('#getContext', () => {
 
-    it('returns the current context', function() {
+    it('returns the current context', () => {
       keyboard._currentContext = 'myContext';
 
       assert.equal(keyboard.getContext(), 'myContext');
@@ -318,9 +318,9 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#watch', function() {
+  describe('#watch', () => {
 
-    it('calls stop', function() {
+    it('calls stop', () => {
       sinon.stub(keyboard, 'stop');
 
       keyboard.watch(win, doc);
@@ -329,9 +329,9 @@ describe('Keyboard', function() {
       keyboard.stop.restore();
     });
 
-    it('attaches to a given window and document', function() {
-      var win = { addEventListener: sinon.stub() };
-      var doc = { addEventListener: sinon.stub() };
+    it('attaches to a given window and document', () => {
+      const win = { addEventListener: sinon.stub() };
+      const doc = { addEventListener: sinon.stub() };
 
       keyboard.watch(win, doc);
 
@@ -344,9 +344,9 @@ describe('Keyboard', function() {
       assert.ok(doc.addEventListener.secondCall.args[0], 'keyup');
     });
 
-    it('attaches to a given window and document (Legacy IE)', function() {
-      var win = { attachEvent: sinon.stub() };
-      var doc = { attachEvent: sinon.stub() };
+    it('attaches to a given window and document (Legacy IE)', () => {
+      const win = { attachEvent: sinon.stub() };
+      const doc = { attachEvent: sinon.stub() };
 
       keyboard.watch(win, doc);
 
@@ -359,7 +359,7 @@ describe('Keyboard', function() {
       assert.ok(doc.attachEvent.secondCall.args[0], 'onkeyup');
     });
     
-    it('attaches to the global namespace if a window and document is not given', function() {
+    it('attaches to the global namespace if a window and document is not given', () => {
       global.addEventListener = sinon.stub();
       global.document         = { addEventListener: sinon.stub() };
 
@@ -377,28 +377,28 @@ describe('Keyboard', function() {
       delete global.document;
     });
     
-    it('throws is error if the target window does not have the nessisary methods', function() {
-      var win = {};
-      var doc = {};
+    it('throws is error if the target window does not have the nessisary methods', () => {
+      const win = {};
+      const doc = {};
       
-      assert.throws(function() {
+      assert.throws(() => {
         keyboard.watch(win, doc);
       }, /^(?=.*targetWindow)(?=.*addEventListener)(?=.*attachEvent).*$/);
     });
     
-    it('throws is error a target window was not given and if the global does contain the nessisary functions', function() {
-      assert.throws(function() {
+    it('throws is error a target window was not given and if the global does contain the nessisary functions', () => {
+      assert.throws(() => {
         keyboard.watch();
       }, /^(?=.*global)(?=.*addEventListener)(?=.*attachEvent).*$/);
     });
   });
 
 
-  describe('#stop', function() {
+  describe('#stop', () => {
 
-    it('dettaches from the currently attached window and document', function() {
-      var doc = keyboard._targetElement = { removeEventListener: sinon.stub() };
-      var win = keyboard._targetWindow  = { removeEventListener: sinon.stub() };
+    it('dettaches from the currently attached window and document', () => {
+      const doc = keyboard._targetElement = { removeEventListener: sinon.stub() };
+      const win = keyboard._targetWindow  = { removeEventListener: sinon.stub() };
 
       keyboard.stop();
 
@@ -410,9 +410,9 @@ describe('Keyboard', function() {
       assert.ok(doc.removeEventListener.secondCall.args[0], 'keyup');
     });
 
-    it('dettaches from the currently attached window and document (Legacy IE)', function() {
-      var doc = { detachEvent: sinon.stub() };
-      var win = { detachEvent: sinon.stub() };
+    it('dettaches from the currently attached window and document (Legacy IE)', () => {
+      const doc = { detachEvent: sinon.stub() };
+      const win = { detachEvent: sinon.stub() };
 
       keyboard._isModernBrowser = false;
       keyboard._targetElement   = doc;
@@ -430,17 +430,17 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#pressKey', function() {
+  describe('#pressKey', () => {
 
-    var locale;
-    beforeEach(function() {
+    let locale;
+    beforeEach(() => {
       locale = new Locale('test');
       locale.bindKeyCode(0, 'a');
       locale.bindKeyCode(1, 'b');
       keyboard._locale = locale;
     });
 
-    it('calls pressKey on the locale', function() {
+    it('calls pressKey on the locale', () => {
       sinon.stub(locale, 'pressKey');
 
       keyboard.pressKey('a');
@@ -450,11 +450,11 @@ describe('Keyboard', function() {
       locale.pressKey.restore();
     });
 
-    it('executes bindings with a combo matching the pressed keys within the locale', function() {
-      var pressHandler = sinon.stub();
+    it('executes bindings with a combo matching the pressed keys within the locale', () => {
+      const pressHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
-        pressHandler: pressHandler,
+        pressHandler,
         releaseHandler: null,
         preventRepeat: false
       });
@@ -464,11 +464,11 @@ describe('Keyboard', function() {
       assert.ok(pressHandler.calledOnce);
     });
 
-    it('executes bindings without a combo', function() {
-      var pressHandler = sinon.stub();
+    it('executes bindings without a combo', () => {
+      const pressHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: null,
-        pressHandler: pressHandler,
+        pressHandler,
         releaseHandler: null,
         preventRepeat: false
       });
@@ -479,9 +479,9 @@ describe('Keyboard', function() {
       assert.ok(pressHandler.calledTwice);
     });
 
-    it('prevents combo overlap by marking off keys once they have been used by a combo', function() {
-      var aPressHandler  = sinon.stub();
-      var aBPressHandler = sinon.stub();
+    it('prevents combo overlap by marking off keys once they have been used by a combo', () => {
+      const aPressHandler  = sinon.stub();
+      const aBPressHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: aPressHandler,
@@ -503,9 +503,9 @@ describe('Keyboard', function() {
       assert.ok(aBPressHandler.calledOnce);
     });
 
-    it('allows any number of identical bindings to fire without inhibiting each other', function() {
-      var a1PressHandler = sinon.stub();
-      var a2PressHandler = sinon.stub();
+    it('allows any number of identical bindings to fire without inhibiting each other', () => {
+      const a1PressHandler = sinon.stub();
+      const a2PressHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: a1PressHandler,
@@ -525,7 +525,7 @@ describe('Keyboard', function() {
       assert.ok(a2PressHandler.calledOnce);
     });
 
-    it('does nothing when paused', function() {
+    it('does nothing when paused', () => {
       sinon.stub(locale, 'pressKey');
       keyboard._paused = true;
 
@@ -539,16 +539,16 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#releaseKey', function() {
+  describe('#releaseKey', () => {
 
-    var locale;
-    beforeEach(function() {
+    let locale;
+    beforeEach(() => {
       locale = new Locale('test');
       locale.bindKeyCode(0, 'a');
       keyboard._locale = locale;
     });
 
-    it('calls releaseKey on the locale', function() {
+    it('calls releaseKey on the locale', () => {
       sinon.stub(locale, 'releaseKey');
 
       keyboard.releaseKey('a');
@@ -558,13 +558,13 @@ describe('Keyboard', function() {
       locale.releaseKey.restore();
     });
 
-    it('will not execute a binding\'s releaseHandler unless it was triggered first by a press', function() {
-      var releaseHandler = sinon.stub();
+    it('will not execute a binding\'s releaseHandler unless it was triggered first by a press', () => {
+      const releaseHandler = sinon.stub();
       keyboard.pressKey('a');
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: null,
-        releaseHandler: releaseHandler,
+        releaseHandler,
         preventRepeat: false
       });
 
@@ -573,12 +573,12 @@ describe('Keyboard', function() {
       assert.equal(releaseHandler.calledOnce, false);
     });
 
-    it('executes the releaseHandler of active bindings that no longer match the pressed keys', function() {
-      var releaseHandler = sinon.stub();
+    it('executes the releaseHandler of active bindings that no longer match the pressed keys', () => {
+      const releaseHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: null,
-        releaseHandler: releaseHandler,
+        releaseHandler,
         preventRepeat: false
       });
       keyboard.pressKey('a');
@@ -588,12 +588,12 @@ describe('Keyboard', function() {
       assert.ok(releaseHandler.calledOnce);
     });
 
-    it('executes the releaseHandler without a combo', function() {
-      var releaseHandler = sinon.stub();
+    it('executes the releaseHandler without a combo', () => {
+      const releaseHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: null,
         pressHandler: null,
-        releaseHandler: releaseHandler,
+        releaseHandler,
         preventRepeat: false
       });
       keyboard.pressKey('a');
@@ -607,28 +607,28 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#releaseAllKeys', function() {
+  describe('#releaseAllKeys', () => {
 
-    var locale;
-    beforeEach(function() {
+    let locale;
+    beforeEach(() => {
       locale = new Locale('test');
       locale.bindKeyCode(0, 'a');
       keyboard._locale = locale;
     });
 
-    it('clears pressedKeys on the locale', function() {
+    it('clears pressedKeys on the locale', () => {
       keyboard.releaseAllKeys();
 
       assert.equal(locale.pressedKeys.length, 0);
     });
 
-    it('will not execute a binding\'s releaseHandler unless it was triggered first by a press', function() {
-      var releaseHandler = sinon.stub();
+    it('will not execute a binding\'s releaseHandler unless it was triggered first by a press', () => {
+      const releaseHandler = sinon.stub();
       keyboard.pressKey('a');
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: null,
-        releaseHandler: releaseHandler,
+        releaseHandler,
         preventRepeat: false
       });
 
@@ -637,12 +637,12 @@ describe('Keyboard', function() {
       assert.equal(releaseHandler.calledOnce, false);
     });
 
-    it('executes the releaseHandler of active bindings that no longer match the pressed keys', function() {
-      var releaseHandler = sinon.stub();
+    it('executes the releaseHandler of active bindings that no longer match the pressed keys', () => {
+      const releaseHandler = sinon.stub();
       keyboard._listeners.push({
         keyCombo: new KeyCombo('a'),
         pressHandler: null,
-        releaseHandler: releaseHandler,
+        releaseHandler,
         preventRepeat: false
       });
       keyboard.pressKey('a');
@@ -654,9 +654,9 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#pause', function() {
+  describe('#pause', () => {
 
-    it('pauses the instance', function() {
+    it('pauses the instance', () => {
       keyboard.pause();
 
       assert.ok(keyboard._paused);
@@ -664,9 +664,9 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#resume', function() {
+  describe('#resume', () => {
 
-    it('resumes the instance', function() {
+    it('resumes the instance', () => {
       keyboard.resume();
 
       assert.equal(keyboard._paused, false);
@@ -674,9 +674,9 @@ describe('Keyboard', function() {
   });
 
 
-  describe('#reset', function() {
+  describe('#reset', () => {
 
-    it('calls releaseAllKeys', function() {
+    it('calls releaseAllKeys', () => {
       sinon.stub(keyboard, 'releaseAllKeys');
 
       keyboard.reset();
@@ -686,7 +686,7 @@ describe('Keyboard', function() {
       keyboard.releaseAllKeys.reset();
     });
 
-    it('clears all listeners', function() {
+    it('clears all listeners', () => {
       sinon.stub(keyboard, 'releaseAllKeys');
       keyboard._listeners = [1];
 

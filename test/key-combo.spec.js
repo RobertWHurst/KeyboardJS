@@ -1,22 +1,22 @@
 
-var assert   = require('assert');
-var KeyCombo = require('../lib/key-combo');
+import assert from 'assert';
+import KeyCombo from '../lib/key-combo';
 
 
-describe('KeyCombo', function() {
+describe('KeyCombo', () => {
 
 
-  describe('.parseComboStr', function() {
+  describe('.parseComboStr', () => {
 
-    it('can parse combo strings', function() {
-      var comboArr = KeyCombo.parseComboStr('a + b');
+    it('can parse combo strings', () => {
+      const comboArr = KeyCombo.parseComboStr('a + b');
 
       assert.equal(comboArr[0][0], 'a');
       assert.equal(comboArr[0][1], 'b');
     });
 
-    it('can parse combo strings containing combo deliminators', function() {
-      var comboArr = KeyCombo.parseComboStr('a + b > c + d');
+    it('can parse combo strings containing combo deliminators', () => {
+      const comboArr = KeyCombo.parseComboStr('a + b > c + d');
 
       assert.equal(comboArr[0][0], 'a');
       assert.equal(comboArr[0][1], 'b');
@@ -28,11 +28,11 @@ describe('KeyCombo', function() {
   });
 
 
-  describe('#check', function() {
+  describe('#check', () => {
 
-    it('can check the combo against an array of key names', function() {
-      var keyCombo1 = new KeyCombo('a + b');
-      var keyCombo2 = new KeyCombo('a + \\+');
+    it('can check the combo against an array of key names', () => {
+      const keyCombo1 = new KeyCombo('a + b');
+      const keyCombo2 = new KeyCombo('a + \\+');
 
       assert.ok(keyCombo1.check(['a', 'b']));
       assert.ok(keyCombo1.check(['b', 'a']));
@@ -43,8 +43,8 @@ describe('KeyCombo', function() {
       assert.ok(keyCombo2.check(['a', '+']));
     });
 
-    it('can check the combo containing combo deliminators against an array of key names', function() {
-      var keyCombo = new KeyCombo('a + b > c + d');
+    it('can check the combo containing combo deliminators against an array of key names', () => {
+      const keyCombo = new KeyCombo('a + b > c + d');
 
       assert.ok(keyCombo.check(['a', 'b', 'c', 'd']));
       assert.ok(keyCombo.check(['b', 'a', 'd', 'c']));
@@ -58,14 +58,14 @@ describe('KeyCombo', function() {
 
     it('can check the combo containing sequence deliminators against an array of key names');
   });
-  describe('#isEqual', function() {
+  describe('#isEqual', () => {
 
-    it('can correctly equate two the combo to a given one', function() {
-      var keyCombo1 = new KeyCombo('a + b');
-      var keyCombo2 = new KeyCombo('a + b');
-      var keyCombo3 = new KeyCombo('b + a');
-      var keyCombo4 = new KeyCombo('a + b + c');
-      var keyCombo5 = new KeyCombo('a > b');
+    it('can correctly equate two the combo to a given one', () => {
+      const keyCombo1 = new KeyCombo('a + b');
+      const keyCombo2 = new KeyCombo('a + b');
+      const keyCombo3 = new KeyCombo('b + a');
+      const keyCombo4 = new KeyCombo('a + b + c');
+      const keyCombo5 = new KeyCombo('a > b');
 
       assert.ok(keyCombo1.isEqual(keyCombo2));
       assert.ok(keyCombo1.isEqual(keyCombo3));
