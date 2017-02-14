@@ -2,10 +2,10 @@
   "name": "keyboardjs",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
   "version": "2.3.3",
-  "main": "index.js",
+  "main": "dist/keyboard.js",
   "scripts": {
-    "test": "mocha test/**/*.spec.js",
-    "build": "browserify -g uglifyify -s keyboardJS ./index.js > ./dist/keyboard.min.js & browserify --debug -s keyboardJS ./index.js > ./dist/keyboard.js"
+    "test": "mocha --compilers js:babel-core/register test/**/*.spec.js",
+    "build": "webpack --mode=build && webpack --mode=dev"
   },
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
@@ -20,9 +20,13 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^6.0.2",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.18.0",
     "mocha": "^2.2.5",
     "sinon": "^1.15.3",
-    "uglifyify": "^2.5.0"
+    "webpack": "^1.14.0",
+    "yargs": "^6.6.0"
   }
 }

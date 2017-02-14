@@ -1,26 +1,26 @@
 
-var assert   = require('assert');
-var Locale   = require('../lib/locale');
-var KeyCombo = require('../lib/key-combo');
+import assert from 'assert';
+import Locale from '../lib/locale';
+import KeyCombo from '../lib/key-combo';
 
 
-describe('Locale', function() {
+describe('Locale', () => {
 
-  var locale;
-  beforeEach(function() {
+  let locale;
+  beforeEach(() => {
     locale = new Locale('test');
   });
 
 
-  describe('#bindKeyCode', function() {
+  describe('#bindKeyCode', () => {
 
-    it('binds a key code to a key name', function() {
+    it('binds a key code to a key name', () => {
       locale.bindKeyCode(0, 'a');
 
       assert.equal(locale._keyMap[0][0], 'a');
     });
 
-    it('binds a key code to a set of key names', function() {
+    it('binds a key code to a set of key names', () => {
       locale.bindKeyCode(0, ['a', 'b', 'c']);
 
       assert.equal(locale._keyMap[0][0], 'a');
@@ -30,16 +30,16 @@ describe('Locale', function() {
   });
 
 
-  describe('#bindMacro', function() {
+  describe('#bindMacro', () => {
 
-    it('binds a key combo to a key name', function() {
+    it('binds a key combo to a key name', () => {
       locale.bindMacro('a', 'b');
 
       assert.equal(locale._macros[0].keyCombo.sourceStr, 'a');
       assert.equal(locale._macros[0].keyNames[0], 'b');
     });
 
-    it('binds a key combo to a set of key names', function() {
+    it('binds a key combo to a set of key names', () => {
       locale.bindMacro('a', ['b', 'c', 'd']);
 
       assert.equal(locale._macros[0].keyCombo.sourceStr, 'a');
@@ -48,8 +48,8 @@ describe('Locale', function() {
       assert.equal(locale._macros[0].keyNames[2], 'd');
     });
 
-    it('binds a key combo to a macro handler', function() {
-      var macroHandler = function() {};
+    it('binds a key combo to a macro handler', () => {
+      const macroHandler = () => {};
       locale.bindMacro('a', macroHandler);
 
       assert.equal(locale._macros[0].keyCombo.sourceStr, 'a');
@@ -58,14 +58,14 @@ describe('Locale', function() {
   });
 
 
-  describe('#getKeyCodes', function() {
+  describe('#getKeyCodes', () => {
 
-    it('gets all key codes associated with a key name', function() {
+    it('gets all key codes associated with a key name', () => {
       locale._keyMap[0] = ['a'];
       locale._keyMap[1] = ['b'];
       locale._keyMap[2] = ['a'];
 
-      var keyCodes = locale.getKeyCodes('a');
+      const keyCodes = locale.getKeyCodes('a');
 
       assert.equal(keyCodes[0], 0);
       assert.equal(keyCodes[1], 2);
@@ -73,12 +73,12 @@ describe('Locale', function() {
   });
 
 
-  describe('#getKeyNames', function() {
+  describe('#getKeyNames', () => {
 
-    it('gets all key names associated with a key code', function() {
+    it('gets all key names associated with a key code', () => {
       locale._keyMap[0] = ['a', 'b'];
 
-      var keyNames = locale.getKeyNames(0);
+      const keyNames = locale.getKeyNames(0);
 
       assert.equal(keyNames[0], 'a');
       assert.equal(keyNames[1], 'b');
@@ -86,15 +86,15 @@ describe('Locale', function() {
   });
 
 
-  describe('#setKillKey', function() {
+  describe('#setKillKey', () => {
 
-    it('marks a key code as a kill key', function() {
+    it('marks a key code as a kill key', () => {
       locale.setKillKey(0);
 
       assert.equal(locale._killKeyCodes[0], 0);
     });
 
-    it('marks all key codes matching a key name as a kill key', function() {
+    it('marks all key codes matching a key name as a kill key', () => {
       locale._keyMap[0] = ['a'];
       locale._keyMap[1] = ['a'];
 
@@ -106,23 +106,23 @@ describe('Locale', function() {
   });
 
 
-  describe('#pressKey', function() {
+  describe('#pressKey', () => {
 
-    beforeEach(function() {
+    beforeEach(() => {
       locale._keyMap = {
         0: ['a', 'b'],
         1: ['a', 'c'],
       };
     });
 
-    it('adds all key names associated with a given key code to pressedKeys', function() {
+    it('adds all key names associated with a given key code to pressedKeys', () => {
       locale.pressKey(0);
 
       assert.equal(locale.pressedKeys[0], 'a');
       assert.equal(locale.pressedKeys[1], 'b');
     });
 
-    it('adds all other key names associated with the same key code of a given key name to pressedKeys', function() {
+    it('adds all other key names associated with the same key code of a given key name to pressedKeys', () => {
       locale.pressKey('a');
 
       assert.equal(locale.pressedKeys[0], 'a');
@@ -130,7 +130,7 @@ describe('Locale', function() {
       assert.equal(locale.pressedKeys[2], 'c');
     });
 
-    it('applies macros with combos that match the pressed keys', function() {
+    it('applies macros with combos that match the pressed keys', () => {
       locale._keyMap = {
         0: ['a'],
         1: ['b']
@@ -142,7 +142,7 @@ describe('Locale', function() {
           handler  : null
         }, {
           keyCombo : new KeyCombo('a + b'),
-          handler  : function(pressedKeys) {
+          handler(pressedKeys) {
 
             assert.equal(pressedKeys, locale.pressedKeys);
 
@@ -169,9 +169,9 @@ describe('Locale', function() {
   });
 
 
-  describe('#releaseKey', function() {
+  describe('#releaseKey', () => {
 
-    beforeEach(function() {
+    beforeEach(() => {
       locale._keyMap = {
         0: ['a', 'b'],
         1: ['a', 'c'],
@@ -179,19 +179,19 @@ describe('Locale', function() {
       locale.pressedKeys = ['a', 'b', 'c'];
     });
 
-    it('removes all key names associated with a given key code from pressedKeys', function() {
+    it('removes all key names associated with a given key code from pressedKeys', () => {
       locale.releaseKey(0);
 
       assert.equal(locale.pressedKeys[0], 'c');
     });
 
-    it('removes all other key names associated with the same key code of a given key name from pressedKeys', function() {
+    it('removes all other key names associated with the same key code of a given key name from pressedKeys', () => {
       locale.releaseKey('a');
 
       assert.equal(locale.pressedKeys.length, 0);
     });
 
-    it('clears applied macros with combos that no longer match the pressed keys', function() {
+    it('clears applied macros with combos that no longer match the pressed keys', () => {
       locale._keyMap = {
         0: ['a'],
         1: ['b'],
@@ -204,7 +204,7 @@ describe('Locale', function() {
         }, {
           keyCombo : new KeyCombo('a + b'),
           keyNames : ['e', 'f'],
-          handler  : function(pressedKeys) {
+          handler(pressedKeys) {
 
             assert.equal(pressedKeys, locale.pressedKeys);
 

@@ -1,8 +1,7 @@
 
-var sinon = require('sinon');
+import sinon from 'sinon';
 
-
-module.exports = {
+export default {
   addEventListener    : sinon.stub(),
   removeEventListener : sinon.stub(),
   navigator: {
