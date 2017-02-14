@@ -2,7 +2,7 @@
   "name": "keyboardjs",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
   "version": "2.3.3",
-  "main": "index.js",
+  "main": "dist/keyboard.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register test/**/*.spec.js",
     "build": "webpack --mode=build && webpack --mode=dev"
