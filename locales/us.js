@@ -107,6 +107,13 @@ module.exports = function(locale, platform, userAgent) {
   locale.bindMacro('shift + !,', ['openanglebracket', '<']);
   locale.bindMacro('shift + .', ['closeanglebracket', '>']);
   locale.bindMacro('shift + /', ['questionmark', '?']);
+  
+  if(platform.match('Mac')) {
+    locale.bindMacro('leftcommand', ['meta']);
+    locale.bindMacro('rightcommand', ['meta']);
+  } else {
+    locale.bindMacro('ctrl', ['meta']);
+  }
 
   //a-z and A-Z
   for (var keyCode = 65; keyCode <= 90; keyCode += 1) {
