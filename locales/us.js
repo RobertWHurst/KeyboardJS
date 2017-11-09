@@ -108,11 +108,10 @@ module.exports = function(locale, platform, userAgent) {
   locale.bindMacro('shift + .', ['closeanglebracket', '>']);
   locale.bindMacro('shift + /', ['questionmark', '?']);
   
-  if(platform.match('Mac')) {
-    locale.bindMacro('leftcommand', ['meta']);
-    locale.bindMacro('rightcommand', ['meta']);
+  if (platform.match('Mac')) {
+    locale.bindMacro('command', ['mod', 'modifier']);
   } else {
-    locale.bindMacro('ctrl', ['meta']);
+    locale.bindMacro('ctrl', ['mod', 'modifier']);
   }
 
   //a-z and A-Z
