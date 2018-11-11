@@ -125,7 +125,7 @@ module.exports = function(locale, platform, userAgent) {
   // browser caveats
   var semicolonKeyCode = userAgent.match('Firefox') ? 59  : 186;
   var dashKeyCode      = userAgent.match('Firefox') ? 173 : 189;
-  var equalKeyCode     = userAgent.match('Firefox') ? 61 : 187;
+  var equalKeyCode     = userAgent.match('Firefox') ? 61  : 187;
   var leftCommandKeyCode;
   var rightCommandKeyCode;
   if (platform.match('Mac') && (userAgent.match('Safari') || userAgent.match('Chrome'))) {
@@ -140,7 +140,7 @@ module.exports = function(locale, platform, userAgent) {
   }
   locale.bindKeyCode(semicolonKeyCode,    ['semicolon', ';']);
   locale.bindKeyCode(dashKeyCode,         ['dash', '-']);
-  locale.bindKeyCode(equalKeyCode, ['equal', 'equalsign', '=']);
+  locale.bindKeyCode(equalKeyCode,        ['equal', 'equalsign', '=']);
   locale.bindKeyCode(leftCommandKeyCode,  ['command', 'windows', 'win', 'super', 'leftcommand', 'leftwindows', 'leftwin', 'leftsuper']);
   locale.bindKeyCode(rightCommandKeyCode, ['command', 'windows', 'win', 'super', 'rightcommand', 'rightwindows', 'rightwin', 'rightsuper']);
 
