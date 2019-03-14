@@ -52,6 +52,10 @@ keyboardJS.bind(['a + b > c', 'z + y > z'], function(e) {
 keyboardJS.bind('', function(e) {
   console.log('any key was pressed');
 });
+//alt, shift, ctrl, etc must be lowercase
+keyboardJS.bind('alt+shift+a', function(e) {
+  console.log('alt, shift and a is pressed');
+});
 
 // keyboardJS.bind === keyboardJS.on === keyboardJS.addListener
 ```
