@@ -83,6 +83,18 @@ module.exports = function(locale, platform, userAgent) {
   locale.bindKeyCode(121, ['f10']);
   locale.bindKeyCode(122, ['f11']);
   locale.bindKeyCode(123, ['f12']);
+  locale.bindKeyCode(124, ['f13']);
+  locale.bindKeyCode(125, ['f14']);
+  locale.bindKeyCode(126, ['f15']);
+  locale.bindKeyCode(127, ['f16']);
+  locale.bindKeyCode(128, ['f17']);
+  locale.bindKeyCode(129, ['f18']);
+  locale.bindKeyCode(130, ['f19']);
+  locale.bindKeyCode(131, ['f20']);
+  locale.bindKeyCode(132, ['f21']);
+  locale.bindKeyCode(133, ['f22']);
+  locale.bindKeyCode(134, ['f23']);
+  locale.bindKeyCode(135, ['f24']);
 
   // secondary key symbols
   locale.bindMacro('shift + `', ['tilde', '~']);
