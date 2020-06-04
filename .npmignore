@@ -1,6 +1,4 @@
-# Directories
 test
-
-# Editors
-.c9
-
+.travis.yml
+bower.json
+rollup.config.js

@@ -1,8 +1,0 @@
-{
-  "loadEagerly": [
-    "index.js"
-  ],
-  "plugins": {
-    "node": true
-  }
-}

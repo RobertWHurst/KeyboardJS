@@ -4,8 +4,8 @@
   "version": "2.5.0",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test/**/*.spec.js",
-    "build": "browserify -g uglifyify -s keyboardJS ./index.js > ./dist/keyboard.min.js & browserify --debug -s keyboardJS ./index.js > ./dist/keyboard.js"
+    "test": "mocha -r esm test/**/*.spec.js",
+    "build": "rollup --config"
   },
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
@@ -20,9 +20,13 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "browserify": "^6.0.2",
-    "mocha": "^2.2.5",
-    "sinon": "^1.15.3",
-    "uglifyify": "^2.5.0"
+    "@babel/core": "^7.10.2",
+    "@babel/preset-env": "^7.10.2",
+    "@rollup/plugin-babel": "^5.0.2",
+    "esm": "^3.2.25",
+    "mocha": "^7.2.0",
+    "rollup": "^2.13.1",
+    "rollup-plugin-terser": "^6.1.0",
+    "sinon": "^9.0.2"
   }
 }

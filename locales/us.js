@@ -1,5 +1,5 @@
 
-module.exports = function(locale, platform, userAgent) {
+export function us(locale, platform, userAgent) {
 
   // general
   locale.bindKeyCode(3,   ['cancel']);
@@ -118,7 +118,7 @@ module.exports = function(locale, platform, userAgent) {
   locale.bindMacro('shift + !,', ['openanglebracket', '<']);
   locale.bindMacro('shift + .', ['closeanglebracket', '>']);
   locale.bindMacro('shift + /', ['questionmark', '?']);
-  
+
   if (platform.match('Mac')) {
     locale.bindMacro('command', ['mod', 'modifier']);
   } else {
@@ -126,7 +126,7 @@ module.exports = function(locale, platform, userAgent) {
   }
 
   //a-z and A-Z
-  for (var keyCode = 65; keyCode <= 90; keyCode += 1) {
+  for (let keyCode = 65; keyCode <= 90; keyCode += 1) {
     var keyName = String.fromCharCode(keyCode + 32);
     var capitalKeyName = String.fromCharCode(keyCode);
   	locale.bindKeyCode(keyCode, keyName);
@@ -135,11 +135,11 @@ module.exports = function(locale, platform, userAgent) {
   }
 
   // browser caveats
-  var semicolonKeyCode = userAgent.match('Firefox') ? 59  : 186;
-  var dashKeyCode      = userAgent.match('Firefox') ? 173 : 189;
-  var equalKeyCode     = userAgent.match('Firefox') ? 61  : 187;
-  var leftCommandKeyCode;
-  var rightCommandKeyCode;
+  const semicolonKeyCode = userAgent.match('Firefox') ? 59  : 186;
+  const dashKeyCode      = userAgent.match('Firefox') ? 173 : 189;
+  const equalKeyCode     = userAgent.match('Firefox') ? 61  : 187;
+  let leftCommandKeyCode;
+  let rightCommandKeyCode;
   if (platform.match('Mac') && (userAgent.match('Safari') || userAgent.match('Chrome'))) {
     leftCommandKeyCode  = 91;
     rightCommandKeyCode = 93;
