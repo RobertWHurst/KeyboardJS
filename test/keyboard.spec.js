@@ -564,6 +564,7 @@ describe('Keyboard', () => {
     beforeEach(() => {
       locale = new Locale('test');
       locale.bindKeyCode(0, 'a');
+      locale.bindKeyCode(1, 'b');
       keyboard._locale = locale;
     });
 
