@@ -22,8 +22,6 @@ describe('KeyCombo', () => {
       assert.equal(comboArr[1][0], 'c');
       assert.equal(comboArr[1][1], 'd');
     });
-
-    it('can parse combo strings containing sequence deliminators');
   });
 
 
@@ -54,8 +52,6 @@ describe('KeyCombo', () => {
       assert.equal(keyCombo.check(['c', 'd', 'a', 'b']), false);
       assert.equal(keyCombo.check(['d', 'c', 'b', 'a']), false);
     });
-
-    it('can check the combo containing sequence deliminators against an array of key names');
   });
 
 

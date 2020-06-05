@@ -317,12 +317,47 @@ describe('Keyboard', () => {
     });
 
     it('applies an existing context if one with the given name already exists', () => {
-      keyboard._contexts.myContext = [1];
+      keyboard._contexts.myContext = {
+        listeners: [1],
+        targetWindow: keyboard._targetWindow,
+        targetElement: keyboard._targetElement,
+        targetPlatform: keyboard._targetPlatform,
+        targetUserAgent: keyboard._targetUserAgent
+      };
 
       keyboard.setContext('myContext');
 
       assert.equal(keyboard._currentContext, 'myContext');
-      assert.equal(keyboard._contexts[keyboard._currentContext][0], 1);
+      assert.equal(keyboard._contexts[keyboard._currentContext].listeners[0], 1);
+    });
+
+    it('watches the targets set in the context', () => {
+      const targetWindow = {
+        addEventListener: sinon.stub(),
+        removeEventListener: sinon.stub()
+      };
+      const targetElement = {
+        addEventListener: sinon.stub(),
+        removeEventListener: sinon.stub()
+      };
+
+      keyboard._contexts.myContext = {
+        listeners: [1],
+        targetWindow,
+        targetElement,
+        targetPlatform: 'test-platform',
+        targetUserAgent: 'test-user-agent'
+      };
+
+      keyboard.setContext('myContext');
+
+      assert.equal(keyboard._targetWindow, targetWindow);
+      assert.equal(keyboard._targetElement, targetElement);
+      assert.equal(keyboard._targetPlatform, 'test-platform');
+      assert.equal(keyboard._targetUserAgent, 'test-user-agent');
+
+      sinon.assert.calledTwice(targetWindow.addEventListener);
+      sinon.assert.calledTwice(targetElement.addEventListener);
     });
   });
 
