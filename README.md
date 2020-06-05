@@ -2,10 +2,10 @@
 KeyboardJS
 ==========
 
-[ ![Build Status](https://travis-ci.org/RobertWHurst/KeyboardJS.svg?branch=master) ](https://travis-ci.org/RobertWHurst/KeyboardJS)
-[ ![NPM Version](http://img.shields.io/npm/v/keyboardjs.svg?style=flat) ](https://www.npmjs.org/package/keyboardjs)
-[ ![Downloads This Week](http://img.shields.io/npm/dm/keyboardjs.svg?style=flat) ](https://www.npmjs.org/package/keyboardjs)
-[ ![License](http://img.shields.io/npm/l/keyboardjs.svg?style=flat) ](https://www.npmjs.org/package/keyboardjs)
+[![Build Status](http://img.shields.io/github/workflow/status/RobertWHurst/KeyboardJS/Unit%20Tests.svg?style=flat)](https://github.com/RobertWHurst/KeyboardJS/actions)
+[![NPM Version](http://img.shields.io/npm/v/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
+[![Downloads This Week](http://img.shields.io/npm/dm/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
+[![License](http://img.shields.io/npm/l/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
 
 KeyboardJS is a library for use in the browser (node.js compatible). It Allows
 developers to easily setup key bindings. Use key combos to setup complex
@@ -124,7 +124,7 @@ __Using contexts__
   });
 
   // you can always figure out your context too
-  var contextName = keyboardJS.getContext();
+  const contextName = keyboardJS.getContext();
 
   // you can also set up handlers for a context without losing the current context
   keyboardJS.withContext('bar', ()  =>{
