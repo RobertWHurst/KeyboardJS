@@ -2,3 +2,5 @@ test
 .travis.yml
 bower.json
 rollup.config.js
+yarn-error.log
+npm-debug.log
