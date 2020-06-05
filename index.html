@@ -1,11 +1,247 @@
 <!DOCTYPE HTML>
 <html lang="en-CA">
+
 <head>
 	<meta charset="UTF-8">
 	<title>KeyboardJS Demo - "Build your app, I'll handle the keys."</title>
-	<meta name="description" content="A JavaScript library for binding keyboard combos without the pain of key codes and key combo conflicts. It can be used as both a standalone library or an AMD module (see RequireJS for details).">
-	<script>window.location = 'https://github.com/RobertWHurst/KeyboardJS'</script>
+	<meta name="description"
+		content="A JavaScript library for binding keyboard combos without the pain of key codes and key combo conflicts. It can be used as both a standalone library or an AMD module (see RequireJS for details).">
+	<link rel="stylesheet" href="style.css">
+	<script>
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-8963518-3']);
+		_gaq.push(['_trackPageview']);
+
+		(function () {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 </head>
+
 <body>
+	<div class="wrapper">
+		<header>
+			<h1 class="title">KeyboardJS</h1>
+			<h2 class="subtitle">"Build your app, I'll handle the keys."</h2>
+		</header>
+		<div class="content">
+
+			<h1>Demo</h1>
+			<div class="demoReadout">
+				JS is required...
+			</div>
+
+			<h1>What is KeyboardJS?</h1>
+			<div>
+				A JavaScript library for binding keyboard combos without the pain of key codes and key combo conflicts.
+				It allows you to bind key combos easily, and switch those bindings for different parts of your
+				application using contexts.
+			</div>
+
+			<h1>Get it Here</h1>
+			<div class="downloads">
+				<a href="https://github.com/RobertWHurst/KeyboardJS/archive/master.zip" class="download">Download KeyboardJS</a>
+			</div>
+
+			<h1>Language Support</h1>
+			<div>
+				KeyboardJS can support any locale, however out of the box it just comes with the US locale (for now).
+				Adding a new locale is easy. Map your keyboard to an object and pass it to
+				KeyboardJS.locale.register(localeName, localeDefinition) then call KeyboardJS.locale(localeName).
+				<br>
+				<br>
+				If you create a new locale please consider sending me a pull request or submit it to the
+				<a href="http://github.com/RobertWHurst/KeyboardJS/issues">issue tracker</a> so I can add it to the library.
+			</div>
+
+			<!--
+			Hidden for now. The API has been updated and thus this section will need to be updated as well
+
+			<h1>Methods</h1>
+
+			<h2>KeyboardJS.on</h2>
+			<h3>Usage</h3>
+			<div class="code">KeyboardJS.on(keyCombo, onDownCallback, onUpCallback);</div>
+			<div>
+				Binds any key or key combo. See 'keyCombo' definition below
+				for details. The onDownCallback is fired once the key or key combo becomes active. The
+				onUpCallback is fired when the combo no longer active (a single key is released).
+				<br>
+				<br>
+				Both the onUpCallback and the onUpCallback are passed three arguments. The first is the
+				key event, the second is the keys pressed, and the third is the key combo string.
+			</div>
+			<h3>Returned</h3>
+			<ul>
+				<li><span class="code">clear()</span> - Removes the key or key combo binding.</li>
+				<li><span class="code">on()</span> - Allows you to bind to the keyup and keydown event of the given combo. An
+					alternative to adding the onDownCallback and onUpCallback.</li>
+			</ul>
+
+			<h2>KeyboardJS.activeKeys</h2>
+			<h3>Usage</h3>
+			<div class="code">KeyboardJS.activeKeys();</div>
+			<div>
+				Returns an array of active keys by name.
+			</div>
+			<h3>Returned</h3>
+			<div>
+				Returns an array of key names that are currently being pressed.
+			</div>
+
+			<h2>KeyboardJS.clear</h2>
+			<h3>Usage</h3>
+			<div class="code">KeyboardJS.clear(keyCombo);</div>
+			<div>
+				Removes all bindings with the given key combo. See 'keyCombo' definition for more details.
+				<br>
+				<br>
+				Please note that if you are just trying to remove a single binding should use the clear method in the object
+				returned by KeyboardJS.on instead of this. This function is for removing all binding that use a certain key.
+			</div>
+
+			<h2>KeyboardJS.clear.key</h2>
+			<h3>Usage</h3>
+			<div class="code">KeyboardJS.clear.key(key);</div>
+			<div>
+				Removes all bindings that use the given key.
+			</div>
+
+			<h2>KeyboardJS.locale</h2>
+			<h3>Usage</h3>
+			<div class="code">KeyboardJS.locale(localeName);</div>
+			<div>
+				Changes the locale keyboardJS uses to map key presses. Out of the box KeyboardJS only supports US keyboards,
+				however
+				it is possible to add additional locales via KeyboardJS.locale.register()
+			</div>
+
+			<h2>KeyboardJS.locale.register</h2>
+			<h3>Usage</h3>
+			<div class="code">KeyboardJS.locale.register(localeName, localeDefinition);</div>
+			<div>
+				Adds new locale definitions to KeyboardJS.
+			</div>
+
+			<h1>Definitions</h1>
+
+			<h2>keyCombo</h2>
+			<div>
+				A string containing key names separated by whitespace, <span class="code">></span>, <span class="code">+</span>,
+				and <span class="code">,</span>.
+			</div>
+			<h3>examples</h3>
+			<ul>
+				<li><span class="code">'a'</span> - binds to the 'a' key. Pressing 'a' will match this keyCombo.</li>
+				<li><span class="code">'a, b'</span> - binds to the 'a' and 'b' keys. Pressing either of these keys will match
+					this keyCombo.</li>
+				<li><span class="code">'a b'</span> - binds to the 'a' and 'b' keys. Pressing either of these keys will match
+					this keyCombo.</li>
+				<li><span class="code">'a + b'</span> - binds to the 'a' and 'b' keys. Pressing both of these keys will match
+					this keyCombo.</li>
+				<li><span class="code">'a > b'</span> - binds to the 'a' and 'b' keys. Pressing 'a' then 'b' will match this
+					keyCombo.</li>
+				<li>
+					<span class="code">'a + b, c + d'</span> - binds to the 'a', 'b', 'c' and 'd' keys. Pressing either the 'a'
+					key and the 'b' key,
+					or the 'c' and the 'd' key will match this keyCombo.
+				</li>
+				<li>
+					<span class="code">'a + b > c + d'</span> - binds to the 'a', 'b', 'c' and 'd' keys. Pressing both the 'a' key
+					and the 'b' key,
+					then both the 'c' and the 'd' key will match this keyCombo.
+				</li>
+			</ul>
+
+			<h2>localeDefinitions</h2>
+			<div>
+				An object that maps keyNames to their keycode and stores locale specific macros. Used for mapping keys on
+				different locales.
+			</div>
+			<h3>examples</h3>
+			<ul>
+				<li>
+					<span class="code">{
+						"map": {
+						"65": ["a"],
+						"66": ["b"],
+						...
+						},
+						"macros": [
+						["shift + `", ["tilde", "~"]],
+						["shift + 1", ["exclamation", "!"]],
+						....
+						]
+						}</span>
+				</li>
+			</ul>
+			-->
+		</div>
+	</div>
+	<!--
+	Footer needs an update too.
+	<footer>
+		<h1>Credits</h1>
+		<div class="plusOne">
+			<div class="g-plusone" data-size="tall" data-href="http://robertwhurst.github.com/KeyboardJS/"></div>
+		</div>
+		<div class="credits">
+			I (<a href="http://github.com/RobertWHurst" target="_blank">Robert Hurst</a>) made this to enable better
+			access to key controls in my applications. I'd like to share it with fellow devs. Feel free to fork this
+			project and make your own changes.
+		</div>
+	</footer>
+	-->
+
+	<a href="https://github.com/RobertWHurst/KeyboardJS" class="github-corner" aria-label="View source on GitHub"><svg
+			width="80" height="80" viewBox="0 0 250 250"
+			style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+			<path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+			<path
+				d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+				fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+			<path
+				d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+				fill="currentColor" class="octo-body"></path>
+		</svg></a>
+	<style>
+		.github-corner:hover .octo-arm {
+			animation: octocat-wave 560ms ease-in-out
+		}
+
+		@keyframes octocat-wave {
+
+			0%,
+			100% {
+				transform: rotate(0)
+			}
+
+			20%,
+			60% {
+				transform: rotate(-25deg)
+			}
+
+			40%,
+			80% {
+				transform: rotate(10deg)
+			}
+		}
+
+		@media (max-width:500px) {
+			.github-corner:hover .octo-arm {
+				animation: none
+			}
+
+			.github-corner .octo-arm {
+				animation: octocat-wave 560ms ease-in-out
+			}
+		}
+	</style>
+
+	<script src="keyboard.js"></script>
+	<script src="demo.js"></script>
 </body>
+
 </html>

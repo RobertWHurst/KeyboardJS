@@ -1,0 +1,115 @@
+html {
+	background: #ccc;
+	font-family: Helvetica, Arial, sans-serif;
+	color: #333;
+}
+body {
+	margin: 0;
+	height: 0;
+	line-height: 1.6em;
+}
+.wrapper {
+	width: 460px;
+	margin: 0 auto;
+	background: #eee;
+	padding: 60px;
+}
+header {
+	text-align: center;
+	margin-bottom: 60px;
+}
+h1.title {
+	color: #555;
+	font-size: 72px;
+	margin-top: 24px;
+}
+h2.subtitle {
+	color: #888;
+	font-size: 24px;
+}
+h1 {
+	line-height: 1em;
+	font-size: 24px;
+	margin-top: 2em;
+}
+h2 {
+	line-height: 1em;
+	font-size: 18px;
+	margin-top: 2em;
+}
+h3 {
+	line-height: 1em;
+	font-size: 16px;
+	margin-top: 2em;
+}
+.code {
+	background: rgba(60, 60, 60, 0.8);
+	color: #eee;
+	font-family: monospace;
+	font-size: 13px;
+	padding: 6px;
+	border: 1px solid #333;
+	margin-bottom: 20px;
+	word-wrap: break-word;
+	box-shadow: 0 0 10px #333;
+}
+.demoReadout {
+	background: #555;
+	color: #eee;
+	font-family: monospace;
+	font-size: 24px;
+	line-height: 36px;
+	padding: 20px;
+	text-align: center;
+	border: 1px solid #333;
+	margin-bottom: 20px;
+}
+footer {
+	width: 460px;
+	margin: 0 auto;
+	padding: 60px;
+	background: #666;
+	color: #eee;
+}
+footer h1 {
+	margin: 0 0 24px 0;
+}
+a {
+	color: #000;
+}
+a:hover {
+	color: #333;
+}
+.download {
+	font-size: 24px;
+	background: #ccc;
+	box-shadow: 0 0 10px #555;
+	border: 1px solid #333;
+	color: #333;
+	padding: 16px;
+	border-radius: 8px;
+	margin: 20px;
+	text-align: center;
+	display: block;
+	text-decoration: none;
+}
+.download:hover {
+	background: #eee;
+	color: #555;
+}
+.downloads {
+	margin: 0 -20px;
+}
+.plusOne {
+	margin-top: 20px;
+	float: left;
+}
+.credits {
+	margin-left: 80px;
+}
+.credits a {
+	color: #bbf;
+}
+.credits a:hover {
+	color: #fff;
+}
