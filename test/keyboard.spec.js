@@ -619,7 +619,22 @@ describe('Keyboard', () => {
       keyboard.releaseKey('a');
 
       sinon.assert.calledOnce(pressHandler);
-    })
+    });
+
+    it('will not trigger bindings when an unbound key is pressed', () => {
+      const pressHandler = sinon.stub();
+      keyboard._listeners.push({
+        keyCombo: new KeyCombo('a'),
+        pressHandler: pressHandler,
+        releaseHandler: null,
+        preventRepeat: false
+      });
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('b');
+
+      sinon.assert.calledOnce(pressHandler);
+    });
   });
 
 
