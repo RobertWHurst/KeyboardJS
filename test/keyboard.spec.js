@@ -605,6 +605,21 @@ describe('Keyboard', () => {
 
       sinon.assert.calledTwice(pressHandler);
     });
+
+    it('will not trigger bindings that caused it to be executed in the same tick', () => {
+      const pressHandler = sinon.spy(() => { keyboard.pressKey('a') });
+      keyboard._listeners.push({
+        keyCombo: new KeyCombo('a'),
+        pressHandler: pressHandler,
+        releaseHandler: null,
+        preventRepeat: false
+      });
+
+      keyboard.pressKey('a');
+      keyboard.releaseKey('a');
+
+      sinon.assert.calledOnce(pressHandler);
+    })
   });
 
 
