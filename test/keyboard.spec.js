@@ -555,6 +555,56 @@ describe('Keyboard', () => {
 
       locale.pressKey.restore();
     });
+
+    it('will trigger bindings each time press key is executed', () => {
+      const pressHandler = sinon.stub();
+      keyboard._listeners.push({
+        keyCombo: new KeyCombo('a'),
+        pressHandler: pressHandler,
+        releaseHandler: null,
+        preventRepeat: false
+      });
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('a');
+
+      sinon.assert.calledTwice(pressHandler);
+    });
+
+    it('will only trigger bindings that use preventRepeat once', () => {
+      const pressHandler = sinon.spy((e) => { e.preventRepeat() });
+      keyboard._listeners.push({
+        keyCombo: new KeyCombo('a'),
+        pressHandler: pressHandler,
+        releaseHandler: null,
+        preventRepeat: false
+      });
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('a');
+
+      sinon.assert.calledOnce(pressHandler);
+    });
+
+    it('will trigger bindings that use preventRepeat again once the binding\'s combo is released', () => {
+      const pressHandler = sinon.spy((e) => { e.preventRepeat() });
+      keyboard._listeners.push({
+        keyCombo: new KeyCombo('a'),
+        pressHandler: pressHandler,
+        releaseHandler: null,
+        preventRepeat: false
+      });
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('a');
+
+      keyboard.releaseKey('a');
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('a');
+
+      sinon.assert.calledTwice(pressHandler);
+    });
   });
 
 
