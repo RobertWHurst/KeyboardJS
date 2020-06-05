@@ -37,23 +37,23 @@ If you're looking for the previous v1.x.x release of KeyboardJS you can find it
 __Setting up bindings is easy__
 
 ```javascript
-keyboardJS.bind('a', function(e) {
+keyboardJS.bind('a', (e) => {
   console.log('a is pressed');
 });
-keyboardJS.bind('a + b', function(e) {
+keyboardJS.bind('a + b', (e) => {
   console.log('a and b is pressed');
 });
-keyboardJS.bind('a + b > c', function(e) {
+keyboardJS.bind('a + b > c', (e) => {
   console.log('a and b then c is pressed');
 });
-keyboardJS.bind(['a + b > c', 'z + y > z'], function(e) {
+keyboardJS.bind(['a + b > c', 'z + y > z'], (e) => {
   console.log('a and b then c or z and y then z is pressed');
 });
-keyboardJS.bind('', function(e) {
+keyboardJS.bind('', (e) => {
   console.log('any key was pressed');
 });
 //alt, shift, ctrl, etc must be lowercase
-keyboardJS.bind('alt+shift+a', function(e) {
+keyboardJS.bind('alt + shift > a', (e) => {
   console.log('alt, shift and a is pressed');
 });
 
@@ -64,12 +64,12 @@ keyboardJS.bind('alt+shift+a', function(e) {
 __keydown vs a keyup__
 
 ```javascript
-keyboardJS.bind('a', function(e) {
+keyboardJS.bind('a', (e) => {
   console.log('a is pressed');
-}, function(e) {
+}, (e) => {
   console.log('a is released');
 });
-keyboardJS.bind('a', null, function(e) {
+keyboardJS.bind('a', null, (e) => {
   console.log('a is released');
 });
 ```
@@ -78,8 +78,8 @@ keyboardJS.bind('a', null, function(e) {
 __Prevent keydown repeat__
 
 ```javascript
-keyboardJS.bind('a', function(e) {
-  // this function will once run once even if a is held
+keyboardJS.bind('a', (e) => {
+  // this  wi =>ll once run once even if a is held
   e.preventRepeat();
   console.log('a is pressed');
 });
@@ -99,27 +99,27 @@ __Using contexts__
 ```javascript
 
   // these will execute in all contexts
-  keyboardJS.bind('a', function(e) {});
-  keyboardJS.bind('b', function(e) {});
-  keyboardJS.bind('c', function(e) {});
+  keyboardJS.bind('a', (e) => {});
+  keyboardJS.bind('b', (e) => {});
+  keyboardJS.bind('c', (e) => {});
 
   // these will execute in the index context
   keyboardJS.setContext('index');
-  keyboardJS.bind('1', function(e) {});
-  keyboardJS.bind('2', function(e) {});
-  keyboardJS.bind('3', function(e) {});
+  keyboardJS.bind('1', (e) => {});
+  keyboardJS.bind('2', (e) => {});
+  keyboardJS.bind('3', (e) => {});
 
   // these will execute in the foo context
   keyboardJS.setContext('foo');
-  keyboardJS.bind('x', function(e) {});
-  keyboardJS.bind('y', function(e) {});
-  keyboardJS.bind('z', function(e) {});
+  keyboardJS.bind('x', (e) => {});
+  keyboardJS.bind('y', (e) => {});
+  keyboardJS.bind('z', (e) => {});
 
   // if we have a router we can activate these contexts when appropriate
-  myRouter.on('GET /', function(e) {
+  myRouter.on('/', (e) => {
     keyboardJS.setContext('index');
   });
-  myRouter.on('GET /foo', function(e) {
+  myRouter.on('/foo', (e) => {
     keyboardJS.setContext('foo');
   });
 
@@ -127,11 +127,11 @@ __Using contexts__
   var contextName = keyboardJS.getContext();
 
   // you can also set up handlers for a context without losing the current context
-  keyboardJS.withContext('bar', function() {
+  keyboardJS.withContext('bar', ()  =>{
     // these will execute in the bar context
-    keyboardJS.bind('7', function(e) {});
-    keyboardJS.bind('8', function(e) {});
-    keyboardJS.bind('9', function(e) {});
+    keyboardJS.bind('7', (e) => {});
+    keyboardJS.bind('8', (e) => {});
+    keyboardJS.bind('9', (e) => {});
   });
 ```
 
