@@ -15,24 +15,18 @@ application. Out of the box keyboardJS uses a US keyboard locale. If you need
 support for a different type of keyboard KeyboardJS provides custom locale
 support so you can create with a locale that better matches your needs.
 
-KeyboardJS is available as a NPM module for use with
-[browserify](http://browserify.org/) (or in node.js). If you don't use
-browserify you can simply include
+KeyboardJS is available as a NPM module. If you're not using a build system
+like webpack, simply add
 [keyboard.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/dist/keyboard.js)
 or
 [keyboard.min.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/dist/keyboard.min.js)
-from the dist folder in this repo. These files are
-[UMD](https://github.com/umdjs/umd) wrapped so they can be used with or without
-a module loader such as [requireJS](http://requirejs.org/).
+from the dist folder in this repo to your project via a script tag.
 
 ```shell
 npm install keyboardjs
 ```
 
 Note that all key names can be found in [./locales/us.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/locales/us.js).
-
-If you're looking for the previous v1.x.x release of KeyboardJS you can find it
-[here](https://github.com/RobertWHurst/KeyboardJS/tree/legacy).
 
 __Setting up bindings is easy__
 
