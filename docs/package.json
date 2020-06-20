@@ -1,0 +1,36 @@
+{
+  "name": "keyboard-js-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Robert Hurst<robertwhurst@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "serve": "parcel serve ./src/index.pug -o ./dist"
+  },
+  "devDependencies": {
+    "@reach/router": "^1.3.3",
+    "@types/react": "^16.9.35",
+    "@types/react-dom": "^16.9.8",
+    "@typescript-eslint/eslint-plugin": "^3.2.0",
+    "@typescript-eslint/parser": "^3.2.0",
+    "copy-to-clipboard": "^3.3.1",
+    "eslint": "^7.2.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-with-typescript": "^18.0.2",
+    "eslint-plugin-import": "^2.21.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "parcel-bundler": "^1.12.4",
+    "pug": "^3.0.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "stylus": "^0.54.7",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "ttf2woff": "^2.0.2",
+    "ttf2woff2": "^3.0.0"
+  }
+}

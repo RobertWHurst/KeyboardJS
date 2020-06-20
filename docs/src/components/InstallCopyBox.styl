@@ -1,0 +1,81 @@
+.install-copy-box
+  display flex
+  flex-direction column
+
+.install-copy-box__tabs
+  display flex
+
+.install-copy-box__tab,
+.install-copy-box__label
+  font-size 1.3rem
+  line-height 2rem
+  padding 0.2rem 0
+  margin-right 0.6rem
+
+.install-copy-box__tab
+  cursor pointer
+  font-weight 700
+
+.install-copy-box__tab--yarn
+  color rgb(138, 198, 242)
+
+.install-copy-box__tab--npm
+  color rgb(240, 128, 128)
+
+.install-copy-box__content
+  position relative
+  display flex
+  flex-direction column
+
+  input
+    display flex
+    min-width 100%
+    width 100%
+    background #fff
+    border 0.1rem solid #ccc
+    border-radius 0.3rem
+    padding 0.6rem
+
+.install-copy-box__copied-bubble
+  display flex
+  justify-content center
+  animation install-copy-box-bubble-animation 1000ms linear
+  position absolute
+  width 100%
+  top -2.8rem
+  left 0
+  opacity 0
+
+.install-copy-box__copied-bubble-inner
+  background #eee
+  border-radius 0.6rem
+  border 0.1rem solid #aaa
+  box-shadow 0 0.1rem 0.2rem #000
+  font-size 1.3rem
+  line-height 2rem
+  padding 0 0.2rem
+  color #444
+
+  @keyframes install-copy-box-bubble-animation
+    0%
+      top 0
+      opacity 0
+
+    10%
+      top -1.2rem
+      left 0.3rem
+
+    20%
+      top -2.2rem
+      left -0.3rem
+
+    30%
+      top -2.8rem
+      opacity 1
+      left 0
+
+    90%
+      opacity 1
+
+    100%
+      opacity 0

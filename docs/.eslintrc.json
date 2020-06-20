@@ -1,0 +1,10 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:react/recommended",
+    "standard-with-typescript"
+  ],
+  "parserOptions": {
+    "project": "./docs/tsconfig.json"
+  }
+}
