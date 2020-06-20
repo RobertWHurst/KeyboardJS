@@ -10,9 +10,9 @@ export const MainLayout = (props: Props): JSX.Element => {
   const { children } = props
 
   return (
-    <div className="main-layout">
+    <div className='main-layout'>
       <Navigation />
-      <div className="main-layout__content">
+      <div className='main-layout__content'>
         {children}
       </div>
     </div>

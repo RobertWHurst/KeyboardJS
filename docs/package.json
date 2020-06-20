@@ -5,32 +5,38 @@
   "author": "Robert Hurst<robertwhurst@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "serve": "parcel serve ./src/index.pug -o ./dist"
+    "build": "parcel build ./src/index.pug -o ./dist",
+    "serve": "parcel serve ./src/index.pug -o ./dist",
+    "lint": "standardx ./src/**/*.ts ./src/**/*.tsx | snazzy"
   },
   "devDependencies": {
     "@reach/router": "^1.3.3",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
-    "@typescript-eslint/eslint-plugin": "^3.2.0",
-    "@typescript-eslint/parser": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^3.3.0",
+    "@typescript-eslint/parser": "^3.3.0",
+    "classnames": "^2.2.6",
     "copy-to-clipboard": "^3.3.1",
-    "eslint": "^7.2.0",
+    "eslint": "^7.3.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-config-standard-with-typescript": "^18.0.2",
-    "eslint-plugin-import": "^2.21.1",
+    "eslint-config-standard-jsx": "^8.1.0",
+    "eslint-plugin-import": "^2.21.2",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-standard": "^4.0.1",
+    "keyboardjs": "^2.6.3",
     "parcel-bundler": "^1.12.4",
     "pug": "^3.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "snazzy": "^8.0.0",
+    "standardx": "^5.0.0",
     "stylus": "^0.54.7",
     "typescript": "^3.9.5"
   },
   "dependencies": {
-    "ttf2woff": "^2.0.2",
-    "ttf2woff2": "^3.0.0"
+    "@types/classnames": "^2.2.10",
+    "@types/reach__router": "^1.3.5"
   }
 }

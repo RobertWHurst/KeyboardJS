@@ -1,4 +1,6 @@
-node_modules
 .DS_Store
 yarn-error.log
 npm-debug.log
+.cache/
+dist/
+node_modules/

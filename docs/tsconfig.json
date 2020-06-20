@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react",
+    "lib": [
+      "DOM",
+      "ES2020"
+    ],
+    "strict": true
   }
 }

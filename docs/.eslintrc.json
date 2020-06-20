@@ -1,10 +1,25 @@
 {
   "root": true,
   "extends": [
+    "eslint:recommended",
     "plugin:react/recommended",
-    "standard-with-typescript"
+    "standard",
+    "standard-jsx",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
-    "project": "./docs/tsconfig.json"
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "no-unused-vars": "off",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "off"
   }
 }

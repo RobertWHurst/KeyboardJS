@@ -1,0 +1,45 @@
+.keyboard
+  display flex
+
+.keyboard__inner
+  display flex
+  flex-direction column
+  box-shadow 2rem 0 2rem rgba(0, 0, 0, 0.3)
+  padding 1.6rem
+  border-radius 1.6rem
+  background-color #aaa
+  border-right 0.2rem solid #444
+  border-bottom 0.8rem solid #000
+  border-left 0.2rem solid #222
+
+.keyboard__row
+  display flex
+  margin 0 -0.1rem
+
+.keyboard__row--first
+  margin-bottom 0.8rem
+
+.keyboard__row--first > .key
+  height 2.4rem
+  padding-top 0
+
+.keyboard__row--last > .key
+  width 5.8rem
+
+.keyboard__arrows > .keyboard__row > .key
+  height 2.4rem
+
+.keyboard__arrows > .keyboard__row > .key
+  height 2.4rem
+  padding-top 0
+
+@media (max-width: 1124px)
+  .keyboard
+    transform scale(0.62)
+    margin -6rem 0
+
+
+@media (max-width: 767px)
+  .keyboard
+    transform scale(0.48)
+    margin -8.4rem 0

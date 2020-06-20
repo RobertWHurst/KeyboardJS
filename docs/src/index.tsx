@@ -5,8 +5,8 @@ import { render } from 'react-dom'
 import { Introduction } from './views/Introduction'
 
 const App = (
-  <Router id="router">
-    <Introduction path="/"></Introduction>
+  <Router id='router'>
+    <Introduction path='/' />
   </Router>
 )
 

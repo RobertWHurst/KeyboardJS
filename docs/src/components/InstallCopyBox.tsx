@@ -27,23 +27,23 @@ export const InstallCopyBox = (): JSX.Element => {
   useEffect(clearIsCopiedTimeoutId, [])
 
   return (
-    <div className="install-copy-box">
-      <div className="install-copy-box__tabs">
-        <div className="install-copy-box__tab install-copy-box__label">Install with</div>
-        <div className="install-copy-box__tab install-copy-box__tab--yarn" onClick={() => setTab('yarn')}>Yarn</div>
-        <div className="install-copy-box__tab install-copy-box__label">or</div>
-        <div className="install-copy-box__tab install-copy-box__tab--npm" onClick={() => setTab('npm')}>NPM</div>
+    <div className='install-copy-box'>
+      <div className='install-copy-box__tabs'>
+        <div className='install-copy-box__tab install-copy-box__label'>Install with</div>
+        <div className='install-copy-box__tab install-copy-box__tab--yarn' onClick={() => setTab('yarn')}>Yarn</div>
+        <div className='install-copy-box__tab install-copy-box__label'>or</div>
+        <div className='install-copy-box__tab install-copy-box__tab--npm' onClick={() => setTab('npm')}>NPM</div>
       </div>
-      <div className="install-copy-box__content">
+      <div className='install-copy-box__content'>
         {isCopied && (
-          <div className="install-copy-box__copied-bubble">
-            <div className="install-copy-box__copied-bubble-inner">
+          <div className='install-copy-box__copied-bubble'>
+            <div className='install-copy-box__copied-bubble-inner'>
               Copied!
             </div>
           </div>
         )}
         <input
-          type="text"
+          type='text'
           value={tab === 'yarn' ? 'yarn add keyboardjs' : 'npm install keyboardjs --save'}
           onChange={e => { e.preventDefault() }}
           onClick={handleClick}

@@ -1,0 +1,30 @@
+.introduction
+  display flex
+  flex-direction column
+
+.introduction__hero-section
+  display flex
+  flex-direction column
+  min-height 48rem
+  height 68rem
+  max-height 60vh
+  align-items center
+  justify-content center
+
+.introduction__hero-section-text
+  font-size 4.8rem
+  font-weight 400
+  margin-bottom 2.4rem
+
+@media (max-width: 1124px)
+  .introduction__hero-section
+    min-height unset
+    height unset
+    max-height unset
+
+  .introduction__hero-section-text
+    font-size 2.4rem
+
+@media (max-width: 767px)
+  .introduction__hero-section-text
+    font-size 1.8rem

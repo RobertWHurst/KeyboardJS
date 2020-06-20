@@ -1,8 +1,18 @@
 .main-layout
   display flex
   flex 1 1 0
-  min-height 0
+  min-width 0
+  max-width 128rem
 
 .main-layout__content
   display flex
   flex-direction column
+  flex 1 1 0
+  min-width 0
+
+@media(max-width 767px)
+  .main-layout
+    flex-direction column
+    flex unset
+    min-width unset
+    max-width unset
