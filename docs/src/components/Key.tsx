@@ -12,53 +12,67 @@ export interface KeyProps {
 
 export const Key = (props: KeyProps): JSX.Element => {
   const { className, label, keyName, onPress } = props
-  const [isActive, setIsActive] = useState<boolean>(false)
-  const activeRef = useRef(isActive)
 
-  const handleMouseDown = () => {
-    keyboardJs.pressKey(keyName)
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [docIsClicked, setDocIsClicked] = useState<boolean>(false);
+  const [isPressed, setIsPressed] = useState<boolean>(false);
+
+  const isActiveViaMouse = isHovered && docIsClicked;
+
+  const handleMouseEnter = () => {
+    setIsHovered(true)
   }
 
-  const bindMouseUp = () => {
-    activeRef.current = isActive
+  const handleMouseLeave = () => {
+    setIsHovered(false)
+  }
 
-    if (isActive) {
-      return
-    }
-
+  const bindMouseUpAndDown = () => {
+    const handleMouseDown = () => {
+      setDocIsClicked(true)
+    };
     const handleMouseUp = () => {
-      keyboardJs.releaseKey(keyName)
-    }
-
+      setDocIsClicked(false)
+    };
+    document.addEventListener('mousedown', handleMouseDown)
     document.addEventListener('mouseup', handleMouseUp)
     return () => {
+      document.removeEventListener('mousedown', handleMouseDown)
       document.removeEventListener('mouseup', handleMouseUp)
     }
-  }
+  };
 
-  const bindAnyKeyPress = () => {
+  const watchKeyPresses = () => {
     const handleKeyPress = (event: any) => {
-      if ('preventDefault' in event) { event.preventDefault() }
-      const isActive = event.pressedKeys.includes(keyName)
-      if (!activeRef.current && isActive) {
-        onPress()
-      }
-      setIsActive(isActive)
-    }
-
+      setIsPressed(event.pressedKeys.includes(keyName))
+    };
     keyboardJs.bind(handleKeyPress, handleKeyPress)
     return () => {
       keyboardJs.unbind(handleKeyPress, handleKeyPress)
     }
-  }
+  };
 
-  useEffect(bindMouseUp, [isActive])
-  useEffect(bindAnyKeyPress, [])
+  const watchMouse = () => {
+    isActiveViaMouse
+      ? keyboardJs.pressKey(keyName)
+      : keyboardJs.releaseKey(keyName)
+  };
+
+  const watchKey = () => {
+    if (isPressed) {
+      onPress();
+    }
+  };
+
+  useEffect(bindMouseUpAndDown, [])
+  useEffect(watchKeyPresses, [])
+  useEffect(watchMouse, [isActiveViaMouse])
+  useEffect(watchKey, [isPressed])
 
   return (
     <div
       className={classNames('key', {
-        'key--active': isActive,
+        'key--active': isPressed,
         'key--esc': keyName === 'esc',
         'key--f4': keyName === 'f4',
         'key--f8': keyName === 'f8',
@@ -71,7 +85,9 @@ export const Key = (props: KeyProps): JSX.Element => {
         'key--left-shift': keyName === 'shift',
         'key--spacebar': keyName === 'space',
         'key--up': keyName === 'up'
-      }, className)} onMouseDown={handleMouseDown}
+      }, className)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {label}
     </div>
