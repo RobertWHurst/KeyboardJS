@@ -73,7 +73,7 @@ __Prevent keydown repeat__
 
 ```javascript
 keyboardJS.bind('a', (e) => {
-  // this  wi =>ll once run once even if a is held
+  // this will run once even if a is held
   e.preventRepeat();
   console.log('a is pressed');
 });
