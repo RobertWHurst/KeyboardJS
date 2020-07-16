@@ -8,7 +8,7 @@ export const InstallCopyBox = (): JSX.Element => {
   const [tab, setTab] = useState('yarn')
   const [isCopied, setIsCopied] = useState(false)
 
-  let isCopiedTimeoutId
+  let isCopiedTimeoutId: number
   const handleClick = (e: MouseEvent<HTMLInputElement>): void => {
     e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)
     writeText(e.currentTarget.value)
@@ -27,7 +27,7 @@ export const InstallCopyBox = (): JSX.Element => {
   useEffect(clearIsCopiedTimeoutId, [])
 
   return (
-    <div className='install-copy-box'>
+    <div className='install-copy-box' role='none' aria-hidden>
       <div className='install-copy-box__tabs'>
         <div className='install-copy-box__tab install-copy-box__label'>Install with</div>
         <div className='install-copy-box__tab install-copy-box__tab--yarn' onClick={() => setTab('yarn')}>Yarn</div>

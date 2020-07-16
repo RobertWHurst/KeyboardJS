@@ -5,25 +5,45 @@
 .introduction__hero-section
   display flex
   flex-direction column
-  min-height 48rem
-  height 68rem
-  max-height 60vh
   align-items center
   justify-content center
+  margin 2.4rem 0 12.4rem 0
+  flex 0 0 auto
 
 .introduction__hero-section-text
   font-size 4.8rem
   font-weight 400
+  line-height 7.2rem
   margin-bottom 2.4rem
 
-@media (max-width: 1124px)
-  .introduction__hero-section
-    min-height unset
-    height unset
-    max-height unset
+.introduction__text-block
+  display flex
+  flex-direction column
+  padding 0 3.6rem
+  margin -0.8rem 0
 
+  > p
+    margin 0.8rem 0
+
+  > code
+    display flex
+    overflow auto
+    max-width 100%
+    background #333
+    margin 0.8rem 0
+
+    > pre
+      flex 1 1 0
+      min-width 0
+      padding 0.8rem
+      color #eee
+
+@media (max-width: 1124px)
   .introduction__hero-section-text
     font-size 2.4rem
+
+  .introduction__hero-section
+    margin 1.6rem 0 7.6rem 0
 
 @media (max-width: 767px)
   .introduction__hero-section-text

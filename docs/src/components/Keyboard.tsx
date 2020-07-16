@@ -61,7 +61,7 @@ export const Keyboard = (): JSX.Element => {
   useEffect(createAudioPool, [])
 
   return (
-    <div className='keyboard'>
+    <div className='keyboard' aria-role='none' aria-hidden>
       <div className='keyboard__inner'>
         <div className='keyboard__row keyboard__row--first'>
           <Key onPress={playClick} label='ESC' keyName='esc' />
@@ -148,12 +148,12 @@ export const Keyboard = (): JSX.Element => {
           <Key onPress={playClick} label='CTRL' keyName='ctrl' />
           <div className='keyboard__arrows'>
             <div className='keyboard__row'>
-              <Key onPress={playClick} label='🡅' keyName='up' />
+              <Key onPress={playClick} label='⭡' keyName='up' />
             </div>
             <div className='keyboard__row'>
-              <Key onPress={playClick} label='🡄' keyName='left' />
-              <Key onPress={playClick} label='🡇' keyName='down' />
-              <Key onPress={playClick} label='🡆' keyName='right' />
+              <Key onPress={playClick} label='⭠' keyName='left' />
+              <Key onPress={playClick} label='⭣' keyName='down' />
+              <Key onPress={playClick} label='⭢' keyName='right' />
             </div>
           </div>
         </div>

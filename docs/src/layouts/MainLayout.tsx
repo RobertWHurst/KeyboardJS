@@ -12,7 +12,7 @@ export const MainLayout = (props: Props): JSX.Element => {
   return (
     <div className='main-layout'>
       <Navigation />
-      <div className='main-layout__content'>
+      <div className='main-layout__content' role='main' aria-label='main content'>
         {children}
       </div>
     </div>

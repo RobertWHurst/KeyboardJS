@@ -4,11 +4,11 @@ import { InstallCopyBox } from './InstallCopyBox'
 
 export const Navigation = (): JSX.Element => {
   return (
-    <div className='navigation'>
-      <div className='navigation__brand'>
+    <aside className='navigation' aria-label='sidebar'>
+      <h1 className='navigation__brand'>
         KeyboardJS
-      </div>
-      <div className='navigation__brand-sub-content'>
+      </h1>
+      <div className='navigation__brand-sub-content' role='none' aria-hidden>
         <div className='navigation__build-status'>
           <a href='http://github.com/RobertWHurst/KeyboardJS/actions' target='_blank' rel='noreferrer'>
             <img src='http://img.shields.io/github/workflow/status/RobertWHurst/KeyboardJS/Unit%20Tests.svg?style=flat&labelColor=aaa' alt='' />
@@ -22,6 +22,6 @@ export const Navigation = (): JSX.Element => {
       </div>
       <InstallCopyBox />
       <nav className='navigation__links' />
-    </div>
+    </aside>
   )
 }

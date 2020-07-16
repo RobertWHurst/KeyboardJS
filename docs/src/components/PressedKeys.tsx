@@ -3,8 +3,6 @@ import React, { useState, useEffect } from 'react'
 
 import keyboardJs from 'keyboardjs'
 
-(window as any).keyboardJs = keyboardJs
-
 export const PressedKeys = () => {
   const [pressedKeys, setPressedKeys] = useState<string[]>([])
 
