@@ -14,6 +14,33 @@ describe('Keyboard', () => {
     keyboard = new Keyboard(win, doc);
   });
 
+  it('creates the global context automatically', () => {
+    global.addEventListener = () => {}
+    global.document = {  addEventListener: () => {} }
+    
+    keyboard = new Keyboard();
+    assert.equal(keyboard._currentContext, 'global')
+    assert.equal(keyboard._targetWindow, global)
+    assert.equal(keyboard._targetElement, global.document)
+
+    delete global.addEventListener
+    delete global.document
+  })
+
+  it('if the global object is not from a browser it will allow manually watching without throwing an error', () => {
+    keyboard = new Keyboard();
+    assert.equal(keyboard._currentContext, 'global')
+    assert.equal(keyboard._targetWindow, null)
+    assert.equal(keyboard._targetElement, null)
+
+    const window = {  addEventListener: () => {} }
+    const document = {  addEventListener: () => {} }
+    keyboard.watch(window, document)
+
+    assert.equal(keyboard._targetWindow, window)
+    assert.equal(keyboard._targetElement, document)
+  })
+
 
   describe('#setLocale', () => {
 
@@ -171,6 +198,7 @@ describe('Keyboard', () => {
       keyboard.bind.restore();
     });
   });
+
 
   describe('#unbind', () => {
 
@@ -431,7 +459,7 @@ describe('Keyboard', () => {
       delete global.document;
     });
 
-    it('throws is error if the target window does not have the nessisary methods', () => {
+    it('throws is error if the target window does not have the necessary methods', () => {
       const win = {};
       const doc = {};
 
@@ -440,10 +468,15 @@ describe('Keyboard', () => {
       }, /^(?=.*targetWindow)(?=.*addEventListener)(?=.*attachEvent).*$/);
     });
 
-    it('throws is error a target window was not given and if the global does contain the nessisary functions', () => {
+    it('throws is error a target window was not given and if the global does contain the necessary functions', () => {
       assert.throws(() => {
+        keyboard.setContext('custom')
         keyboard.watch();
       }, /^(?=.*window)(?=.*addEventListener)(?=.*attachEvent).*$/);
+    });
+
+    it('does not throw if watching the global object using the global namespace', () => {
+      keyboard.watch();
     });
   });
 
