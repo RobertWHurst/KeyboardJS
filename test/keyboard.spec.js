@@ -128,7 +128,7 @@ describe('Keyboard', () => {
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
     });
 
-    it('accepts preventRepeat as a final argument', () => {
+    it('accepts preventRepeatByDefault as a final argument', () => {
       const pressHandler = () => {};
       const releaseHandler = () => {};
 
@@ -138,11 +138,11 @@ describe('Keyboard', () => {
       assert.equal(keyboard._listeners[0].keyCombo.sourceStr, 'a');
       assert.equal(keyboard._listeners[0].pressHandler, pressHandler);
       assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
-      assert.equal(keyboard._listeners[0].preventRepeat, true);
+      assert.equal(keyboard._listeners[0].preventRepeatByDefault, true);
       assert.equal(keyboard._listeners[1].keyCombo, null);
       assert.equal(keyboard._listeners[1].pressHandler, pressHandler);
       assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
-      assert.equal(keyboard._listeners[1].preventRepeat, true);
+      assert.equal(keyboard._listeners[1].preventRepeatByDefault, true);
     });
   });
 
