@@ -2,6 +2,17 @@
 KeyboardJS
 ==========
 
+---
+
+> **Note**
+> Please Note: I've create a new libary called
+> [Keystrokes](https://github.com/RobertWHurst/Keystrokes) which serves the same purpose
+> as KeyboardJS, but is more refined, and takes full advantage of modern browsers. If you are
+> considering using KeyboardJS in a new project, I recommend checking out
+> [Keystrokes](https://github.com/RobertWHurst/Keystrokes) first.
+
+---
+
 [![Build Status](http://img.shields.io/github/workflow/status/RobertWHurst/KeyboardJS/Unit%20Tests.svg?style=flat)](https://github.com/RobertWHurst/KeyboardJS/actions)
 [![NPM Version](http://img.shields.io/npm/v/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
 [![Downloads This Week](http://img.shields.io/npm/dm/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
