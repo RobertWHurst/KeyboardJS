@@ -15,7 +15,7 @@ KeyboardJS
 
 [![Build Status](https://img.shields.io/github/actions/workflow/status/RobertWHurst/KeyboardJS/unit-tests.yml?branch=master&style=flat)](https://github.com/RobertWHurst/KeyboardJS/actions)
 [![NPM Version](http://img.shields.io/npm/v/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
-[![Downloads This Week](http://img.shields.io/npm/dm/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
+[![Downloads This Week](https://img.shields.io/npm/dw/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
 [![License](http://img.shields.io/npm/l/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
 
 KeyboardJS is a library for use in the browser (node.js compatible). It Allows
@@ -36,6 +36,35 @@ from the dist folder in this repo to your project via a script tag.
 ```shell
 npm install keyboardjs
 ```
+
+__Importing__
+
+```javascript
+import keyboardJS from 'keyboardjs';
+
+// or import only what you need
+import { bind, unbind } from 'keyboardjs';
+
+// or with require
+const keyboardJS = require('keyboardjs');
+```
+
+__TypeScript__
+
+KeyboardJS ships with its own types, so there's no need to install
+`@types/keyboardjs`.
+
+```typescript
+import keyboardJS, { type KeyEvent } from 'keyboardjs';
+
+keyboardJS.bind('a', (e: KeyEvent) => {
+  e.preventRepeat();
+});
+```
+
+Note that events created by `pressKey`, `releaseKey` and `releaseAllKeys` are
+plain objects rather than KeyboardEvents, so properties such as `e.key` may be
+undefined.
 
 Note that all key names can be found in [./locales/us.js](https://github.com/RobertWHurst/KeyboardJS/blob/master/locales/us.js).
 
@@ -75,6 +104,14 @@ keyboardJS.bind('a', (e) => {
   console.log('a is released');
 });
 keyboardJS.bind('a', null, (e) => {
+  console.log('a is released');
+});
+
+// or use bindPress and bindRelease
+keyboardJS.bindPress('a', (e) => {
+  console.log('a is pressed');
+});
+keyboardJS.bindRelease('a', (e) => {
   console.log('a is released');
 });
 ```
@@ -154,6 +191,9 @@ keyboardJS.resume();
 // all active bindings will released and unbound,
 // pressed keys will be cleared
 keyboardJS.reset();
+
+// reset only the bindings in a specific context
+keyboardJS.withContext('foo', () => keyboardJS.reset());
 ```
 
 
@@ -193,3 +233,9 @@ keyboardJS.watch(myWin, myForm);
 // detach KeyboardJS from the window and document/element
 keyboardJS.stop();
 ```
+
+
+__Browser support__
+
+KeyboardJS works in all evergreen browsers (Chrome, Firefox, Safari and Edge).
+It can also be used in test environments such as jsdom.
