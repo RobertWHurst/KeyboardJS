@@ -165,6 +165,34 @@ describe('Locale', () => {
       assert.equal(locale._appliedMacros[1].keyNames[0], 'e');
       assert.equal(locale._appliedMacros[1].keyNames[1], 'f');
     });
+
+    it('marks macro key names as targeted when the pressed key completes the macro', () => {
+      locale._keyMap = {
+        0: ['a'],
+        1: ['b']
+      };
+      locale.bindMacro('a + b', ['c']);
+
+      locale.pressKey('a');
+      locale.pressKey('b');
+
+      assert.deepEqual(locale.activeTargetKeys, ['b', 'c']);
+    });
+
+    it('does not mark macro key names as targeted when an unrelated key is pressed', () => {
+      locale._keyMap = {
+        0: ['a'],
+        1: ['b'],
+        2: ['x']
+      };
+      locale.bindMacro('a + b', ['c']);
+
+      locale.pressKey('a');
+      locale.pressKey('b');
+      locale.pressKey('x');
+
+      assert.deepEqual(locale.activeTargetKeys, ['x']);
+    });
   });
 
 
