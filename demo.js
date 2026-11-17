@@ -15,3 +15,5 @@ updateReadout([]);
 keyboardJS.bind('up > up > down > down > left > right > left > right > b > a', fireUpTheMagic);
 
 keyboardJS.bind(e => updateReadout(e.pressedKeys), e => updateReadout(e.pressedKeys));
+
+keyboardJS.bind('space', e => e.preventDefault());
