@@ -1,0 +1,12 @@
+{
+  "name": "keyboardjs-compat",
+  "private": true,
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.0.0",
+    "vite": "^6.0.0",
+    "webpack": "^5.0.0",
+    "webpack4": "npm:webpack@^4.47.0"
+  }
+}

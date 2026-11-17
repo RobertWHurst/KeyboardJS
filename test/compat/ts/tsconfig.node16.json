@@ -1,0 +1,1 @@
+{ "compilerOptions": { "strict": true, "noEmit": true, "lib": ["dom", "es2015"], "types": [], "skipLibCheck": false, "module": "node16", "moduleResolution": "node16" }, "files": ["require.ts", "esm.mts"] }
