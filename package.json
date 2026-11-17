@@ -1,7 +1,7 @@
 {
   "name": "keyboardjs",
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
-  "version": "2.8.0",
+  "version": "2.8.1",
   "main": "dist/keyboard.js",
   "types": "index.d.ts",
   "exports": {
