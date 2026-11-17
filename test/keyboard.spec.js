@@ -171,6 +171,18 @@ describe('Keyboard', () => {
       assert.equal(keyboard._listeners[1].releaseHandler, releaseHandler);
       assert.equal(keyboard._listeners[1].preventRepeatByDefault, true);
     });
+
+    it('accepts preventRepeatByDefault as a final argument when binding several combos', () => {
+      const pressHandler = () => {};
+      const releaseHandler = () => {};
+
+      keyboard.bind(['a', 'b'], pressHandler, releaseHandler, true);
+
+      assert.equal(keyboard._listeners[0].keyCombo.sourceStr, 'a');
+      assert.equal(keyboard._listeners[1].keyCombo.sourceStr, 'b');
+      assert.equal(keyboard._listeners[0].preventRepeatByDefault, true);
+      assert.equal(keyboard._listeners[1].preventRepeatByDefault, true);
+    });
   });
 
 
