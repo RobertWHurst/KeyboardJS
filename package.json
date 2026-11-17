@@ -4,10 +4,69 @@
   "version": "2.7.0",
   "main": "dist/keyboard.js",
   "types": "index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./index.d.mts",
+        "default": "./dist/keyboard.mjs"
+      },
+      "require": {
+        "types": "./index.d.ts",
+        "default": "./dist/keyboard.js"
+      },
+      "default": {
+        "types": "./index.d.ts",
+        "default": "./dist/keyboard.js"
+      }
+    },
+    "./index": "./index.js",
+    "./lib/keyboard": "./lib/keyboard.js",
+    "./lib/key-combo": "./lib/key-combo.js",
+    "./lib/locale": "./lib/locale.js",
+    "./locales/us": "./locales/us.js",
+    "./dist/keyboard": {
+      "import": {
+        "types": "./index.d.mts",
+        "default": "./dist/keyboard.mjs"
+      },
+      "require": {
+        "types": "./dist/keyboard.d.ts",
+        "default": "./dist/keyboard.js"
+      },
+      "default": {
+        "types": "./dist/keyboard.d.ts",
+        "default": "./dist/keyboard.js"
+      }
+    },
+    "./dist/keyboard.js": {
+      "import": {
+        "types": "./index.d.mts",
+        "default": "./dist/keyboard.mjs"
+      },
+      "require": {
+        "types": "./dist/keyboard.d.ts",
+        "default": "./dist/keyboard.js"
+      },
+      "default": {
+        "types": "./dist/keyboard.d.ts",
+        "default": "./dist/keyboard.js"
+      }
+    },
+    "./dist/keyboard.min": {
+      "types": "./dist/keyboard.min.d.ts",
+      "default": "./dist/keyboard.min.js"
+    },
+    "./dist/keyboard.min.js": {
+      "types": "./dist/keyboard.min.d.ts",
+      "default": "./dist/keyboard.min.js"
+    },
+    "./*": "./*"
+  },
   "scripts": {
     "test": "mocha -r ./test/setup.js test/**/*.spec.js",
     "build": "rollup --config",
-    "test:types": "tsc -p test/types"
+    "test:types": "tsc -p test/types",
+    "test:compat": "node test/compat/run.cjs"
   },
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"

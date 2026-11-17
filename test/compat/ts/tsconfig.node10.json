@@ -1,0 +1,1 @@
+{ "compilerOptions": { "strict": true, "noEmit": true, "lib": ["dom", "es2015"], "types": [], "skipLibCheck": false, "module": "commonjs", "moduleResolution": "node10", "esModuleInterop": true }, "files": ["require.ts", "default.ts", "global.ts"] }

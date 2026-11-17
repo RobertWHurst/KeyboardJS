@@ -1,0 +1,1 @@
+{ "compilerOptions": { "strict": true, "noEmit": true, "lib": ["dom", "es2015"], "types": [], "skipLibCheck": false, "module": "esnext", "moduleResolution": "bundler" }, "files": ["bundler.ts", "default.ts"] }
