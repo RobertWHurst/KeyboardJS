@@ -200,6 +200,35 @@ describe('Keyboard', () => {
   });
 
 
+  describe('#bindPress', () => {
+
+    it('binds a combo to a press handler', () => {
+      const pressHandler = () => {};
+
+      keyboard.bindPress('a', pressHandler, true);
+
+      assert.equal(keyboard._listeners[0].keyCombo.sourceStr, 'a');
+      assert.equal(keyboard._listeners[0].pressHandler, pressHandler);
+      assert.equal(keyboard._listeners[0].releaseHandler, null);
+      assert.equal(keyboard._listeners[0].preventRepeatByDefault, true);
+    });
+  });
+
+
+  describe('#bindRelease', () => {
+
+    it('binds a combo to a release handler', () => {
+      const releaseHandler = () => {};
+
+      keyboard.bindRelease('a', releaseHandler);
+
+      assert.equal(keyboard._listeners[0].keyCombo.sourceStr, 'a');
+      assert.equal(keyboard._listeners[0].pressHandler, null);
+      assert.equal(keyboard._listeners[0].releaseHandler, releaseHandler);
+    });
+  });
+
+
   describe('#unbind', () => {
 
     const pressHandler = () => {};
