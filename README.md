@@ -13,7 +13,7 @@ KeyboardJS
 
 ---
 
-[![Build Status](http://img.shields.io/github/workflow/status/RobertWHurst/KeyboardJS/Unit%20Tests.svg?style=flat)](https://github.com/RobertWHurst/KeyboardJS/actions)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/RobertWHurst/KeyboardJS/unit-tests.yml?branch=master&style=flat)](https://github.com/RobertWHurst/KeyboardJS/actions)
 [![NPM Version](http://img.shields.io/npm/v/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
 [![Downloads This Week](http://img.shields.io/npm/dm/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
 [![License](http://img.shields.io/npm/l/keyboardjs.svg?style=flat)](https://www.npmjs.org/package/keyboardjs)
