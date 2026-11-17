@@ -220,5 +220,22 @@ describe('Locale', () => {
       assert.equal(locale.pressedKeys.length, 1);
       assert.equal(locale._appliedMacros.length, 0);
     });
+
+    it('clears macro handler key names after the combo key is pressed repeatedly', () => {
+      locale._keyMap = {
+        0: ['a'],
+        1: ['b'],
+      };
+      locale.bindMacro('a', () => ['c']);
+
+      locale.pressKey('a');
+      locale.pressKey('a');
+      locale.pressKey('b');
+      locale.releaseKey('a');
+
+      assert.equal(locale.pressedKeys[0], 'b');
+      assert.equal(locale.pressedKeys.length, 1);
+      assert.equal(locale._appliedMacros.length, 0);
+    });
   });
 });
