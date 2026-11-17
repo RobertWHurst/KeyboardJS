@@ -592,6 +592,17 @@ describe('Keyboard', () => {
       assert.ok(pressHandler.calledOnce);
     });
 
+    it('executes bindings with a combo matching key names added by a macro', () => {
+      locale.bindMacro('a + b', ['c']);
+      const pressHandler = sinon.stub();
+      keyboard.bind('c', pressHandler);
+
+      keyboard.pressKey('a');
+      keyboard.pressKey('b');
+
+      assert.ok(pressHandler.calledOnce);
+    });
+
     it('executes bindings without a combo', () => {
       const pressHandler = sinon.stub();
       keyboard._listeners.push({
