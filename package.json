@@ -3,9 +3,11 @@
   "description": "A library for binding to keys and key combos without the pain of key codes and key combo conflicts.",
   "version": "2.7.0",
   "main": "dist/keyboard.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "mocha -r ./test/setup.js test/**/*.spec.js",
-    "build": "rollup --config"
+    "build": "rollup --config",
+    "test:types": "tsc -p test/types"
   },
   "keywords": [
     "Key Binding, Keyboard, Key combos, Keyboard Shortcuts"
@@ -27,6 +29,7 @@
     "mocha": "^7.2.0",
     "rollup": "^2.13.1",
     "rollup-plugin-terser": "^6.1.0",
-    "sinon": "^9.0.2"
+    "sinon": "^9.0.2",
+    "typescript": "^5.0.0"
   }
 }

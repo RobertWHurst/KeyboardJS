@@ -11,3 +11,4 @@ jobs:
     - uses: actions/setup-node@v1
     - run: npm i
     - run: npm run test
+    - run: npm run test:types

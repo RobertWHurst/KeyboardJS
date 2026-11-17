@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "lib": ["dom", "es2015"],
+    "types": []
+  },
+  "files": ["index.ts", "global.ts"]
+}
